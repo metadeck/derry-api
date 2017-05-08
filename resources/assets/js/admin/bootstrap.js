@@ -1,0 +1,10 @@
+require('./buildings/create');
+require('./buildings/edit');
+require('./categories/create');
+require('./categories/edit');
+require('./conditions/create');
+require('./conditions/edit');
+require('./statuses/create');
+require('./statuses/edit');
+require('./recordings/search');
+require('./recordings/create');

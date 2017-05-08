@@ -1,0 +1,4 @@
+<div class="form-group">
+    <label for="%%inputName%%">%%inputLabel%%</label>
+    {!! Form::email('%%inputName%%', null, ['class' => 'form-control', 'id' => '%%inputName%%', 'placeholder' => '%%inputLabel%%']) !!}
+</div>

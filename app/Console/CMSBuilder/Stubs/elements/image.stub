@@ -1,0 +1,14 @@
+<div class="form-group">
+    <label for="%%inputName%%">%%inputLabel%%</label>
+    @if(isset($%%cmsNameSingular%%->%%inputName%%))
+        <img src="{{ $%%cmsNameSingular%%->%%inputName%% }}" height="200"/>
+        <button class="btn btn-primary updateFile">Update %%inputLabel%%</button>
+        <div id="fileContainer" style="display: none;">
+            {!! Form::file('%%inputName%%', ['class' => 'form-control']) !!}
+            {!! $errors->first('%%inputName%%', '<p class="help-block alert-error">:message</p>') !!}
+        </div>
+    @else
+        {!! Form::file('%%inputName%%', ['class' => 'form-control']) !!}
+        {!! $errors->first('%%inputName%%', '<p class="help-block alert-error">:message</p>') !!}
+    @endif
+</div>

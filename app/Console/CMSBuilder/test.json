@@ -1,0 +1,31 @@
+{
+  "company_name": "Fact Site",
+  "cms": [
+    {
+      "name":"Fact",
+      "fields":[
+        "name:string",
+        "description:text",
+        "mainimage:file"
+      ],
+      "relationships":[
+        {
+          "name":"Category",
+          "type":"belongsToMany",
+          "fields":[
+            "fact_id:integer",
+            "category_id:integer"
+          ]
+        }
+      ]
+    },
+    {
+      "name":"Category",
+      "fields":[
+        "name:string",
+        "description:text",
+        "mainimage:file"
+      ]
+    }
+  ]
+}

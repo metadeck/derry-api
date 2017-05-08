@@ -1,0 +1,27 @@
+{
+  "cms": [
+    {
+      "name":"Track",
+      "fields":[
+        "title:string",
+        "artist_id:integer",
+        "file:file"
+      ],
+      "relationships":[
+        {
+          "name":"Artist",
+          "type":"belongsTo",
+          "displayColumn":"name"
+        }
+      ]
+    },
+    {
+      "name": "Artist",
+      "fields": [
+        "name:string",
+        "bio:text",
+        "mainimage:file"
+      ]
+    }
+  ]
+}

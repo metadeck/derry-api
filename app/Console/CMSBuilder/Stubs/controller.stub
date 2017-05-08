@@ -1,0 +1,113 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
+use DummyRootNamespace{{crudNameCap}};
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+
+class DummyClass extends AdminBaseController
+{
+
+    //private $imageFilePath;
+    {{filePathDeclarations}}
+
+    function __construct()
+    {
+        {{filePathValues}}
+    }
+
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		${{crudNamePlural}} = {{crudNameCap}}::latest()->paginate(20);
+		return view('admin.{{crudName}}.index', compact('{{crudNamePlural}}'));
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+	    {{relationshipDataFetchers}}
+		return view('admin.{{crudName}}.create'){{relationshipDataIncludes}};
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
+		${{crudNameSingular}} = {{crudNameCap}}::create($request->all());
+
+        {{fileSaveFunctionality}}
+
+		return redirect('admin/{{crudName}}');
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		${{crudNameSingular}} = {{crudNameCap}}::findOrFail($id);
+		return view('admin.{{crudName}}.show', compact('{{crudNameSingular}}'));
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		${{crudNameSingular}} = {{crudNameCap}}::findOrFail($id);
+		{{relationshipDataFetchers}}
+		//return view('admin.{{crudName}}.edit', compact('{{crudNameSingular}}'));
+		return view('admin.{{crudName}}.edit')->with('{{crudNameSingular}}', ${{crudNameSingular}}){{relationshipDataIncludes}};
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id, Request $request)
+	{
+		//$this->validate($request, ['name' => 'required']); // Uncomment and modify if needed.
+		${{crudNameSingular}} = {{crudNameCap}}::findOrFail($id);
+		${{crudNameSingular}}->update($request->all());
+		{{fileSaveFunctionality}}
+		return redirect('admin/{{crudName}}');
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		$deleted = {{crudNameCap}}::find($id)->delete();
+        return json_encode($deleted);
+	}
+
+}

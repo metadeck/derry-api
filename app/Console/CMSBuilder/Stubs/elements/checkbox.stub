@@ -1,0 +1,5 @@
+<div class="checkbox">
+    <label>
+        {!! Form::checkbox('%%inputName%%') !!} %%inputLabel%%
+    </label>
+</div>
