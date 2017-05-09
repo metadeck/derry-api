@@ -53,7 +53,7 @@ class DashboardController extends Controller
             'buildings' => $this->buildingRepository->getAllLocations(),
             'recording_count' => $this->recordingRepository->query()->count(),
             'app_users' => $this->userRepository->appUsers()->latest()->take(10)->get(),
-            'recordings' => $this->recordingRepository->with('status,condition')->query()->latest()->take(10)->get()
+            'recordings' => $this->recordingRepository->with('condition')->query()->latest()->take(10)->get()
         ]);
     }
 }

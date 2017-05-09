@@ -21,9 +21,6 @@
                             <li @if (Request::is('admin/categories/*') || Request::path() == 'admin/categories') class="active" @endif>
                                 <a href="/admin/categories"><i class="fa fa-list"></i> <span>Categories</span></a>
                             </li>
-                            <li @if (Request::is('admin/statuses/*') || Request::path() == 'admin/statuses') class="active" @endif>
-                                <a href="/admin/statuses"><i class="fa fa-list"></i> <span>Statuses</span></a>
-                            </li>
                             <li @if (Request::is('admin/conditions/*') || Request::path() == 'admin/conditions') class="active" @endif>
                                 <a href="/admin/conditions"><i class="fa fa-list"></i> <span>Conditions</span></a>
                             </li>

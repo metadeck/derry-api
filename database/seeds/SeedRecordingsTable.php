@@ -13,7 +13,6 @@ class SeedRecordingsTable extends Seeder
     {
         DB::table('recordings')->truncate();
 
-        $statuses = \App\Models\Status::all();
         $conditions = \App\Models\Condition::all();
         $buildings = \App\Models\Building::all();
         $users = \App\Models\User::all();
@@ -22,7 +21,6 @@ class SeedRecordingsTable extends Seeder
             \App\Models\Recording::create([
                 'building_id' => $building->id,
                 'user_id' => $users->random()->id,
-                'status_id' => $statuses->random()->id,
                 'condition_id' => $conditions->random()->id,
                 'created_at' => date('Y-m-d', strtotime( '-'.mt_rand(0,30).' days'))
             ]);
@@ -30,7 +28,6 @@ class SeedRecordingsTable extends Seeder
             \App\Models\Recording::create([
                 'building_id' => $building->id,
                 'user_id' => $users->random()->id,
-                'status_id' => $statuses->random()->id,
                 'condition_id' => $conditions->random()->id,
                 'created_at' => date('Y-m-d', strtotime( '-'.mt_rand(31,60).' days'))
             ]);
@@ -38,7 +35,6 @@ class SeedRecordingsTable extends Seeder
             \App\Models\Recording::create([
                 'building_id' => $building->id,
                 'user_id' => $users->random()->id,
-                'status_id' => $statuses->random()->id,
                 'condition_id' => $conditions->random()->id,
                 'created_at' => date('Y-m-d', strtotime( '-'.mt_rand(61,90).' days'))
             ]);

@@ -47,7 +47,6 @@
                                 <table class="table">
                                     <thead>
                                         <th>User</th>
-                                        <th>Status</th>
                                         <th>Condition</th>
                                         <th>Date</th>
                                     </thead>
@@ -55,7 +54,6 @@
                                         @foreach($building->recordings as $recording)
                                         <tr>
                                             <td>{{ $recording->user->fullName }}</td>
-                                            <td>{{ $recording->status->name }}</td>
                                             <td>{{ $recording->condition->name }}</td>
                                             <td>{{ $recording->created_at->diffForHumans() }}</td>
                                         </tr>

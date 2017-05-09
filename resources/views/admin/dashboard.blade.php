@@ -80,7 +80,6 @@
                                     </div>
                                     <div class="media-body">
                                         <div class="media-heading text-semibold">{{ $recording->building->name }}, {{ $recording->building->address_1 }}</div>
-                                        <span class="text-muted">Status: {{ $recording->status->name }}</span>
                                         <span class="text-muted">Condition: {{ $recording->condition->name }}</span>
                                         <span class="media-annotation dotted">{{ $recording->created_at->diffForHumans() }}</span>
                                     </div>

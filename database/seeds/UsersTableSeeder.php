@@ -19,9 +19,11 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'Declan',
             'last_name' => 'McDonough',
             'email' => 'declan@uahs.com',
+            'username' => 'deckymcd',
             'role' => 'owner',
             'terms_and_policy' => true,
             'is_admin' => true,
+            'points' => 0,
             'password' => bcrypt('password')
         ]);
 

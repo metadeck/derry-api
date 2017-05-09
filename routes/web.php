@@ -46,10 +46,6 @@ Route::prefix('admin')->name('admin')->middleware('auth', 'userIsAdmin')->group(
     Route::get('conditions/create', 'Admin\ConditionController@create')->name('.condition.create');
     Route::get('conditions/{condition_id}/edit', 'Admin\ConditionController@edit')->name('.condition.edit');
 
-    Route::get('statuses', 'Admin\StatusController@index')->name('.status.index');
-    Route::get('statuses/create', 'Admin\StatusController@create')->name('.status.create');
-    Route::get('statuses/{status_id}/edit', 'Admin\StatusController@edit')->name('.status.edit');
-
     Route::get('recordings', 'Admin\RecordingController@index')->name('.recording.index');
     Route::get('recordings/create', 'Admin\RecordingController@create')->name('.recording.create');
     Route::get('recordings/previousdays', 'Api\RecordingsByDaysController@index');
@@ -70,8 +66,5 @@ Route::prefix('admin')->name('admin')->middleware('auth', 'userIsAdmin')->group(
 
     Route::post('condition', 'Api\ConditionController@store')->name('.condition.store');
     Route::put('condition/{condition_id}', 'Api\ConditionController@update')->name('.condition.update');
-
-    Route::post('status', 'Api\StatusController@store')->name('.status.store');
-    Route::put('status/{status_id}', 'Api\StatusController@update')->name('.status.update');
 
 });

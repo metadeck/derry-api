@@ -20,14 +20,17 @@ Route::group(['prefix' => '/v1'], function ()
 
     Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.reset');
 
+    Route::get('buildings', 'Api\BuildingController@index');
+    Route::get('buildings/nearby', 'Api\NearbyBuildingsController@index');
+
 
 //    Route::group( ['middleware' => ['jwt.refresh']], function(){
 //        Route::post('refreshtoken', 'Api\AuthController@refreshToken');
 //    });
 
-    Route::group( ['middleware' => ['jwt.auth', 'jwt.refresh']], function ()
-    {
-        Route::get('buildings', 'Api\BuildingController@index');
-    });
+//    Route::group( ['middleware' => ['jwt.auth', 'jwt.refresh']], function ()
+//    {
+//        Route::get('buildings', 'Api\BuildingController@index');
+//    });
 
 });

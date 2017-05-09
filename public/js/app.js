@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 173);
+/******/ 	return __webpack_require__(__webpack_require__.s = 174);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -16130,7 +16130,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * URI.js - Mutating URLs
  * IPv6 Support
  *
- * Version: 1.18.9
+ * Version: 1.18.10
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -16325,7 +16325,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
  *
- * Version: 1.18.9
+ * Version: 1.18.10
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -16500,7 +16500,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       'ye':' co com gov ltd me net org plc ',
       'yu':' ac co edu gov org ',
       'za':' ac agric alt bourse city co cybernet db edu gov grondar iaccess imt inca landesign law mil net ngo nis nom olivetti org pix school tm web ',
-      'zm':' ac co com edu gov net org sch '
+      'zm':' ac co com edu gov net org sch ',
+      // https://en.wikipedia.org/wiki/CentralNic#Second-level_domains
+      'com': 'ar br cn de eu gb gr hu jpn kr no qc ru sa se uk us uy za ',
+      'net': 'gb jp se uk ',
+      'org': 'ae',
+      'de': 'com '
     },
     // gorhill 2013-10-25: Using indexOf() instead Regexp(). Significant boost
     // in both performance and memory footprint. No initialization required.
@@ -17116,6 +17121,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+__webpack_require__(169);
 __webpack_require__(136);
 
 /**
@@ -17130,12 +17136,6 @@ new Vue({
 
 /***/ }),
 /* 124 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17208,22 +17208,22 @@ RawTask.prototype.call = function () {
 
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(126);
 __webpack_require__(127);
 __webpack_require__(128);
 __webpack_require__(129);
 __webpack_require__(130);
 __webpack_require__(131);
-__webpack_require__(132);
 __webpack_require__(134);
 __webpack_require__(135);
 __webpack_require__(133);
-__webpack_require__(182);
+__webpack_require__(132);
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports) {
 
 Vue.component('building-create', {
@@ -17267,7 +17267,7 @@ Vue.component('building-create', {
 });
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports) {
 
 Vue.component('building-edit', {
@@ -17318,7 +17318,7 @@ Vue.component('building-edit', {
 });
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports) {
 
 Vue.component('category-create', {
@@ -17347,7 +17347,7 @@ Vue.component('category-create', {
 });
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports) {
 
 Vue.component('category-edit', {
@@ -17382,7 +17382,7 @@ Vue.component('category-edit', {
 });
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports) {
 
 Vue.component('condition-create', {
@@ -17411,7 +17411,7 @@ Vue.component('condition-create', {
 });
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports) {
 
 Vue.component('condition-edit', {
@@ -17446,19 +17446,59 @@ Vue.component('condition-edit', {
 });
 
 /***/ }),
+/* 132 */
+/***/ (function(module, exports) {
+
+Vue.component('recording-create', {
+
+    template: '\n        <div>\n            <!-- Success Message -->\n            <div class="alert alert-success" v-if="form.successful">\n                The recording has been created!\n            </div>\n    \n            <div class="form-horizontal">\n                <div class="form-group" :class="{\'has-error\': form.errors.has(\'building_id\')}">\n                    <label class="control-label col-lg-2">Building</label>\n                 \n                    <div class="col-lg-10">\n                        <select-menu \n                        @valueChanged="buildingChanged" \n                        :options="buildings">\n                        </select-menu>\n                        <span class="help-block" v-show="form.errors.has(\'building_id\')">\n                            {{ form.errors.get(\'building_id\') }}\n                        </span>\n                    </div>\n                </div>\n                \n                <div class="form-group" :class="{\'has-error\': form.errors.has(\'condition_id\')}">\n                    <label class="control-label col-lg-2">Condition</label>\n                 \n                    <div class="col-lg-10">\n                        <select-menu \n                        @valueChanged="conditionChanged" \n                        :options="conditions">\n                        </select-menu>\n                        <span class="help-block" v-show="form.errors.has(\'condition_id\')">\n                            {{ form.errors.get(\'condition_id\') }}\n                        </span>\n                    </div>\n                </div>\n                \n                <!-- Submit Button -->\n                <div class="form-group">\n                    <div class="col-md-offset-2 col-md-6">\n                        <button type="submit" class="btn btn-primary" @click.prevent="save" :disabled="form.busy">\n                            <span v-if="form.busy">\n                                <i class="fa fa-btn fa-spinner fa-spin"></i>Saving\n                            </span>\n                            <span v-else>\n                                Create Recording\n                            </span>\n                        </button>\n                    </div>\n                </div>\n            </div>\n        </div>\n    ',
+
+    props: ['conditions', 'buildings'],
+
+    data: function data() {
+        return {
+            form: new Form({
+                building_id: null,
+                condition_id: null,
+                at_risk: null,
+                comment: null
+            })
+        };
+    },
+
+
+    methods: {
+        buildingChanged: function buildingChanged(buildingId) {
+            console.log(buildingId);
+        },
+        conditionChanged: function conditionChanged(conditionId) {
+            console.log(conditionId);
+        },
+
+        /**
+         * Save the recording.
+         */
+        save: function save() {
+            Limitless.post('/admin/recording', this.form).then(function (response) {
+                location.assign('/admin/recordings/');
+            });
+        }
+    }
+});
+
+/***/ }),
 /* 133 */
 /***/ (function(module, exports) {
 
 Vue.component('recording-search-bar', {
 
-    template: '\n        <div class="container-fluid">\n            <div class="col-md-3">\n                <label for="conditions">Conditions</label>\n                <bootstrap-multiselect \n                    @valueChanged="conditionsChanged" \n                    :options="conditions" \n                    :values="selected_conditions">\n                    \n                </bootstrap-multiselect>\n            </div>\n            <div class="col-md-3">\n                <label for="statuses">Statuses</label>\n                <bootstrap-multiselect \n                    @valueChanged="statusesChanged" \n                    :options="statuses" \n                    :values="selected_statuses">\n                    \n                </bootstrap-multiselect>\n            </div>\n            <div class="col-md-1">\n                <label for="statuses">&nbsp;</label>\n                <button class="btn btn-primary" @click.prevent="search()">Filter</button>\n            </div>\n        </div>\n    ',
+    template: '\n        <div class="container-fluid">\n            <div class="col-md-3">\n                <label for="conditions">Conditions</label>\n                <bootstrap-multiselect \n                    @valueChanged="conditionsChanged" \n                    :options="conditions" \n                    :values="selected_conditions">\n                </bootstrap-multiselect>\n            </div>\n            <div class="col-md-1">\n                <label for="statuses">&nbsp;</label>\n                <button class="btn btn-primary" @click.prevent="search()">Filter</button>\n            </div>\n        </div>\n    ',
 
-    props: ['conditions', 'statuses', 'selectedConditionIds', 'selectedStatusIds'],
+    props: ['conditions', 'selectedConditionIds'],
 
     data: function data() {
         return {
-            selected_conditions: this.selectedConditionIds == null ? [] : this.selectedConditionIds,
-            selected_statuses: this.selectedStatusIds == null ? [] : this.selectedStatusIds
+            selected_conditions: this.selectedConditionIds == null ? [] : this.selectedConditionIds
         };
     },
 
@@ -17468,25 +17508,17 @@ Vue.component('recording-search-bar', {
             console.log(conditions);
             this.selected_conditions = conditions;
         },
-        statusesChanged: function statusesChanged(statuses) {
-            console.log(statuses);
-            this.selected_statuses = statuses;
-        },
 
         /**
          * Fire the search
          */
         search: function search() {
             var conditionsString = '';
-            var statusesString = '';
             if (this.selected_conditions.length > 0) {
                 conditionsString += 'conditions=' + this.selected_conditions.join();
             }
-            if (this.selected_statuses.length > 0) {
-                statusesString = 'statuses=' + this.selected_statuses.join();
-            }
 
-            location.assign('/admin/recordings?' + conditionsString + '&' + statusesString);
+            location.assign('/admin/recordings?' + conditionsString);
         }
     }
 });
@@ -17562,7 +17594,7 @@ Vue.component('status-edit', {
 
 //create some global helpers
 window._ = __webpack_require__(159);
-window.URI = __webpack_require__(169);
+window.URI = __webpack_require__(170);
 window.moment = __webpack_require__(0);
 window.Promise = __webpack_require__(162);
 window.Cookies = __webpack_require__(158);
@@ -17596,8 +17628,8 @@ window.moment.locale('en');
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(171);
-__webpack_require__(170);
+window.Vue = __webpack_require__(172);
+__webpack_require__(171);
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -17651,7 +17683,7 @@ __webpack_require__(137);
 /**
  * Grab the admin vue components
  */
-__webpack_require__(126);
+__webpack_require__(125);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -18867,7 +18899,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * JavaScript Cookie v2.1.3
+ * JavaScript Cookie v2.1.4
  * https://github.com/js-cookie/js-cookie
  *
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
@@ -18928,6 +18960,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					attributes.expires = expires;
 				}
 
+				// We're using "expires" because "max-age" is not supported by IE
+				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
+
 				try {
 					result = JSON.stringify(value);
 					if (/^[\{\[]/.test(result)) {
@@ -18946,13 +18981,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
 				key = key.replace(/[\(\)]/g, escape);
 
-				return (document.cookie = [
-					key, '=', value,
-					attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-					attributes.path ? '; path=' + attributes.path : '',
-					attributes.domain ? '; domain=' + attributes.domain : '',
-					attributes.secure ? '; secure' : ''
-				].join(''));
+				var stringifiedAttributes = '';
+
+				for (var attributeName in attributes) {
+					if (!attributes[attributeName]) {
+						continue;
+					}
+					stringifiedAttributes += '; ' + attributeName;
+					if (attributes[attributeName] === true) {
+						continue;
+					}
+					stringifiedAttributes += '=' + attributes[attributeName];
+				}
+				return (document.cookie = key + '=' + value + stringifiedAttributes);
 			}
 
 			// Read
@@ -36546,6 +36587,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -36751,7 +36796,7 @@ __webpack_require__(168);
 // for node.js interop
 
 var Promise = __webpack_require__(1);
-var asap = __webpack_require__(125);
+var asap = __webpack_require__(124);
 
 module.exports = Promise;
 
@@ -36948,12 +36993,2463 @@ Promise.disableSynchronous = function() {
 
 /***/ }),
 /* 169 */
+/***/ (function(module, exports) {
+
+/**
+ * tracking - A modern approach for Computer Vision on the web.
+ * @author Eduardo Lundgren <edu@rdo.io>
+ * @version v1.1.2
+ * @link http://trackingjs.com
+ * @license BSD
+ */
+(function(window, undefined) {
+  window.tracking = window.tracking || {};
+
+  /**
+   * Inherit the prototype methods from one constructor into another.
+   *
+   * Usage:
+   * <pre>
+   * function ParentClass(a, b) { }
+   * ParentClass.prototype.foo = function(a) { }
+   *
+   * function ChildClass(a, b, c) {
+   *   tracking.base(this, a, b);
+   * }
+   * tracking.inherits(ChildClass, ParentClass);
+   *
+   * var child = new ChildClass('a', 'b', 'c');
+   * child.foo();
+   * </pre>
+   *
+   * @param {Function} childCtor Child class.
+   * @param {Function} parentCtor Parent class.
+   */
+  tracking.inherits = function(childCtor, parentCtor) {
+    function TempCtor() {
+    }
+    TempCtor.prototype = parentCtor.prototype;
+    childCtor.superClass_ = parentCtor.prototype;
+    childCtor.prototype = new TempCtor();
+    childCtor.prototype.constructor = childCtor;
+
+    /**
+     * Calls superclass constructor/method.
+     *
+     * This function is only available if you use tracking.inherits to express
+     * inheritance relationships between classes.
+     *
+     * @param {!object} me Should always be "this".
+     * @param {string} methodName The method name to call. Calling superclass
+     *     constructor can be done with the special string 'constructor'.
+     * @param {...*} var_args The arguments to pass to superclass
+     *     method/constructor.
+     * @return {*} The return value of the superclass method/constructor.
+     */
+    childCtor.base = function(me, methodName) {
+      var args = Array.prototype.slice.call(arguments, 2);
+      return parentCtor.prototype[methodName].apply(me, args);
+    };
+  };
+
+  /**
+   * Captures the user camera when tracking a video element and set its source
+   * to the camera stream.
+   * @param {HTMLVideoElement} element Canvas element to track.
+   * @param {object} opt_options Optional configuration to the tracker.
+   */
+  tracking.initUserMedia_ = function(element, opt_options) {
+    window.navigator.getUserMedia({
+      video: true,
+      audio: !!(opt_options && opt_options.audio)
+    }, function(stream) {
+        try {
+          element.src = window.URL.createObjectURL(stream);
+        } catch (err) {
+          element.src = stream;
+        }
+      }, function() {
+        throw Error('Cannot capture user camera.');
+      }
+    );
+  };
+
+  /**
+   * Tests whether the object is a dom node.
+   * @param {object} o Object to be tested.
+   * @return {boolean} True if the object is a dom node.
+   */
+  tracking.isNode = function(o) {
+    return o.nodeType || this.isWindow(o);
+  };
+
+  /**
+   * Tests whether the object is the `window` object.
+   * @param {object} o Object to be tested.
+   * @return {boolean} True if the object is the `window` object.
+   */
+  tracking.isWindow = function(o) {
+    return !!(o && o.alert && o.document);
+  };
+
+  /**
+   * Selects a dom node from a CSS3 selector using `document.querySelector`.
+   * @param {string} selector
+   * @param {object} opt_element The root element for the query. When not
+   *     specified `document` is used as root element.
+   * @return {HTMLElement} The first dom element that matches to the selector.
+   *     If not found, returns `null`.
+   */
+  tracking.one = function(selector, opt_element) {
+    if (this.isNode(selector)) {
+      return selector;
+    }
+    return (opt_element || document).querySelector(selector);
+  };
+
+  /**
+   * Tracks a canvas, image or video element based on the specified `tracker`
+   * instance. This method extract the pixel information of the input element
+   * to pass to the `tracker` instance. When tracking a video, the
+   * `tracker.track(pixels, width, height)` will be in a
+   * `requestAnimationFrame` loop in order to track all video frames.
+   *
+   * Example:
+   * var tracker = new tracking.ColorTracker();
+   *
+   * tracking.track('#video', tracker);
+   * or
+   * tracking.track('#video', tracker, { camera: true });
+   *
+   * tracker.on('track', function(event) {
+   *   // console.log(event.data[0].x, event.data[0].y)
+   * });
+   *
+   * @param {HTMLElement} element The element to track, canvas, image or
+   *     video.
+   * @param {tracking.Tracker} tracker The tracker instance used to track the
+   *     element.
+   * @param {object} opt_options Optional configuration to the tracker.
+   */
+  tracking.track = function(element, tracker, opt_options) {
+    element = tracking.one(element);
+    if (!element) {
+      throw new Error('Element not found, try a different element or selector.');
+    }
+    if (!tracker) {
+      throw new Error('Tracker not specified, try `tracking.track(element, new tracking.FaceTracker())`.');
+    }
+
+    switch (element.nodeName.toLowerCase()) {
+      case 'canvas':
+        return this.trackCanvas_(element, tracker, opt_options);
+      case 'img':
+        return this.trackImg_(element, tracker, opt_options);
+      case 'video':
+        if (opt_options) {
+          if (opt_options.camera) {
+            this.initUserMedia_(element, opt_options);
+          }
+        }
+        return this.trackVideo_(element, tracker, opt_options);
+      default:
+        throw new Error('Element not supported, try in a canvas, img, or video.');
+    }
+  };
+
+  /**
+   * Tracks a canvas element based on the specified `tracker` instance and
+   * returns a `TrackerTask` for this track.
+   * @param {HTMLCanvasElement} element Canvas element to track.
+   * @param {tracking.Tracker} tracker The tracker instance used to track the
+   *     element.
+   * @param {object} opt_options Optional configuration to the tracker.
+   * @return {tracking.TrackerTask}
+   * @private
+   */
+  tracking.trackCanvas_ = function(element, tracker) {
+    var self = this;
+    var task = new tracking.TrackerTask(tracker);
+    task.on('run', function() {
+      self.trackCanvasInternal_(element, tracker);
+    });
+    return task.run();
+  };
+
+  /**
+   * Tracks a canvas element based on the specified `tracker` instance. This
+   * method extract the pixel information of the input element to pass to the
+   * `tracker` instance.
+   * @param {HTMLCanvasElement} element Canvas element to track.
+   * @param {tracking.Tracker} tracker The tracker instance used to track the
+   *     element.
+   * @param {object} opt_options Optional configuration to the tracker.
+   * @private
+   */
+  tracking.trackCanvasInternal_ = function(element, tracker) {
+    var width = element.width;
+    var height = element.height;
+    var context = element.getContext('2d');
+    var imageData = context.getImageData(0, 0, width, height);
+    tracker.track(imageData.data, width, height);
+  };
+
+  /**
+   * Tracks a image element based on the specified `tracker` instance. This
+   * method extract the pixel information of the input element to pass to the
+   * `tracker` instance.
+   * @param {HTMLImageElement} element Canvas element to track.
+   * @param {tracking.Tracker} tracker The tracker instance used to track the
+   *     element.
+   * @param {object} opt_options Optional configuration to the tracker.
+   * @private
+   */
+  tracking.trackImg_ = function(element, tracker) {
+    var width = element.width;
+    var height = element.height;
+    var canvas = document.createElement('canvas');
+
+    canvas.width = width;
+    canvas.height = height;
+
+    var task = new tracking.TrackerTask(tracker);
+    task.on('run', function() {
+      tracking.Canvas.loadImage(canvas, element.src, 0, 0, width, height, function() {
+        tracking.trackCanvasInternal_(canvas, tracker);
+      });
+    });
+    return task.run();
+  };
+
+  /**
+   * Tracks a video element based on the specified `tracker` instance. This
+   * method extract the pixel information of the input element to pass to the
+   * `tracker` instance. The `tracker.track(pixels, width, height)` will be in
+   * a `requestAnimationFrame` loop in order to track all video frames.
+   * @param {HTMLVideoElement} element Canvas element to track.
+   * @param {tracking.Tracker} tracker The tracker instance used to track the
+   *     element.
+   * @param {object} opt_options Optional configuration to the tracker.
+   * @private
+   */
+  tracking.trackVideo_ = function(element, tracker) {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    var width;
+    var height;
+
+    var resizeCanvas_ = function() {
+      width = element.offsetWidth;
+      height = element.offsetHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+    resizeCanvas_();
+    element.addEventListener('resize', resizeCanvas_);
+
+    var requestId;
+    var requestAnimationFrame_ = function() {
+      requestId = window.requestAnimationFrame(function() {
+        if (element.readyState === element.HAVE_ENOUGH_DATA) {
+          try {
+            // Firefox v~30.0 gets confused with the video readyState firing an
+            // erroneous HAVE_ENOUGH_DATA just before HAVE_CURRENT_DATA state,
+            // hence keep trying to read it until resolved.
+            context.drawImage(element, 0, 0, width, height);
+          } catch (err) {}
+          tracking.trackCanvasInternal_(canvas, tracker);
+        }
+        requestAnimationFrame_();
+      });
+    };
+
+    var task = new tracking.TrackerTask(tracker);
+    task.on('stop', function() {
+      window.cancelAnimationFrame(requestId);
+    });
+    task.on('run', function() {
+      requestAnimationFrame_();
+    });
+    return task.run();
+  };
+
+  // Browser polyfills
+  //===================
+
+  if (!window.URL) {
+    window.URL = window.URL || window.webkitURL || window.msURL || window.oURL;
+  }
+
+  if (!navigator.getUserMedia) {
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  }
+}(window));
+
+(function() {
+  /**
+   * EventEmitter utility.
+   * @constructor
+   */
+  tracking.EventEmitter = function() {};
+
+  /**
+   * Holds event listeners scoped by event type.
+   * @type {object}
+   * @private
+   */
+  tracking.EventEmitter.prototype.events_ = null;
+
+  /**
+   * Adds a listener to the end of the listeners array for the specified event.
+   * @param {string} event
+   * @param {function} listener
+   * @return {object} Returns emitter, so calls can be chained.
+   */
+  tracking.EventEmitter.prototype.addListener = function(event, listener) {
+    if (typeof listener !== 'function') {
+      throw new TypeError('Listener must be a function');
+    }
+    if (!this.events_) {
+      this.events_ = {};
+    }
+
+    this.emit('newListener', event, listener);
+
+    if (!this.events_[event]) {
+      this.events_[event] = [];
+    }
+
+    this.events_[event].push(listener);
+
+    return this;
+  };
+
+  /**
+   * Returns an array of listeners for the specified event.
+   * @param {string} event
+   * @return {array} Array of listeners.
+   */
+  tracking.EventEmitter.prototype.listeners = function(event) {
+    return this.events_ && this.events_[event];
+  };
+
+  /**
+   * Execute each of the listeners in order with the supplied arguments.
+   * @param {string} event
+   * @param {*} opt_args [arg1], [arg2], [...]
+   * @return {boolean} Returns true if event had listeners, false otherwise.
+   */
+  tracking.EventEmitter.prototype.emit = function(event) {
+    var listeners = this.listeners(event);
+    if (listeners) {
+      var args = Array.prototype.slice.call(arguments, 1);
+      for (var i = 0; i < listeners.length; i++) {
+        if (listeners[i]) {
+          listeners[i].apply(this, args);
+        }
+      }
+      return true;
+    }
+    return false;
+  };
+
+  /**
+   * Adds a listener to the end of the listeners array for the specified event.
+   * @param {string} event
+   * @param {function} listener
+   * @return {object} Returns emitter, so calls can be chained.
+   */
+  tracking.EventEmitter.prototype.on = tracking.EventEmitter.prototype.addListener;
+
+  /**
+   * Adds a one time listener for the event. This listener is invoked only the
+   * next time the event is fired, after which it is removed.
+   * @param {string} event
+   * @param {function} listener
+   * @return {object} Returns emitter, so calls can be chained.
+   */
+  tracking.EventEmitter.prototype.once = function(event, listener) {
+    var self = this;
+    self.on(event, function handlerInternal() {
+      self.removeListener(event, handlerInternal);
+      listener.apply(this, arguments);
+    });
+  };
+
+  /**
+   * Removes all listeners, or those of the specified event. It's not a good
+   * idea to remove listeners that were added elsewhere in the code,
+   * especially when it's on an emitter that you didn't create.
+   * @param {string} event
+   * @return {object} Returns emitter, so calls can be chained.
+   */
+  tracking.EventEmitter.prototype.removeAllListeners = function(opt_event) {
+    if (!this.events_) {
+      return this;
+    }
+    if (opt_event) {
+      delete this.events_[opt_event];
+    } else {
+      delete this.events_;
+    }
+    return this;
+  };
+
+  /**
+   * Remove a listener from the listener array for the specified event.
+   * Caution: changes array indices in the listener array behind the listener.
+   * @param {string} event
+   * @param {function} listener
+   * @return {object} Returns emitter, so calls can be chained.
+   */
+  tracking.EventEmitter.prototype.removeListener = function(event, listener) {
+    if (typeof listener !== 'function') {
+      throw new TypeError('Listener must be a function');
+    }
+    if (!this.events_) {
+      return this;
+    }
+
+    var listeners = this.listeners(event);
+    if (Array.isArray(listeners)) {
+      var i = listeners.indexOf(listener);
+      if (i < 0) {
+        return this;
+      }
+      listeners.splice(i, 1);
+    }
+
+    return this;
+  };
+
+  /**
+   * By default EventEmitters will print a warning if more than 10 listeners
+   * are added for a particular event. This is a useful default which helps
+   * finding memory leaks. Obviously not all Emitters should be limited to 10.
+   * This function allows that to be increased. Set to zero for unlimited.
+   * @param {number} n The maximum number of listeners.
+   */
+  tracking.EventEmitter.prototype.setMaxListeners = function() {
+    throw new Error('Not implemented');
+  };
+
+}());
+
+(function() {
+  /**
+   * Canvas utility.
+   * @static
+   * @constructor
+   */
+  tracking.Canvas = {};
+
+  /**
+   * Loads an image source into the canvas.
+   * @param {HTMLCanvasElement} canvas The canvas dom element.
+   * @param {string} src The image source.
+   * @param {number} x The canvas horizontal coordinate to load the image.
+   * @param {number} y The canvas vertical coordinate to load the image.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {function} opt_callback Callback that fires when the image is loaded
+   *     into the canvas.
+   * @static
+   */
+  tracking.Canvas.loadImage = function(canvas, src, x, y, width, height, opt_callback) {
+    var instance = this;
+    var img = new window.Image();
+    img.crossOrigin = '*';
+    img.onload = function() {
+      var context = canvas.getContext('2d');
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(img, x, y, width, height);
+      if (opt_callback) {
+        opt_callback.call(instance);
+      }
+      img = null;
+    };
+    img.src = src;
+  };
+}());
+
+(function() {
+  /**
+   * DisjointSet utility with path compression. Some applications involve
+   * grouping n distinct objects into a collection of disjoint sets. Two
+   * important operations are then finding which set a given object belongs to
+   * and uniting the two sets. A disjoint set data structure maintains a
+   * collection S={ S1 , S2 ,..., Sk } of disjoint dynamic sets. Each set is
+   * identified by a representative, which usually is a member in the set.
+   * @static
+   * @constructor
+   */
+  tracking.DisjointSet = function(length) {
+    if (length === undefined) {
+      throw new Error('DisjointSet length not specified.');
+    }
+    this.length = length;
+    this.parent = new Uint32Array(length);
+    for (var i = 0; i < length; i++) {
+      this.parent[i] = i;
+    }
+  };
+
+  /**
+   * Holds the length of the internal set.
+   * @type {number}
+   */
+  tracking.DisjointSet.prototype.length = null;
+
+  /**
+   * Holds the set containing the representative values.
+   * @type {Array.<number>}
+   */
+  tracking.DisjointSet.prototype.parent = null;
+
+  /**
+   * Finds a pointer to the representative of the set containing i.
+   * @param {number} i
+   * @return {number} The representative set of i.
+   */
+  tracking.DisjointSet.prototype.find = function(i) {
+    if (this.parent[i] === i) {
+      return i;
+    } else {
+      return (this.parent[i] = this.find(this.parent[i]));
+    }
+  };
+
+  /**
+   * Unites two dynamic sets containing objects i and j, say Si and Sj, into
+   * a new set that Si ∪ Sj, assuming that Si ∩ Sj = ∅;
+   * @param {number} i
+   * @param {number} j
+   */
+  tracking.DisjointSet.prototype.union = function(i, j) {
+    var iRepresentative = this.find(i);
+    var jRepresentative = this.find(j);
+    this.parent[iRepresentative] = jRepresentative;
+  };
+
+}());
+
+(function() {
+  /**
+   * Image utility.
+   * @static
+   * @constructor
+   */
+  tracking.Image = {};
+
+  /**
+   * Computes gaussian blur. Adapted from
+   * https://github.com/kig/canvasfilters.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {number} diameter Gaussian blur diameter, must be greater than 1.
+   * @return {array} The edge pixels in a linear [r,g,b,a,...] array.
+   */
+  tracking.Image.blur = function(pixels, width, height, diameter) {
+    diameter = Math.abs(diameter);
+    if (diameter <= 1) {
+      throw new Error('Diameter should be greater than 1.');
+    }
+    var radius = diameter / 2;
+    var len = Math.ceil(diameter) + (1 - (Math.ceil(diameter) % 2));
+    var weights = new Float32Array(len);
+    var rho = (radius + 0.5) / 3;
+    var rhoSq = rho * rho;
+    var gaussianFactor = 1 / Math.sqrt(2 * Math.PI * rhoSq);
+    var rhoFactor = -1 / (2 * rho * rho);
+    var wsum = 0;
+    var middle = Math.floor(len / 2);
+    for (var i = 0; i < len; i++) {
+      var x = i - middle;
+      var gx = gaussianFactor * Math.exp(x * x * rhoFactor);
+      weights[i] = gx;
+      wsum += gx;
+    }
+    for (var j = 0; j < weights.length; j++) {
+      weights[j] /= wsum;
+    }
+    return this.separableConvolve(pixels, width, height, weights, weights, false);
+  };
+
+  /**
+   * Computes the integral image for summed, squared, rotated and sobel pixels.
+   * @param {array} pixels The pixels in a linear [r,g,b,a,...] array to loop
+   *     through.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {array} opt_integralImage Empty array of size `width * height` to
+   *     be filled with the integral image values. If not specified compute sum
+   *     values will be skipped.
+   * @param {array} opt_integralImageSquare Empty array of size `width *
+   *     height` to be filled with the integral image squared values. If not
+   *     specified compute squared values will be skipped.
+   * @param {array} opt_tiltedIntegralImage Empty array of size `width *
+   *     height` to be filled with the rotated integral image values. If not
+   *     specified compute sum values will be skipped.
+   * @param {array} opt_integralImageSobel Empty array of size `width *
+   *     height` to be filled with the integral image of sobel values. If not
+   *     specified compute sobel filtering will be skipped.
+   * @static
+   */
+  tracking.Image.computeIntegralImage = function(pixels, width, height, opt_integralImage, opt_integralImageSquare, opt_tiltedIntegralImage, opt_integralImageSobel) {
+    if (arguments.length < 4) {
+      throw new Error('You should specify at least one output array in the order: sum, square, tilted, sobel.');
+    }
+    var pixelsSobel;
+    if (opt_integralImageSobel) {
+      pixelsSobel = tracking.Image.sobel(pixels, width, height);
+    }
+    for (var i = 0; i < height; i++) {
+      for (var j = 0; j < width; j++) {
+        var w = i * width * 4 + j * 4;
+        var pixel = ~~(pixels[w] * 0.299 + pixels[w + 1] * 0.587 + pixels[w + 2] * 0.114);
+        if (opt_integralImage) {
+          this.computePixelValueSAT_(opt_integralImage, width, i, j, pixel);
+        }
+        if (opt_integralImageSquare) {
+          this.computePixelValueSAT_(opt_integralImageSquare, width, i, j, pixel * pixel);
+        }
+        if (opt_tiltedIntegralImage) {
+          var w1 = w - width * 4;
+          var pixelAbove = ~~(pixels[w1] * 0.299 + pixels[w1 + 1] * 0.587 + pixels[w1 + 2] * 0.114);
+          this.computePixelValueRSAT_(opt_tiltedIntegralImage, width, i, j, pixel, pixelAbove || 0);
+        }
+        if (opt_integralImageSobel) {
+          this.computePixelValueSAT_(opt_integralImageSobel, width, i, j, pixelsSobel[w]);
+        }
+      }
+    }
+  };
+
+  /**
+   * Helper method to compute the rotated summed area table (RSAT) by the
+   * formula:
+   *
+   * RSAT(x, y) = RSAT(x-1, y-1) + RSAT(x+1, y-1) - RSAT(x, y-2) + I(x, y) + I(x, y-1)
+   *
+   * @param {number} width The image width.
+   * @param {array} RSAT Empty array of size `width * height` to be filled with
+   *     the integral image values. If not specified compute sum values will be
+   *     skipped.
+   * @param {number} i Vertical position of the pixel to be evaluated.
+   * @param {number} j Horizontal position of the pixel to be evaluated.
+   * @param {number} pixel Pixel value to be added to the integral image.
+   * @static
+   * @private
+   */
+  tracking.Image.computePixelValueRSAT_ = function(RSAT, width, i, j, pixel, pixelAbove) {
+    var w = i * width + j;
+    RSAT[w] = (RSAT[w - width - 1] || 0) + (RSAT[w - width + 1] || 0) - (RSAT[w - width - width] || 0) + pixel + pixelAbove;
+  };
+
+  /**
+   * Helper method to compute the summed area table (SAT) by the formula:
+   *
+   * SAT(x, y) = SAT(x, y-1) + SAT(x-1, y) + I(x, y) - SAT(x-1, y-1)
+   *
+   * @param {number} width The image width.
+   * @param {array} SAT Empty array of size `width * height` to be filled with
+   *     the integral image values. If not specified compute sum values will be
+   *     skipped.
+   * @param {number} i Vertical position of the pixel to be evaluated.
+   * @param {number} j Horizontal position of the pixel to be evaluated.
+   * @param {number} pixel Pixel value to be added to the integral image.
+   * @static
+   * @private
+   */
+  tracking.Image.computePixelValueSAT_ = function(SAT, width, i, j, pixel) {
+    var w = i * width + j;
+    SAT[w] = (SAT[w - width] || 0) + (SAT[w - 1] || 0) + pixel - (SAT[w - width - 1] || 0);
+  };
+
+  /**
+   * Converts a color from a colorspace based on an RGB color model to a
+   * grayscale representation of its luminance. The coefficients represent the
+   * measured intensity perception of typical trichromat humans, in
+   * particular, human vision is most sensitive to green and least sensitive
+   * to blue.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {boolean} fillRGBA If the result should fill all RGBA values with the gray scale
+   *  values, instead of returning a single value per pixel.
+   * @param {Uint8ClampedArray} The grayscale pixels in a linear array ([p,p,p,a,...] if fillRGBA
+   *  is true and [p1, p2, p3, ...] if fillRGBA is false).
+   * @static
+   */
+  tracking.Image.grayscale = function(pixels, width, height, fillRGBA) {
+    var gray = new Uint8ClampedArray(fillRGBA ? pixels.length : pixels.length >> 2);
+    var p = 0;
+    var w = 0;
+    for (var i = 0; i < height; i++) {
+      for (var j = 0; j < width; j++) {
+        var value = pixels[w] * 0.299 + pixels[w + 1] * 0.587 + pixels[w + 2] * 0.114;
+        gray[p++] = value;
+
+        if (fillRGBA) {
+          gray[p++] = value;
+          gray[p++] = value;
+          gray[p++] = pixels[w + 3];
+        }
+
+        w += 4;
+      }
+    }
+    return gray;
+  };
+
+  /**
+   * Fast horizontal separable convolution. A point spread function (PSF) is
+   * said to be separable if it can be broken into two one-dimensional
+   * signals: a vertical and a horizontal projection. The convolution is
+   * performed by sliding the kernel over the image, generally starting at the
+   * top left corner, so as to move the kernel through all the positions where
+   * the kernel fits entirely within the boundaries of the image. Adapted from
+   * https://github.com/kig/canvasfilters.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {array} weightsVector The weighting vector, e.g [-1,0,1].
+   * @param {number} opaque
+   * @return {array} The convoluted pixels in a linear [r,g,b,a,...] array.
+   */
+  tracking.Image.horizontalConvolve = function(pixels, width, height, weightsVector, opaque) {
+    var side = weightsVector.length;
+    var halfSide = Math.floor(side / 2);
+    var output = new Float32Array(width * height * 4);
+    var alphaFac = opaque ? 1 : 0;
+
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        var sy = y;
+        var sx = x;
+        var offset = (y * width + x) * 4;
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        var a = 0;
+        for (var cx = 0; cx < side; cx++) {
+          var scy = sy;
+          var scx = Math.min(width - 1, Math.max(0, sx + cx - halfSide));
+          var poffset = (scy * width + scx) * 4;
+          var wt = weightsVector[cx];
+          r += pixels[poffset] * wt;
+          g += pixels[poffset + 1] * wt;
+          b += pixels[poffset + 2] * wt;
+          a += pixels[poffset + 3] * wt;
+        }
+        output[offset] = r;
+        output[offset + 1] = g;
+        output[offset + 2] = b;
+        output[offset + 3] = a + alphaFac * (255 - a);
+      }
+    }
+    return output;
+  };
+
+  /**
+   * Fast vertical separable convolution. A point spread function (PSF) is
+   * said to be separable if it can be broken into two one-dimensional
+   * signals: a vertical and a horizontal projection. The convolution is
+   * performed by sliding the kernel over the image, generally starting at the
+   * top left corner, so as to move the kernel through all the positions where
+   * the kernel fits entirely within the boundaries of the image. Adapted from
+   * https://github.com/kig/canvasfilters.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {array} weightsVector The weighting vector, e.g [-1,0,1].
+   * @param {number} opaque
+   * @return {array} The convoluted pixels in a linear [r,g,b,a,...] array.
+   */
+  tracking.Image.verticalConvolve = function(pixels, width, height, weightsVector, opaque) {
+    var side = weightsVector.length;
+    var halfSide = Math.floor(side / 2);
+    var output = new Float32Array(width * height * 4);
+    var alphaFac = opaque ? 1 : 0;
+
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        var sy = y;
+        var sx = x;
+        var offset = (y * width + x) * 4;
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        var a = 0;
+        for (var cy = 0; cy < side; cy++) {
+          var scy = Math.min(height - 1, Math.max(0, sy + cy - halfSide));
+          var scx = sx;
+          var poffset = (scy * width + scx) * 4;
+          var wt = weightsVector[cy];
+          r += pixels[poffset] * wt;
+          g += pixels[poffset + 1] * wt;
+          b += pixels[poffset + 2] * wt;
+          a += pixels[poffset + 3] * wt;
+        }
+        output[offset] = r;
+        output[offset + 1] = g;
+        output[offset + 2] = b;
+        output[offset + 3] = a + alphaFac * (255 - a);
+      }
+    }
+    return output;
+  };
+
+  /**
+   * Fast separable convolution. A point spread function (PSF) is said to be
+   * separable if it can be broken into two one-dimensional signals: a
+   * vertical and a horizontal projection. The convolution is performed by
+   * sliding the kernel over the image, generally starting at the top left
+   * corner, so as to move the kernel through all the positions where the
+   * kernel fits entirely within the boundaries of the image. Adapted from
+   * https://github.com/kig/canvasfilters.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {array} horizWeights The horizontal weighting vector, e.g [-1,0,1].
+   * @param {array} vertWeights The vertical vector, e.g [-1,0,1].
+   * @param {number} opaque
+   * @return {array} The convoluted pixels in a linear [r,g,b,a,...] array.
+   */
+  tracking.Image.separableConvolve = function(pixels, width, height, horizWeights, vertWeights, opaque) {
+    var vertical = this.verticalConvolve(pixels, width, height, vertWeights, opaque);
+    return this.horizontalConvolve(vertical, width, height, horizWeights, opaque);
+  };
+
+  /**
+   * Compute image edges using Sobel operator. Computes the vertical and
+   * horizontal gradients of the image and combines the computed images to
+   * find edges in the image. The way we implement the Sobel filter here is by
+   * first grayscaling the image, then taking the horizontal and vertical
+   * gradients and finally combining the gradient images to make up the final
+   * image. Adapted from https://github.com/kig/canvasfilters.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @return {array} The edge pixels in a linear [r,g,b,a,...] array.
+   */
+  tracking.Image.sobel = function(pixels, width, height) {
+    pixels = this.grayscale(pixels, width, height, true);
+    var output = new Float32Array(width * height * 4);
+    var sobelSignVector = new Float32Array([-1, 0, 1]);
+    var sobelScaleVector = new Float32Array([1, 2, 1]);
+    var vertical = this.separableConvolve(pixels, width, height, sobelSignVector, sobelScaleVector);
+    var horizontal = this.separableConvolve(pixels, width, height, sobelScaleVector, sobelSignVector);
+
+    for (var i = 0; i < output.length; i += 4) {
+      var v = vertical[i];
+      var h = horizontal[i];
+      var p = Math.sqrt(h * h + v * v);
+      output[i] = p;
+      output[i + 1] = p;
+      output[i + 2] = p;
+      output[i + 3] = 255;
+    }
+
+    return output;
+  };
+
+}());
+
+(function() {
+  /**
+   * ViolaJones utility.
+   * @static
+   * @constructor
+   */
+  tracking.ViolaJones = {};
+
+  /**
+   * Holds the minimum area of intersection that defines when a rectangle is
+   * from the same group. Often when a face is matched multiple rectangles are
+   * classified as possible rectangles to represent the face, when they
+   * intersects they are grouped as one face.
+   * @type {number}
+   * @default 0.5
+   * @static
+   */
+  tracking.ViolaJones.REGIONS_OVERLAP = 0.5;
+
+  /**
+   * Holds the HAAR cascade classifiers converted from OpenCV training.
+   * @type {array}
+   * @static
+   */
+  tracking.ViolaJones.classifiers = {};
+
+  /**
+   * Detects through the HAAR cascade data rectangles matches.
+   * @param {pixels} pixels The pixels in a linear [r,g,b,a,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {number} initialScale The initial scale to start the block
+   *     scaling.
+   * @param {number} scaleFactor The scale factor to scale the feature block.
+   * @param {number} stepSize The block step size.
+   * @param {number} edgesDensity Percentage density edges inside the
+   *     classifier block. Value from [0.0, 1.0], defaults to 0.2. If specified
+   *     edge detection will be applied to the image to prune dead areas of the
+   *     image, this can improve significantly performance.
+   * @param {number} data The HAAR cascade data.
+   * @return {array} Found rectangles.
+   * @static
+   */
+  tracking.ViolaJones.detect = function(pixels, width, height, initialScale, scaleFactor, stepSize, edgesDensity, data) {
+    var total = 0;
+    var rects = [];
+    var integralImage = new Int32Array(width * height);
+    var integralImageSquare = new Int32Array(width * height);
+    var tiltedIntegralImage = new Int32Array(width * height);
+
+    var integralImageSobel;
+    if (edgesDensity > 0) {
+      integralImageSobel = new Int32Array(width * height);
+    }
+
+    tracking.Image.computeIntegralImage(pixels, width, height, integralImage, integralImageSquare, tiltedIntegralImage, integralImageSobel);
+
+    var minWidth = data[0];
+    var minHeight = data[1];
+    var scale = initialScale * scaleFactor;
+    var blockWidth = (scale * minWidth) | 0;
+    var blockHeight = (scale * minHeight) | 0;
+
+    while (blockWidth < width && blockHeight < height) {
+      var step = (scale * stepSize + 0.5) | 0;
+      for (var i = 0; i < (height - blockHeight); i += step) {
+        for (var j = 0; j < (width - blockWidth); j += step) {
+
+          if (edgesDensity > 0) {
+            if (this.isTriviallyExcluded(edgesDensity, integralImageSobel, i, j, width, blockWidth, blockHeight)) {
+              continue;
+            }
+          }
+
+          if (this.evalStages_(data, integralImage, integralImageSquare, tiltedIntegralImage, i, j, width, blockWidth, blockHeight, scale)) {
+            rects[total++] = {
+              width: blockWidth,
+              height: blockHeight,
+              x: j,
+              y: i
+            };
+          }
+        }
+      }
+
+      scale *= scaleFactor;
+      blockWidth = (scale * minWidth) | 0;
+      blockHeight = (scale * minHeight) | 0;
+    }
+    return this.mergeRectangles_(rects);
+  };
+
+  /**
+   * Fast check to test whether the edges density inside the block is greater
+   * than a threshold, if true it tests the stages. This can improve
+   * significantly performance.
+   * @param {number} edgesDensity Percentage density edges inside the
+   *     classifier block.
+   * @param {array} integralImageSobel The integral image of a sobel image.
+   * @param {number} i Vertical position of the pixel to be evaluated.
+   * @param {number} j Horizontal position of the pixel to be evaluated.
+   * @param {number} width The image width.
+   * @return {boolean} True whether the block at position i,j can be skipped,
+   *     false otherwise.
+   * @static
+   * @protected
+   */
+  tracking.ViolaJones.isTriviallyExcluded = function(edgesDensity, integralImageSobel, i, j, width, blockWidth, blockHeight) {
+    var wbA = i * width + j;
+    var wbB = wbA + blockWidth;
+    var wbD = wbA + blockHeight * width;
+    var wbC = wbD + blockWidth;
+    var blockEdgesDensity = (integralImageSobel[wbA] - integralImageSobel[wbB] - integralImageSobel[wbD] + integralImageSobel[wbC]) / (blockWidth * blockHeight * 255);
+    if (blockEdgesDensity < edgesDensity) {
+      return true;
+    }
+    return false;
+  };
+
+  /**
+   * Evaluates if the block size on i,j position is a valid HAAR cascade
+   * stage.
+   * @param {number} data The HAAR cascade data.
+   * @param {number} i Vertical position of the pixel to be evaluated.
+   * @param {number} j Horizontal position of the pixel to be evaluated.
+   * @param {number} width The image width.
+   * @param {number} blockSize The block size.
+   * @param {number} scale The scale factor of the block size and its original
+   *     size.
+   * @param {number} inverseArea The inverse area of the block size.
+   * @return {boolean} Whether the region passes all the stage tests.
+   * @private
+   * @static
+   */
+  tracking.ViolaJones.evalStages_ = function(data, integralImage, integralImageSquare, tiltedIntegralImage, i, j, width, blockWidth, blockHeight, scale) {
+    var inverseArea = 1.0 / (blockWidth * blockHeight);
+    var wbA = i * width + j;
+    var wbB = wbA + blockWidth;
+    var wbD = wbA + blockHeight * width;
+    var wbC = wbD + blockWidth;
+    var mean = (integralImage[wbA] - integralImage[wbB] - integralImage[wbD] + integralImage[wbC]) * inverseArea;
+    var variance = (integralImageSquare[wbA] - integralImageSquare[wbB] - integralImageSquare[wbD] + integralImageSquare[wbC]) * inverseArea - mean * mean;
+
+    var standardDeviation = 1;
+    if (variance > 0) {
+      standardDeviation = Math.sqrt(variance);
+    }
+
+    var length = data.length;
+
+    for (var w = 2; w < length; ) {
+      var stageSum = 0;
+      var stageThreshold = data[w++];
+      var nodeLength = data[w++];
+
+      while (nodeLength--) {
+        var rectsSum = 0;
+        var tilted = data[w++];
+        var rectsLength = data[w++];
+
+        for (var r = 0; r < rectsLength; r++) {
+          var rectLeft = (j + data[w++] * scale + 0.5) | 0;
+          var rectTop = (i + data[w++] * scale + 0.5) | 0;
+          var rectWidth = (data[w++] * scale + 0.5) | 0;
+          var rectHeight = (data[w++] * scale + 0.5) | 0;
+          var rectWeight = data[w++];
+
+          var w1;
+          var w2;
+          var w3;
+          var w4;
+          if (tilted) {
+            // RectSum(r) = RSAT(x-h+w, y+w+h-1) + RSAT(x, y-1) - RSAT(x-h, y+h-1) - RSAT(x+w, y+w-1)
+            w1 = (rectLeft - rectHeight + rectWidth) + (rectTop + rectWidth + rectHeight - 1) * width;
+            w2 = rectLeft + (rectTop - 1) * width;
+            w3 = (rectLeft - rectHeight) + (rectTop + rectHeight - 1) * width;
+            w4 = (rectLeft + rectWidth) + (rectTop + rectWidth - 1) * width;
+            rectsSum += (tiltedIntegralImage[w1] + tiltedIntegralImage[w2] - tiltedIntegralImage[w3] - tiltedIntegralImage[w4]) * rectWeight;
+          } else {
+            // RectSum(r) = SAT(x-1, y-1) + SAT(x+w-1, y+h-1) - SAT(x-1, y+h-1) - SAT(x+w-1, y-1)
+            w1 = rectTop * width + rectLeft;
+            w2 = w1 + rectWidth;
+            w3 = w1 + rectHeight * width;
+            w4 = w3 + rectWidth;
+            rectsSum += (integralImage[w1] - integralImage[w2] - integralImage[w3] + integralImage[w4]) * rectWeight;
+            // TODO: Review the code below to analyze performance when using it instead.
+            // w1 = (rectLeft - 1) + (rectTop - 1) * width;
+            // w2 = (rectLeft + rectWidth - 1) + (rectTop + rectHeight - 1) * width;
+            // w3 = (rectLeft - 1) + (rectTop + rectHeight - 1) * width;
+            // w4 = (rectLeft + rectWidth - 1) + (rectTop - 1) * width;
+            // rectsSum += (integralImage[w1] + integralImage[w2] - integralImage[w3] - integralImage[w4]) * rectWeight;
+          }
+        }
+
+        var nodeThreshold = data[w++];
+        var nodeLeft = data[w++];
+        var nodeRight = data[w++];
+
+        if (rectsSum * inverseArea < nodeThreshold * standardDeviation) {
+          stageSum += nodeLeft;
+        } else {
+          stageSum += nodeRight;
+        }
+      }
+
+      if (stageSum < stageThreshold) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  /**
+   * Postprocess the detected sub-windows in order to combine overlapping
+   * detections into a single detection.
+   * @param {array} rects
+   * @return {array}
+   * @private
+   * @static
+   */
+  tracking.ViolaJones.mergeRectangles_ = function(rects) {
+    var disjointSet = new tracking.DisjointSet(rects.length);
+
+    for (var i = 0; i < rects.length; i++) {
+      var r1 = rects[i];
+      for (var j = 0; j < rects.length; j++) {
+        var r2 = rects[j];
+        if (tracking.Math.intersectRect(r1.x, r1.y, r1.x + r1.width, r1.y + r1.height, r2.x, r2.y, r2.x + r2.width, r2.y + r2.height)) {
+          var x1 = Math.max(r1.x, r2.x);
+          var y1 = Math.max(r1.y, r2.y);
+          var x2 = Math.min(r1.x + r1.width, r2.x + r2.width);
+          var y2 = Math.min(r1.y + r1.height, r2.y + r2.height);
+          var overlap = (x1 - x2) * (y1 - y2);
+          var area1 = (r1.width * r1.height);
+          var area2 = (r2.width * r2.height);
+
+          if ((overlap / (area1 * (area1 / area2)) >= this.REGIONS_OVERLAP) &&
+            (overlap / (area2 * (area1 / area2)) >= this.REGIONS_OVERLAP)) {
+            disjointSet.union(i, j);
+          }
+        }
+      }
+    }
+
+    var map = {};
+    for (var k = 0; k < disjointSet.length; k++) {
+      var rep = disjointSet.find(k);
+      if (!map[rep]) {
+        map[rep] = {
+          total: 1,
+          width: rects[k].width,
+          height: rects[k].height,
+          x: rects[k].x,
+          y: rects[k].y
+        };
+        continue;
+      }
+      map[rep].total++;
+      map[rep].width += rects[k].width;
+      map[rep].height += rects[k].height;
+      map[rep].x += rects[k].x;
+      map[rep].y += rects[k].y;
+    }
+
+    var result = [];
+    Object.keys(map).forEach(function(key) {
+      var rect = map[key];
+      result.push({
+        total: rect.total,
+        width: (rect.width / rect.total + 0.5) | 0,
+        height: (rect.height / rect.total + 0.5) | 0,
+        x: (rect.x / rect.total + 0.5) | 0,
+        y: (rect.y / rect.total + 0.5) | 0
+      });
+    });
+
+    return result;
+  };
+
+}());
+
+(function() {
+  /**
+   * Brief intends for "Binary Robust Independent Elementary Features".This
+   * method generates a binary string for each keypoint found by an extractor
+   * method.
+   * @static
+   * @constructor
+   */
+  tracking.Brief = {};
+
+  /**
+   * The set of binary tests is defined by the nd (x,y)-location pairs
+   * uniquely chosen during the initialization. Values could vary between N =
+   * 128,256,512. N=128 yield good compromises between speed, storage
+   * efficiency, and recognition rate.
+   * @type {number}
+   */
+  tracking.Brief.N = 512;
+
+  /**
+   * Caches coordinates values of (x,y)-location pairs uniquely chosen during
+   * the initialization.
+   * @type {Object.<number, Int32Array>}
+   * @private
+   * @static
+   */
+  tracking.Brief.randomImageOffsets_ = {};
+
+  /**
+   * Caches delta values of (x,y)-location pairs uniquely chosen during
+   * the initialization.
+   * @type {Int32Array}
+   * @private
+   * @static
+   */
+  tracking.Brief.randomWindowOffsets_ = null;
+
+  /**
+   * Generates a binary string for each found keypoints extracted using an
+   * extractor method.
+   * @param {array} The grayscale pixels in a linear [p1,p2,...] array.
+   * @param {number} width The image width.
+   * @param {array} keypoints
+   * @return {Int32Array} Returns an array where for each four sequence int
+   *     values represent the descriptor binary string (128 bits) necessary
+   *     to describe the corner, e.g. [0,0,0,0, 0,0,0,0, ...].
+   * @static
+   */
+  tracking.Brief.getDescriptors = function(pixels, width, keypoints) {
+    // Optimizing divide by 32 operation using binary shift
+    // (this.N >> 5) === this.N/32.
+    var descriptors = new Int32Array((keypoints.length >> 1) * (this.N >> 5));
+    var descriptorWord = 0;
+    var offsets = this.getRandomOffsets_(width);
+    var position = 0;
+
+    for (var i = 0; i < keypoints.length; i += 2) {
+      var w = width * keypoints[i + 1] + keypoints[i];
+
+      var offsetsPosition = 0;
+      for (var j = 0, n = this.N; j < n; j++) {
+        if (pixels[offsets[offsetsPosition++] + w] < pixels[offsets[offsetsPosition++] + w]) {
+          // The bit in the position `j % 32` of descriptorWord should be set to 1. We do
+          // this by making an OR operation with a binary number that only has the bit
+          // in that position set to 1. That binary number is obtained by shifting 1 left by
+          // `j % 32` (which is the same as `j & 31` left) positions.
+          descriptorWord |= 1 << (j & 31);
+        }
+
+        // If the next j is a multiple of 32, we will need to use a new descriptor word to hold
+        // the next results.
+        if (!((j + 1) & 31)) {
+          descriptors[position++] = descriptorWord;
+          descriptorWord = 0;
+        }
+      }
+    }
+
+    return descriptors;
+  };
+
+  /**
+   * Matches sets of features {mi} and {m′j} extracted from two images taken
+   * from similar, and often successive, viewpoints. A classical procedure
+   * runs as follows. For each point {mi} in the first image, search in a
+   * region of the second image around location {mi} for point {m′j}. The
+   * search is based on the similarity of the local image windows, also known
+   * as kernel windows, centered on the points, which strongly characterizes
+   * the points when the images are sufficiently close. Once each keypoint is
+   * described with its binary string, they need to be compared with the
+   * closest matching point. Distance metric is critical to the performance of
+   * in- trusion detection systems. Thus using binary strings reduces the size
+   * of the descriptor and provides an interesting data structure that is fast
+   * to operate whose similarity can be measured by the Hamming distance.
+   * @param {array} keypoints1
+   * @param {array} descriptors1
+   * @param {array} keypoints2
+   * @param {array} descriptors2
+   * @return {Int32Array} Returns an array where the index is the corner1
+   *     index coordinate, and the value is the corresponding match index of
+   *     corner2, e.g. keypoints1=[x0,y0,x1,y1,...] and
+   *     keypoints2=[x'0,y'0,x'1,y'1,...], if x0 matches x'1 and x1 matches x'0,
+   *     the return array would be [3,0].
+   * @static
+   */
+  tracking.Brief.match = function(keypoints1, descriptors1, keypoints2, descriptors2) {
+    var len1 = keypoints1.length >> 1;
+    var len2 = keypoints2.length >> 1;
+    var matches = new Array(len1);
+
+    for (var i = 0; i < len1; i++) {
+      var min = Infinity;
+      var minj = 0;
+      for (var j = 0; j < len2; j++) {
+        var dist = 0;
+        // Optimizing divide by 32 operation using binary shift
+        // (this.N >> 5) === this.N/32.
+        for (var k = 0, n = this.N >> 5; k < n; k++) {
+          dist += tracking.Math.hammingWeight(descriptors1[i * n + k] ^ descriptors2[j * n + k]);
+        }
+        if (dist < min) {
+          min = dist;
+          minj = j;
+        }
+      }
+      matches[i] = {
+        index1: i,
+        index2: minj,
+        keypoint1: [keypoints1[2 * i], keypoints1[2 * i + 1]],
+        keypoint2: [keypoints2[2 * minj], keypoints2[2 * minj + 1]],
+        confidence: 1 - min / this.N
+      };
+    }
+
+    return matches;
+  };
+
+  /**
+   * Removes matches outliers by testing matches on both directions.
+   * @param {array} keypoints1
+   * @param {array} descriptors1
+   * @param {array} keypoints2
+   * @param {array} descriptors2
+   * @return {Int32Array} Returns an array where the index is the corner1
+   *     index coordinate, and the value is the corresponding match index of
+   *     corner2, e.g. keypoints1=[x0,y0,x1,y1,...] and
+   *     keypoints2=[x'0,y'0,x'1,y'1,...], if x0 matches x'1 and x1 matches x'0,
+   *     the return array would be [3,0].
+   * @static
+   */
+  tracking.Brief.reciprocalMatch = function(keypoints1, descriptors1, keypoints2, descriptors2) {
+    var matches = [];
+    if (keypoints1.length === 0 || keypoints2.length === 0) {
+      return matches;
+    }
+
+    var matches1 = tracking.Brief.match(keypoints1, descriptors1, keypoints2, descriptors2);
+    var matches2 = tracking.Brief.match(keypoints2, descriptors2, keypoints1, descriptors1);
+    for (var i = 0; i < matches1.length; i++) {
+      if (matches2[matches1[i].index2].index2 === i) {
+        matches.push(matches1[i]);
+      }
+    }
+    return matches;
+  };
+
+  /**
+   * Gets the coordinates values of (x,y)-location pairs uniquely chosen
+   * during the initialization.
+   * @return {array} Array with the random offset values.
+   * @private
+   */
+  tracking.Brief.getRandomOffsets_ = function(width) {
+    if (!this.randomWindowOffsets_) {
+      var windowPosition = 0;
+      var windowOffsets = new Int32Array(4 * this.N);
+      for (var i = 0; i < this.N; i++) {
+        windowOffsets[windowPosition++] = Math.round(tracking.Math.uniformRandom(-15, 16));
+        windowOffsets[windowPosition++] = Math.round(tracking.Math.uniformRandom(-15, 16));
+        windowOffsets[windowPosition++] = Math.round(tracking.Math.uniformRandom(-15, 16));
+        windowOffsets[windowPosition++] = Math.round(tracking.Math.uniformRandom(-15, 16));
+      }
+      this.randomWindowOffsets_ = windowOffsets;
+    }
+
+    if (!this.randomImageOffsets_[width]) {
+      var imagePosition = 0;
+      var imageOffsets = new Int32Array(2 * this.N);
+      for (var j = 0; j < this.N; j++) {
+        imageOffsets[imagePosition++] = this.randomWindowOffsets_[4 * j] * width + this.randomWindowOffsets_[4 * j + 1];
+        imageOffsets[imagePosition++] = this.randomWindowOffsets_[4 * j + 2] * width + this.randomWindowOffsets_[4 * j + 3];
+      }
+      this.randomImageOffsets_[width] = imageOffsets;
+    }
+
+    return this.randomImageOffsets_[width];
+  };
+}());
+
+(function() {
+  /**
+   * FAST intends for "Features from Accelerated Segment Test". This method
+   * performs a point segment test corner detection. The segment test
+   * criterion operates by considering a circle of sixteen pixels around the
+   * corner candidate p. The detector classifies p as a corner if there exists
+   * a set of n contiguous pixelsin the circle which are all brighter than the
+   * intensity of the candidate pixel Ip plus a threshold t, or all darker
+   * than Ip − t.
+   *
+   *       15 00 01
+   *    14          02
+   * 13                03
+   * 12       []       04
+   * 11                05
+   *    10          06
+   *       09 08 07
+   *
+   * For more reference:
+   * http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.60.3991&rep=rep1&type=pdf
+   * @static
+   * @constructor
+   */
+  tracking.Fast = {};
+
+  /**
+   * Holds the threshold to determine whether the tested pixel is brighter or
+   * darker than the corner candidate p.
+   * @type {number}
+   * @default 40
+   * @static
+   */
+  tracking.Fast.THRESHOLD = 40;
+
+  /**
+   * Caches coordinates values of the circle surrounding the pixel candidate p.
+   * @type {Object.<number, Int32Array>}
+   * @private
+   * @static
+   */
+  tracking.Fast.circles_ = {};
+
+  /**
+   * Finds corners coordinates on the graysacaled image.
+   * @param {array} The grayscale pixels in a linear [p1,p2,...] array.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {number} threshold to determine whether the tested pixel is brighter or
+   *     darker than the corner candidate p. Default value is 40.
+   * @return {array} Array containing the coordinates of all found corners,
+   *     e.g. [x0,y0,x1,y1,...], where P(x0,y0) represents a corner coordinate.
+   * @static
+   */
+  tracking.Fast.findCorners = function(pixels, width, height, opt_threshold) {
+    var circleOffsets = this.getCircleOffsets_(width);
+    var circlePixels = new Int32Array(16);
+    var corners = [];
+
+    if (opt_threshold === undefined) {
+      opt_threshold = this.THRESHOLD;
+    }
+
+    // When looping through the image pixels, skips the first three lines from
+    // the image boundaries to constrain the surrounding circle inside the image
+    // area.
+    for (var i = 3; i < height - 3; i++) {
+      for (var j = 3; j < width - 3; j++) {
+        var w = i * width + j;
+        var p = pixels[w];
+
+        // Loops the circle offsets to read the pixel value for the sixteen
+        // surrounding pixels.
+        for (var k = 0; k < 16; k++) {
+          circlePixels[k] = pixels[w + circleOffsets[k]];
+        }
+
+        if (this.isCorner(p, circlePixels, opt_threshold)) {
+          // The pixel p is classified as a corner, as optimization increment j
+          // by the circle radius 3 to skip the neighbor pixels inside the
+          // surrounding circle. This can be removed without compromising the
+          // result.
+          corners.push(j, i);
+          j += 3;
+        }
+      }
+    }
+
+    return corners;
+  };
+
+  /**
+   * Checks if the circle pixel is brighter than the candidate pixel p by
+   * a threshold.
+   * @param {number} circlePixel The circle pixel value.
+   * @param {number} p The value of the candidate pixel p.
+   * @param {number} threshold
+   * @return {Boolean}
+   * @static
+   */
+  tracking.Fast.isBrighter = function(circlePixel, p, threshold) {
+    return circlePixel - p > threshold;
+  };
+
+  /**
+   * Checks if the circle pixel is within the corner of the candidate pixel p
+   * by a threshold.
+   * @param {number} p The value of the candidate pixel p.
+   * @param {number} circlePixel The circle pixel value.
+   * @param {number} threshold
+   * @return {Boolean}
+   * @static
+   */
+  tracking.Fast.isCorner = function(p, circlePixels, threshold) {
+    if (this.isTriviallyExcluded(circlePixels, p, threshold)) {
+      return false;
+    }
+
+    for (var x = 0; x < 16; x++) {
+      var darker = true;
+      var brighter = true;
+
+      for (var y = 0; y < 9; y++) {
+        var circlePixel = circlePixels[(x + y) & 15];
+
+        if (!this.isBrighter(p, circlePixel, threshold)) {
+          brighter = false;
+          if (darker === false) {
+            break;
+          }
+        }
+
+        if (!this.isDarker(p, circlePixel, threshold)) {
+          darker = false;
+          if (brighter === false) {
+            break;
+          }
+        }
+      }
+
+      if (brighter || darker) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  /**
+   * Checks if the circle pixel is darker than the candidate pixel p by
+   * a threshold.
+   * @param {number} circlePixel The circle pixel value.
+   * @param {number} p The value of the candidate pixel p.
+   * @param {number} threshold
+   * @return {Boolean}
+   * @static
+   */
+  tracking.Fast.isDarker = function(circlePixel, p, threshold) {
+    return p - circlePixel > threshold;
+  };
+
+  /**
+   * Fast check to test if the candidate pixel is a trivially excluded value.
+   * In order to be a corner, the candidate pixel value should be darker or
+   * brighter than 9-12 surrounding pixels, when at least three of the top,
+   * bottom, left and right pixels are brighter or darker it can be
+   * automatically excluded improving the performance.
+   * @param {number} circlePixel The circle pixel value.
+   * @param {number} p The value of the candidate pixel p.
+   * @param {number} threshold
+   * @return {Boolean}
+   * @static
+   * @protected
+   */
+  tracking.Fast.isTriviallyExcluded = function(circlePixels, p, threshold) {
+    var count = 0;
+    var circleBottom = circlePixels[8];
+    var circleLeft = circlePixels[12];
+    var circleRight = circlePixels[4];
+    var circleTop = circlePixels[0];
+
+    if (this.isBrighter(circleTop, p, threshold)) {
+      count++;
+    }
+    if (this.isBrighter(circleRight, p, threshold)) {
+      count++;
+    }
+    if (this.isBrighter(circleBottom, p, threshold)) {
+      count++;
+    }
+    if (this.isBrighter(circleLeft, p, threshold)) {
+      count++;
+    }
+
+    if (count < 3) {
+      count = 0;
+      if (this.isDarker(circleTop, p, threshold)) {
+        count++;
+      }
+      if (this.isDarker(circleRight, p, threshold)) {
+        count++;
+      }
+      if (this.isDarker(circleBottom, p, threshold)) {
+        count++;
+      }
+      if (this.isDarker(circleLeft, p, threshold)) {
+        count++;
+      }
+      if (count < 3) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  /**
+   * Gets the sixteen offset values of the circle surrounding pixel.
+   * @param {number} width The image width.
+   * @return {array} Array with the sixteen offset values of the circle
+   *     surrounding pixel.
+   * @private
+   */
+  tracking.Fast.getCircleOffsets_ = function(width) {
+    if (this.circles_[width]) {
+      return this.circles_[width];
+    }
+
+    var circle = new Int32Array(16);
+
+    circle[0] = -width - width - width;
+    circle[1] = circle[0] + 1;
+    circle[2] = circle[1] + width + 1;
+    circle[3] = circle[2] + width + 1;
+    circle[4] = circle[3] + width;
+    circle[5] = circle[4] + width;
+    circle[6] = circle[5] + width - 1;
+    circle[7] = circle[6] + width - 1;
+    circle[8] = circle[7] - 1;
+    circle[9] = circle[8] - 1;
+    circle[10] = circle[9] - width - 1;
+    circle[11] = circle[10] - width - 1;
+    circle[12] = circle[11] - width;
+    circle[13] = circle[12] - width;
+    circle[14] = circle[13] - width + 1;
+    circle[15] = circle[14] - width + 1;
+
+    this.circles_[width] = circle;
+    return circle;
+  };
+}());
+
+(function() {
+  /**
+   * Math utility.
+   * @static
+   * @constructor
+   */
+  tracking.Math = {};
+
+  /**
+   * Euclidean distance between two points P(x0, y0) and P(x1, y1).
+   * @param {number} x0 Horizontal coordinate of P0.
+   * @param {number} y0 Vertical coordinate of P0.
+   * @param {number} x1 Horizontal coordinate of P1.
+   * @param {number} y1 Vertical coordinate of P1.
+   * @return {number} The euclidean distance.
+   */
+  tracking.Math.distance = function(x0, y0, x1, y1) {
+    var dx = x1 - x0;
+    var dy = y1 - y0;
+
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  /**
+   * Calculates the Hamming weight of a string, which is the number of symbols that are
+   * different from the zero-symbol of the alphabet used. It is thus
+   * equivalent to the Hamming distance from the all-zero string of the same
+   * length. For the most typical case, a string of bits, this is the number
+   * of 1's in the string.
+   *
+   * Example:
+   *
+   * <pre>
+   *  Binary string     Hamming weight
+   *   11101                 4
+   *   11101010              5
+   * </pre>
+   *
+   * @param {number} i Number that holds the binary string to extract the hamming weight.
+   * @return {number} The hamming weight.
+   */
+  tracking.Math.hammingWeight = function(i) {
+    i = i - ((i >> 1) & 0x55555555);
+    i = (i & 0x33333333) + ((i >> 2) & 0x33333333);
+
+    return ((i + (i >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
+  };
+
+  /**
+   * Generates a random number between [a, b] interval.
+   * @param {number} a
+   * @param {number} b
+   * @return {number}
+   */
+  tracking.Math.uniformRandom = function(a, b) {
+    return a + Math.random() * (b - a);
+  };
+
+  /**
+   * Tests if a rectangle intersects with another.
+   *
+   *  <pre>
+   *  x0y0 --------       x2y2 --------
+   *      |       |           |       |
+   *      -------- x1y1       -------- x3y3
+   * </pre>
+   *
+   * @param {number} x0 Horizontal coordinate of P0.
+   * @param {number} y0 Vertical coordinate of P0.
+   * @param {number} x1 Horizontal coordinate of P1.
+   * @param {number} y1 Vertical coordinate of P1.
+   * @param {number} x2 Horizontal coordinate of P2.
+   * @param {number} y2 Vertical coordinate of P2.
+   * @param {number} x3 Horizontal coordinate of P3.
+   * @param {number} y3 Vertical coordinate of P3.
+   * @return {boolean}
+   */
+  tracking.Math.intersectRect = function(x0, y0, x1, y1, x2, y2, x3, y3) {
+    return !(x2 > x1 || x3 < x0 || y2 > y1 || y3 < y0);
+  };
+
+}());
+
+(function() {
+  /**
+   * Matrix utility.
+   * @static
+   * @constructor
+   */
+  tracking.Matrix = {};
+
+  /**
+   * Loops the array organized as major-row order and executes `fn` callback
+   * for each iteration. The `fn` callback receives the following parameters:
+   * `(r,g,b,a,index,i,j)`, where `r,g,b,a` represents the pixel color with
+   * alpha channel, `index` represents the position in the major-row order
+   * array and `i,j` the respective indexes positions in two dimensions.
+   * @param {array} pixels The pixels in a linear [r,g,b,a,...] array to loop
+   *     through.
+   * @param {number} width The image width.
+   * @param {number} height The image height.
+   * @param {function} fn The callback function for each pixel.
+   * @param {number} opt_jump Optional jump for the iteration, by default it
+   *     is 1, hence loops all the pixels of the array.
+   * @static
+   */
+  tracking.Matrix.forEach = function(pixels, width, height, fn, opt_jump) {
+    opt_jump = opt_jump || 1;
+    for (var i = 0; i < height; i += opt_jump) {
+      for (var j = 0; j < width; j += opt_jump) {
+        var w = i * width * 4 + j * 4;
+        fn.call(this, pixels[w], pixels[w + 1], pixels[w + 2], pixels[w + 3], w, i, j);
+      }
+    }
+  };
+
+}());
+
+(function() {
+  /**
+   * EPnp utility.
+   * @static
+   * @constructor
+   */
+  tracking.EPnP = {};
+
+  tracking.EPnP.solve = function(objectPoints, imagePoints, cameraMatrix) {};
+}());
+
+(function() {
+  /**
+   * Tracker utility.
+   * @constructor
+   * @extends {tracking.EventEmitter}
+   */
+  tracking.Tracker = function() {
+    tracking.Tracker.base(this, 'constructor');
+  };
+
+  tracking.inherits(tracking.Tracker, tracking.EventEmitter);
+
+  /**
+   * Tracks the pixels on the array. This method is called for each video
+   * frame in order to emit `track` event.
+   * @param {Uint8ClampedArray} pixels The pixels data to track.
+   * @param {number} width The pixels canvas width.
+   * @param {number} height The pixels canvas height.
+   */
+  tracking.Tracker.prototype.track = function() {};
+}());
+
+(function() {
+  /**
+   * TrackerTask utility.
+   * @constructor
+   * @extends {tracking.EventEmitter}
+   */
+  tracking.TrackerTask = function(tracker) {
+    tracking.TrackerTask.base(this, 'constructor');
+
+    if (!tracker) {
+      throw new Error('Tracker instance not specified.');
+    }
+
+    this.setTracker(tracker);
+  };
+
+  tracking.inherits(tracking.TrackerTask, tracking.EventEmitter);
+
+  /**
+   * Holds the tracker instance managed by this task.
+   * @type {tracking.Tracker}
+   * @private
+   */
+  tracking.TrackerTask.prototype.tracker_ = null;
+
+  /**
+   * Holds if the tracker task is in running.
+   * @type {boolean}
+   * @private
+   */
+  tracking.TrackerTask.prototype.running_ = false;
+
+  /**
+   * Gets the tracker instance managed by this task.
+   * @return {tracking.Tracker}
+   */
+  tracking.TrackerTask.prototype.getTracker = function() {
+    return this.tracker_;
+  };
+
+  /**
+   * Returns true if the tracker task is in running, false otherwise.
+   * @return {boolean}
+   * @private
+   */
+  tracking.TrackerTask.prototype.inRunning = function() {
+    return this.running_;
+  };
+
+  /**
+   * Sets if the tracker task is in running.
+   * @param {boolean} running
+   * @private
+   */
+  tracking.TrackerTask.prototype.setRunning = function(running) {
+    this.running_ = running;
+  };
+
+  /**
+   * Sets the tracker instance managed by this task.
+   * @return {tracking.Tracker}
+   */
+  tracking.TrackerTask.prototype.setTracker = function(tracker) {
+    this.tracker_ = tracker;
+  };
+
+  /**
+   * Emits a `run` event on the tracker task for the implementers to run any
+   * child action, e.g. `requestAnimationFrame`.
+   * @return {object} Returns itself, so calls can be chained.
+   */
+  tracking.TrackerTask.prototype.run = function() {
+    var self = this;
+
+    if (this.inRunning()) {
+      return;
+    }
+
+    this.setRunning(true);
+    this.reemitTrackEvent_ = function(event) {
+      self.emit('track', event);
+    };
+    this.tracker_.on('track', this.reemitTrackEvent_);
+    this.emit('run');
+    return this;
+  };
+
+  /**
+   * Emits a `stop` event on the tracker task for the implementers to stop any
+   * child action being done, e.g. `requestAnimationFrame`.
+   * @return {object} Returns itself, so calls can be chained.
+   */
+  tracking.TrackerTask.prototype.stop = function() {
+    if (!this.inRunning()) {
+      return;
+    }
+
+    this.setRunning(false);
+    this.emit('stop');
+    this.tracker_.removeListener('track', this.reemitTrackEvent_);
+    return this;
+  };
+}());
+
+(function() {
+  /**
+   * ColorTracker utility to track colored blobs in a frame using color
+   * difference evaluation.
+   * @constructor
+   * @param {string|Array.<string>} opt_colors Optional colors to track.
+   * @extends {tracking.Tracker}
+   */
+  tracking.ColorTracker = function(opt_colors) {
+    tracking.ColorTracker.base(this, 'constructor');
+
+    if (typeof opt_colors === 'string') {
+      opt_colors = [opt_colors];
+    }
+
+    if (opt_colors) {
+      opt_colors.forEach(function(color) {
+        if (!tracking.ColorTracker.getColor(color)) {
+          throw new Error('Color not valid, try `new tracking.ColorTracker("magenta")`.');
+        }
+      });
+      this.setColors(opt_colors);
+    }
+  };
+
+  tracking.inherits(tracking.ColorTracker, tracking.Tracker);
+
+  /**
+   * Holds the known colors.
+   * @type {Object.<string, function>}
+   * @private
+   * @static
+   */
+  tracking.ColorTracker.knownColors_ = {};
+
+  /**
+   * Caches coordinates values of the neighbours surrounding a pixel.
+   * @type {Object.<number, Int32Array>}
+   * @private
+   * @static
+   */
+  tracking.ColorTracker.neighbours_ = {};
+
+  /**
+   * Registers a color as known color.
+   * @param {string} name The color name.
+   * @param {function} fn The color function to test if the passed (r,g,b) is
+   *     the desired color.
+   * @static
+   */
+  tracking.ColorTracker.registerColor = function(name, fn) {
+    tracking.ColorTracker.knownColors_[name] = fn;
+  };
+
+  /**
+   * Gets the known color function that is able to test whether an (r,g,b) is
+   * the desired color.
+   * @param {string} name The color name.
+   * @return {function} The known color test function.
+   * @static
+   */
+  tracking.ColorTracker.getColor = function(name) {
+    return tracking.ColorTracker.knownColors_[name];
+  };
+
+  /**
+   * Holds the colors to be tracked by the `ColorTracker` instance.
+   * @default ['magenta']
+   * @type {Array.<string>}
+   */
+  tracking.ColorTracker.prototype.colors = ['magenta'];
+
+  /**
+   * Holds the minimum dimension to classify a rectangle.
+   * @default 20
+   * @type {number}
+   */
+  tracking.ColorTracker.prototype.minDimension = 20;
+
+  /**
+   * Holds the maximum dimension to classify a rectangle.
+   * @default Infinity
+   * @type {number}
+   */
+  tracking.ColorTracker.prototype.maxDimension = Infinity;
+
+
+  /**
+   * Holds the minimum group size to be classified as a rectangle.
+   * @default 30
+   * @type {number}
+   */
+  tracking.ColorTracker.prototype.minGroupSize = 30;
+
+  /**
+   * Calculates the central coordinate from the cloud points. The cloud points
+   * are all points that matches the desired color.
+   * @param {Array.<number>} cloud Major row order array containing all the
+   *     points from the desired color, e.g. [x1, y1, c2, y2, ...].
+   * @param {number} total Total numbers of pixels of the desired color.
+   * @return {object} Object containing the x, y and estimated z coordinate of
+   *     the blog extracted from the cloud points.
+   * @private
+   */
+  tracking.ColorTracker.prototype.calculateDimensions_ = function(cloud, total) {
+    var maxx = -1;
+    var maxy = -1;
+    var minx = Infinity;
+    var miny = Infinity;
+
+    for (var c = 0; c < total; c += 2) {
+      var x = cloud[c];
+      var y = cloud[c + 1];
+
+      if (x < minx) {
+        minx = x;
+      }
+      if (x > maxx) {
+        maxx = x;
+      }
+      if (y < miny) {
+        miny = y;
+      }
+      if (y > maxy) {
+        maxy = y;
+      }
+    }
+
+    return {
+      width: maxx - minx,
+      height: maxy - miny,
+      x: minx,
+      y: miny
+    };
+  };
+
+  /**
+   * Gets the colors being tracked by the `ColorTracker` instance.
+   * @return {Array.<string>}
+   */
+  tracking.ColorTracker.prototype.getColors = function() {
+    return this.colors;
+  };
+
+  /**
+   * Gets the minimum dimension to classify a rectangle.
+   * @return {number}
+   */
+  tracking.ColorTracker.prototype.getMinDimension = function() {
+    return this.minDimension;
+  };
+
+  /**
+   * Gets the maximum dimension to classify a rectangle.
+   * @return {number}
+   */
+  tracking.ColorTracker.prototype.getMaxDimension = function() {
+    return this.maxDimension;
+  };
+
+  /**
+   * Gets the minimum group size to be classified as a rectangle.
+   * @return {number}
+   */
+  tracking.ColorTracker.prototype.getMinGroupSize = function() {
+    return this.minGroupSize;
+  };
+
+  /**
+   * Gets the eight offset values of the neighbours surrounding a pixel.
+   * @param {number} width The image width.
+   * @return {array} Array with the eight offset values of the neighbours
+   *     surrounding a pixel.
+   * @private
+   */
+  tracking.ColorTracker.prototype.getNeighboursForWidth_ = function(width) {
+    if (tracking.ColorTracker.neighbours_[width]) {
+      return tracking.ColorTracker.neighbours_[width];
+    }
+
+    var neighbours = new Int32Array(8);
+
+    neighbours[0] = -width * 4;
+    neighbours[1] = -width * 4 + 4;
+    neighbours[2] = 4;
+    neighbours[3] = width * 4 + 4;
+    neighbours[4] = width * 4;
+    neighbours[5] = width * 4 - 4;
+    neighbours[6] = -4;
+    neighbours[7] = -width * 4 - 4;
+
+    tracking.ColorTracker.neighbours_[width] = neighbours;
+
+    return neighbours;
+  };
+
+  /**
+   * Unites groups whose bounding box intersect with each other.
+   * @param {Array.<Object>} rects
+   * @private
+   */
+  tracking.ColorTracker.prototype.mergeRectangles_ = function(rects) {
+    var intersects;
+    var results = [];
+    var minDimension = this.getMinDimension();
+    var maxDimension = this.getMaxDimension();
+
+    for (var r = 0; r < rects.length; r++) {
+      var r1 = rects[r];
+      intersects = true;
+      for (var s = r + 1; s < rects.length; s++) {
+        var r2 = rects[s];
+        if (tracking.Math.intersectRect(r1.x, r1.y, r1.x + r1.width, r1.y + r1.height, r2.x, r2.y, r2.x + r2.width, r2.y + r2.height)) {
+          intersects = false;
+          var x1 = Math.min(r1.x, r2.x);
+          var y1 = Math.min(r1.y, r2.y);
+          var x2 = Math.max(r1.x + r1.width, r2.x + r2.width);
+          var y2 = Math.max(r1.y + r1.height, r2.y + r2.height);
+          r2.height = y2 - y1;
+          r2.width = x2 - x1;
+          r2.x = x1;
+          r2.y = y1;
+          break;
+        }
+      }
+
+      if (intersects) {
+        if (r1.width >= minDimension && r1.height >= minDimension) {
+          if (r1.width <= maxDimension && r1.height <= maxDimension) {
+            results.push(r1);
+          }
+        }
+      }
+    }
+
+    return results;
+  };
+
+  /**
+   * Sets the colors to be tracked by the `ColorTracker` instance.
+   * @param {Array.<string>} colors
+   */
+  tracking.ColorTracker.prototype.setColors = function(colors) {
+    this.colors = colors;
+  };
+
+  /**
+   * Sets the minimum dimension to classify a rectangle.
+   * @param {number} minDimension
+   */
+  tracking.ColorTracker.prototype.setMinDimension = function(minDimension) {
+    this.minDimension = minDimension;
+  };
+
+  /**
+   * Sets the maximum dimension to classify a rectangle.
+   * @param {number} maxDimension
+   */
+  tracking.ColorTracker.prototype.setMaxDimension = function(maxDimension) {
+    this.maxDimension = maxDimension;
+  };
+
+  /**
+   * Sets the minimum group size to be classified as a rectangle.
+   * @param {number} minGroupSize
+   */
+  tracking.ColorTracker.prototype.setMinGroupSize = function(minGroupSize) {
+    this.minGroupSize = minGroupSize;
+  };
+
+  /**
+   * Tracks the `Video` frames. This method is called for each video frame in
+   * order to emit `track` event.
+   * @param {Uint8ClampedArray} pixels The pixels data to track.
+   * @param {number} width The pixels canvas width.
+   * @param {number} height The pixels canvas height.
+   */
+  tracking.ColorTracker.prototype.track = function(pixels, width, height) {
+    var self = this;
+    var colors = this.getColors();
+
+    if (!colors) {
+      throw new Error('Colors not specified, try `new tracking.ColorTracker("magenta")`.');
+    }
+
+    var results = [];
+
+    colors.forEach(function(color) {
+      results = results.concat(self.trackColor_(pixels, width, height, color));
+    });
+
+    this.emit('track', {
+      data: results
+    });
+  };
+
+  /**
+   * Find the given color in the given matrix of pixels using Flood fill
+   * algorithm to determines the area connected to a given node in a
+   * multi-dimensional array.
+   * @param {Uint8ClampedArray} pixels The pixels data to track.
+   * @param {number} width The pixels canvas width.
+   * @param {number} height The pixels canvas height.
+   * @param {string} color The color to be found
+   * @private
+   */
+  tracking.ColorTracker.prototype.trackColor_ = function(pixels, width, height, color) {
+    var colorFn = tracking.ColorTracker.knownColors_[color];
+    var currGroup = new Int32Array(pixels.length >> 2);
+    var currGroupSize;
+    var currI;
+    var currJ;
+    var currW;
+    var marked = new Int8Array(pixels.length);
+    var minGroupSize = this.getMinGroupSize();
+    var neighboursW = this.getNeighboursForWidth_(width);
+    var queue = new Int32Array(pixels.length);
+    var queuePosition;
+    var results = [];
+    var w = -4;
+
+    if (!colorFn) {
+      return results;
+    }
+
+    for (var i = 0; i < height; i++) {
+      for (var j = 0; j < width; j++) {
+        w += 4;
+
+        if (marked[w]) {
+          continue;
+        }
+
+        currGroupSize = 0;
+
+        queuePosition = -1;
+        queue[++queuePosition] = w;
+        queue[++queuePosition] = i;
+        queue[++queuePosition] = j;
+
+        marked[w] = 1;
+
+        while (queuePosition >= 0) {
+          currJ = queue[queuePosition--];
+          currI = queue[queuePosition--];
+          currW = queue[queuePosition--];
+
+          if (colorFn(pixels[currW], pixels[currW + 1], pixels[currW + 2], pixels[currW + 3], currW, currI, currJ)) {
+            currGroup[currGroupSize++] = currJ;
+            currGroup[currGroupSize++] = currI;
+
+            for (var k = 0; k < neighboursW.length; k++) {
+              var otherW = currW + neighboursW[k];
+              var otherI = currI + neighboursI[k];
+              var otherJ = currJ + neighboursJ[k];
+              if (!marked[otherW] && otherI >= 0 && otherI < height && otherJ >= 0 && otherJ < width) {
+                queue[++queuePosition] = otherW;
+                queue[++queuePosition] = otherI;
+                queue[++queuePosition] = otherJ;
+
+                marked[otherW] = 1;
+              }
+            }
+          }
+        }
+
+        if (currGroupSize >= minGroupSize) {
+          var data = this.calculateDimensions_(currGroup, currGroupSize);
+          if (data) {
+            data.color = color;
+            results.push(data);
+          }
+        }
+      }
+    }
+
+    return this.mergeRectangles_(results);
+  };
+
+  // Default colors
+  //===================
+
+  tracking.ColorTracker.registerColor('cyan', function(r, g, b) {
+    var thresholdGreen = 50,
+      thresholdBlue = 70,
+      dx = r - 0,
+      dy = g - 255,
+      dz = b - 255;
+
+    if ((g - r) >= thresholdGreen && (b - r) >= thresholdBlue) {
+      return true;
+    }
+    return dx * dx + dy * dy + dz * dz < 6400;
+  });
+
+  tracking.ColorTracker.registerColor('magenta', function(r, g, b) {
+    var threshold = 50,
+      dx = r - 255,
+      dy = g - 0,
+      dz = b - 255;
+
+    if ((r - g) >= threshold && (b - g) >= threshold) {
+      return true;
+    }
+    return dx * dx + dy * dy + dz * dz < 19600;
+  });
+
+  tracking.ColorTracker.registerColor('yellow', function(r, g, b) {
+    var threshold = 50,
+      dx = r - 255,
+      dy = g - 255,
+      dz = b - 0;
+
+    if ((r - b) >= threshold && (g - b) >= threshold) {
+      return true;
+    }
+    return dx * dx + dy * dy + dz * dz < 10000;
+  });
+
+
+  // Caching neighbour i/j offset values.
+  //=====================================
+  var neighboursI = new Int32Array([-1, -1, 0, 1, 1, 1, 0, -1]);
+  var neighboursJ = new Int32Array([0, 1, 1, 1, 0, -1, -1, -1]);
+}());
+
+(function() {
+  /**
+   * ObjectTracker utility.
+   * @constructor
+   * @param {string|Array.<string|Array.<number>>} opt_classifiers Optional
+   *     object classifiers to track.
+   * @extends {tracking.Tracker}
+   */
+  tracking.ObjectTracker = function(opt_classifiers) {
+    tracking.ObjectTracker.base(this, 'constructor');
+
+    if (opt_classifiers) {
+      if (!Array.isArray(opt_classifiers)) {
+        opt_classifiers = [opt_classifiers];
+      }
+
+      if (Array.isArray(opt_classifiers)) {
+        opt_classifiers.forEach(function(classifier, i) {
+          if (typeof classifier === 'string') {
+            opt_classifiers[i] = tracking.ViolaJones.classifiers[classifier];
+          }
+          if (!opt_classifiers[i]) {
+            throw new Error('Object classifier not valid, try `new tracking.ObjectTracker("face")`.');
+          }
+        });
+      }
+    }
+
+    this.setClassifiers(opt_classifiers);
+  };
+
+  tracking.inherits(tracking.ObjectTracker, tracking.Tracker);
+
+  /**
+   * Specifies the edges density of a block in order to decide whether to skip
+   * it or not.
+   * @default 0.2
+   * @type {number}
+   */
+  tracking.ObjectTracker.prototype.edgesDensity = 0.2;
+
+  /**
+   * Specifies the initial scale to start the feature block scaling.
+   * @default 1.0
+   * @type {number}
+   */
+  tracking.ObjectTracker.prototype.initialScale = 1.0;
+
+  /**
+   * Specifies the scale factor to scale the feature block.
+   * @default 1.25
+   * @type {number}
+   */
+  tracking.ObjectTracker.prototype.scaleFactor = 1.25;
+
+  /**
+   * Specifies the block step size.
+   * @default 1.5
+   * @type {number}
+   */
+  tracking.ObjectTracker.prototype.stepSize = 1.5;
+
+  /**
+   * Gets the tracker HAAR classifiers.
+   * @return {TypedArray.<number>}
+   */
+  tracking.ObjectTracker.prototype.getClassifiers = function() {
+    return this.classifiers;
+  };
+
+  /**
+   * Gets the edges density value.
+   * @return {number}
+   */
+  tracking.ObjectTracker.prototype.getEdgesDensity = function() {
+    return this.edgesDensity;
+  };
+
+  /**
+   * Gets the initial scale to start the feature block scaling.
+   * @return {number}
+   */
+  tracking.ObjectTracker.prototype.getInitialScale = function() {
+    return this.initialScale;
+  };
+
+  /**
+   * Gets the scale factor to scale the feature block.
+   * @return {number}
+   */
+  tracking.ObjectTracker.prototype.getScaleFactor = function() {
+    return this.scaleFactor;
+  };
+
+  /**
+   * Gets the block step size.
+   * @return {number}
+   */
+  tracking.ObjectTracker.prototype.getStepSize = function() {
+    return this.stepSize;
+  };
+
+  /**
+   * Tracks the `Video` frames. This method is called for each video frame in
+   * order to emit `track` event.
+   * @param {Uint8ClampedArray} pixels The pixels data to track.
+   * @param {number} width The pixels canvas width.
+   * @param {number} height The pixels canvas height.
+   */
+  tracking.ObjectTracker.prototype.track = function(pixels, width, height) {
+    var self = this;
+    var classifiers = this.getClassifiers();
+
+    if (!classifiers) {
+      throw new Error('Object classifier not specified, try `new tracking.ObjectTracker("face")`.');
+    }
+
+    var results = [];
+
+    classifiers.forEach(function(classifier) {
+      results = results.concat(tracking.ViolaJones.detect(pixels, width, height, self.getInitialScale(), self.getScaleFactor(), self.getStepSize(), self.getEdgesDensity(), classifier));
+    });
+
+    this.emit('track', {
+      data: results
+    });
+  };
+
+  /**
+   * Sets the tracker HAAR classifiers.
+   * @param {TypedArray.<number>} classifiers
+   */
+  tracking.ObjectTracker.prototype.setClassifiers = function(classifiers) {
+    this.classifiers = classifiers;
+  };
+
+  /**
+   * Sets the edges density.
+   * @param {number} edgesDensity
+   */
+  tracking.ObjectTracker.prototype.setEdgesDensity = function(edgesDensity) {
+    this.edgesDensity = edgesDensity;
+  };
+
+  /**
+   * Sets the initial scale to start the block scaling.
+   * @param {number} initialScale
+   */
+  tracking.ObjectTracker.prototype.setInitialScale = function(initialScale) {
+    this.initialScale = initialScale;
+  };
+
+  /**
+   * Sets the scale factor to scale the feature block.
+   * @param {number} scaleFactor
+   */
+  tracking.ObjectTracker.prototype.setScaleFactor = function(scaleFactor) {
+    this.scaleFactor = scaleFactor;
+  };
+
+  /**
+   * Sets the block step size.
+   * @param {number} stepSize
+   */
+  tracking.ObjectTracker.prototype.setStepSize = function(stepSize) {
+    this.stepSize = stepSize;
+  };
+
+}());
+
+
+/***/ }),
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * URI.js - Mutating URLs
  *
- * Version: 1.18.9
+ * Version: 1.18.10
  *
  * Author: Rodney Rehm
  * Web: http://medialize.github.io/URI.js/
@@ -37032,7 +39528,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this;
   }
 
-  URI.version = '1.18.9';
+  URI.version = '1.18.10';
 
   var p = URI.prototype;
   var hasOwn = Object.prototype.hasOwnProperty;
@@ -39210,17 +41706,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 171 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Url", function() { return Url; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Http", function() { return Http; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Resource", function() { return Resource; });
 /*!
- * vue-resource v1.2.1
+ * vue-resource v1.3.1
  * https://github.com/pagekit/vue-resource
  * Released under the MIT License.
  */
-
-
 
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
@@ -39869,7 +42367,15 @@ function Url(url, params) {
     options$$1 = merge({}, Url.options, self.$options, options$$1);
 
     Url.transforms.forEach(function (handler) {
-        transform = factory(handler, transform, self.$vm);
+
+        if (isString(handler)) {
+            handler = Url.transform[handler];
+        }
+
+        if (isFunction(handler)) {
+            transform = factory(handler, transform, self.$vm);
+        }
+
     });
 
     return transform(options$$1);
@@ -39889,7 +42395,8 @@ Url.options = {
  * Url transforms.
  */
 
-Url.transforms = [template, query, root];
+Url.transform = {template: template, query: query, root: root};
+Url.transforms = ['template', 'query', 'root'];
 
 /**
  * Encodes a Url parameter string.
@@ -40224,8 +42731,6 @@ var header = function (request, next) {
  * XMLHttp client (Browser).
  */
 
-var SUPPORTS_BLOB = typeof Blob !== 'undefined' && typeof FileReader !== 'undefined';
-
 var xhrClient = function (request) {
     return new PromiseObj(function (resolve) {
 
@@ -40261,16 +42766,16 @@ var xhrClient = function (request) {
             xhr.timeout = request.timeout;
         }
 
-        if (request.credentials === true) {
+        if (request.responseType && 'responseType' in xhr) {
+            xhr.responseType = request.responseType;
+        }
+
+        if (request.withCredentials || request.credentials) {
             xhr.withCredentials = true;
         }
 
         if (!request.crossOrigin) {
             request.headers.set('X-Requested-With', 'XMLHttpRequest');
-        }
-
-        if ('responseType' in xhr && SUPPORTS_BLOB) {
-            xhr.responseType = 'blob';
         }
 
         request.headers.forEach(function (value, name) {
@@ -40291,7 +42796,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(172);
+    var client = __webpack_require__(173);
 
     return new PromiseObj(function (resolve) {
 
@@ -40569,7 +43074,15 @@ function Http(options$$1) {
     defaults(options$$1 || {}, self.$options, Http.options);
 
     Http.interceptors.forEach(function (handler) {
-        client.use(handler);
+
+        if (isString(handler)) {
+            handler = Http.interceptor[handler];
+        }
+
+        if (isFunction(handler)) {
+            client.use(handler);
+        }
+
     });
 
     return client(new Request(options$$1)).then(function (response) {
@@ -40597,7 +43110,8 @@ Http.headers = {
     custom: {}
 };
 
-Http.interceptors = [before, method, body, jsonp, header, cors];
+Http.interceptor = {before: before, method: method, body: body, jsonp: jsonp, header: header, cors: cors};
+Http.interceptors = ['before', 'method', 'body', 'jsonp', 'header', 'cors'];
 
 ['get', 'delete', 'head', 'jsonp'].forEach(function (method$$1) {
 
@@ -40741,16 +43255,17 @@ if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(plugin);
 }
 
-module.exports = plugin;
+/* harmony default export */ __webpack_exports__["default"] = (plugin);
+
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process, global) {/*!
- * Vue.js v2.2.6
+ * Vue.js v2.3.2
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -40758,10 +43273,54 @@ module.exports = plugin;
 
 /*  */
 
+// these helpers produces better vm code in JS engines due to their
+// explicitness and function inlining
+function isUndef (v) {
+  return v === undefined || v === null
+}
+
+function isDef (v) {
+  return v !== undefined && v !== null
+}
+
+function isTrue (v) {
+  return v === true
+}
+
+/**
+ * Check if value is primitive
+ */
+function isPrimitive (value) {
+  return typeof value === 'string' || typeof value === 'number'
+}
+
+/**
+ * Quick object check - this is primarily used to tell
+ * Objects from primitive values when we know the value
+ * is a JSON-compliant type.
+ */
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+var _toString = Object.prototype.toString;
+
+/**
+ * Strict object type check. Only returns true
+ * for plain JavaScript objects.
+ */
+function isPlainObject (obj) {
+  return _toString.call(obj) === '[object Object]'
+}
+
+function isRegExp (v) {
+  return _toString.call(v) === '[object RegExp]'
+}
+
 /**
  * Convert a value to a string that is actually rendered.
  */
-function _toString (val) {
+function toString (val) {
   return val == null
     ? ''
     : typeof val === 'object'
@@ -40819,13 +43378,6 @@ function remove (arr, item) {
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 function hasOwn (obj, key) {
   return hasOwnProperty.call(obj, key)
-}
-
-/**
- * Check if value is primitive
- */
-function isPrimitive (value) {
-  return typeof value === 'string' || typeof value === 'number'
 }
 
 /**
@@ -40906,25 +43458,6 @@ function extend (to, _from) {
 }
 
 /**
- * Quick object check - this is primarily used to tell
- * Objects from primitive values when we know the value
- * is a JSON-compliant type.
- */
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-/**
- * Strict object type check. Only returns true
- * for plain JavaScript objects.
- */
-var toString = Object.prototype.toString;
-var OBJECT_STRING = '[object Object]';
-function isPlainObject (obj) {
-  return toString.call(obj) === OBJECT_STRING
-}
-
-/**
  * Merge an Array of Objects into a single Object.
  */
 function toObject (arr) {
@@ -40997,14 +43530,35 @@ function once (fn) {
   return function () {
     if (!called) {
       called = true;
-      fn();
+      fn.apply(this, arguments);
     }
   }
 }
 
+var SSR_ATTR = 'data-server-rendered';
+
+var ASSET_TYPES = [
+  'component',
+  'directive',
+  'filter'
+];
+
+var LIFECYCLE_HOOKS = [
+  'beforeCreate',
+  'created',
+  'beforeMount',
+  'mounted',
+  'beforeUpdate',
+  'updated',
+  'beforeDestroy',
+  'destroyed',
+  'activated',
+  'deactivated'
+];
+
 /*  */
 
-var config = {
+var config = ({
   /**
    * Option merge strategies (used in core/util/options)
    */
@@ -41052,6 +43606,12 @@ var config = {
   isReservedTag: no,
 
   /**
+   * Check if an attribute is reserved so that it cannot be used as a component
+   * prop. This is platform-dependent and may be overwritten.
+   */
+  isReservedAttr: no,
+
+  /**
    * Check if a tag is an unknown element.
    * Platform-dependent.
    */
@@ -41074,35 +43634,10 @@ var config = {
   mustUseProp: no,
 
   /**
-   * List of asset types that a component can own.
+   * Exposed for legacy reasons
    */
-  _assetTypes: [
-    'component',
-    'directive',
-    'filter'
-  ],
-
-  /**
-   * List of lifecycle hooks.
-   */
-  _lifecycleHooks: [
-    'beforeCreate',
-    'created',
-    'beforeMount',
-    'mounted',
-    'beforeUpdate',
-    'updated',
-    'beforeDestroy',
-    'destroyed',
-    'activated',
-    'deactivated'
-  ],
-
-  /**
-   * Max circular updates allowed in a scheduler flush cycle.
-   */
-  _maxUpdateCount: 100
-};
+  _lifecycleHooks: LIFECYCLE_HOOKS
+});
 
 /*  */
 
@@ -41147,6 +43682,117 @@ function parsePath (path) {
 }
 
 /*  */
+
+var warn = noop;
+var tip = noop;
+var formatComponentName = (null); // work around flow check
+
+if (process.env.NODE_ENV !== 'production') {
+  var hasConsole = typeof console !== 'undefined';
+  var classifyRE = /(?:^|[-_])(\w)/g;
+  var classify = function (str) { return str
+    .replace(classifyRE, function (c) { return c.toUpperCase(); })
+    .replace(/[-_]/g, ''); };
+
+  warn = function (msg, vm) {
+    if (hasConsole && (!config.silent)) {
+      console.error("[Vue warn]: " + msg + (
+        vm ? generateComponentTrace(vm) : ''
+      ));
+    }
+  };
+
+  tip = function (msg, vm) {
+    if (hasConsole && (!config.silent)) {
+      console.warn("[Vue tip]: " + msg + (
+        vm ? generateComponentTrace(vm) : ''
+      ));
+    }
+  };
+
+  formatComponentName = function (vm, includeFile) {
+    if (vm.$root === vm) {
+      return '<Root>'
+    }
+    var name = typeof vm === 'string'
+      ? vm
+      : typeof vm === 'function' && vm.options
+        ? vm.options.name
+        : vm._isVue
+          ? vm.$options.name || vm.$options._componentTag
+          : vm.name;
+
+    var file = vm._isVue && vm.$options.__file;
+    if (!name && file) {
+      var match = file.match(/([^/\\]+)\.vue$/);
+      name = match && match[1];
+    }
+
+    return (
+      (name ? ("<" + (classify(name)) + ">") : "<Anonymous>") +
+      (file && includeFile !== false ? (" at " + file) : '')
+    )
+  };
+
+  var repeat = function (str, n) {
+    var res = '';
+    while (n) {
+      if (n % 2 === 1) { res += str; }
+      if (n > 1) { str += str; }
+      n >>= 1;
+    }
+    return res
+  };
+
+  var generateComponentTrace = function (vm) {
+    if (vm._isVue && vm.$parent) {
+      var tree = [];
+      var currentRecursiveSequence = 0;
+      while (vm) {
+        if (tree.length > 0) {
+          var last = tree[tree.length - 1];
+          if (last.constructor === vm.constructor) {
+            currentRecursiveSequence++;
+            vm = vm.$parent;
+            continue
+          } else if (currentRecursiveSequence > 0) {
+            tree[tree.length - 1] = [last, currentRecursiveSequence];
+            currentRecursiveSequence = 0;
+          }
+        }
+        tree.push(vm);
+        vm = vm.$parent;
+      }
+      return '\n\nfound in\n\n' + tree
+        .map(function (vm, i) { return ("" + (i === 0 ? '---> ' : repeat(' ', 5 + i * 2)) + (Array.isArray(vm)
+            ? ((formatComponentName(vm[0])) + "... (" + (vm[1]) + " recursive calls)")
+            : formatComponentName(vm))); })
+        .join('\n')
+    } else {
+      return ("\n\n(found in " + (formatComponentName(vm)) + ")")
+    }
+  };
+}
+
+/*  */
+
+function handleError (err, vm, info) {
+  if (config.errorHandler) {
+    config.errorHandler.call(null, err, vm, info);
+  } else {
+    if (process.env.NODE_ENV !== 'production') {
+      warn(("Error in " + info + ": \"" + (err.toString()) + "\""), vm);
+    }
+    /* istanbul ignore else */
+    if (inBrowser && typeof console !== 'undefined') {
+      console.error(err);
+    } else {
+      throw err
+    }
+  }
+}
+
+/*  */
 /* globals MutationObserver */
 
 // can we use __proto__?
@@ -41161,6 +43807,20 @@ var isEdge = UA && UA.indexOf('edge/') > 0;
 var isAndroid = UA && UA.indexOf('android') > 0;
 var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
 var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
+
+var supportsPassive = false;
+if (inBrowser) {
+  try {
+    var opts = {};
+    Object.defineProperty(opts, 'passive', ({
+      get: function get () {
+        /* istanbul ignore next */
+        supportsPassive = true;
+      }
+    } )); // https://github.com/facebook/flow/issues/285
+    window.addEventListener('test-passive', null, opts);
+  } catch (e) {}
+}
 
 // this needs to be lazy-evaled because vue may be required before
 // vue-server-renderer can set VUE_ENV
@@ -41184,7 +43844,7 @@ var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
 /* istanbul ignore next */
 function isNative (Ctor) {
-  return /native code/.test(Ctor.toString())
+  return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
 }
 
 var hasSymbol =
@@ -41255,15 +43915,22 @@ var nextTick = (function () {
   return function queueNextTick (cb, ctx) {
     var _resolve;
     callbacks.push(function () {
-      if (cb) { cb.call(ctx); }
-      if (_resolve) { _resolve(ctx); }
+      if (cb) {
+        try {
+          cb.call(ctx);
+        } catch (e) {
+          handleError(e, ctx, 'nextTick');
+        }
+      } else if (_resolve) {
+        _resolve(ctx);
+      }
     });
     if (!pending) {
       pending = true;
       timerFunc();
     }
     if (!cb && typeof Promise !== 'undefined') {
-      return new Promise(function (resolve) {
+      return new Promise(function (resolve, reject) {
         _resolve = resolve;
       })
     }
@@ -41295,76 +43962,17 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
   }());
 }
 
-var warn = noop;
-var tip = noop;
-var formatComponentName;
-
-if (process.env.NODE_ENV !== 'production') {
-  var hasConsole = typeof console !== 'undefined';
-  var classifyRE = /(?:^|[-_])(\w)/g;
-  var classify = function (str) { return str
-    .replace(classifyRE, function (c) { return c.toUpperCase(); })
-    .replace(/[-_]/g, ''); };
-
-  warn = function (msg, vm) {
-    if (hasConsole && (!config.silent)) {
-      console.error("[Vue warn]: " + msg + " " + (
-        vm ? formatLocation(formatComponentName(vm)) : ''
-      ));
-    }
-  };
-
-  tip = function (msg, vm) {
-    if (hasConsole && (!config.silent)) {
-      console.warn("[Vue tip]: " + msg + " " + (
-        vm ? formatLocation(formatComponentName(vm)) : ''
-      ));
-    }
-  };
-
-  formatComponentName = function (vm, includeFile) {
-    if (vm.$root === vm) {
-      return '<Root>'
-    }
-    var name = typeof vm === 'string'
-      ? vm
-      : typeof vm === 'function' && vm.options
-        ? vm.options.name
-        : vm._isVue
-          ? vm.$options.name || vm.$options._componentTag
-          : vm.name;
-
-    var file = vm._isVue && vm.$options.__file;
-    if (!name && file) {
-      var match = file.match(/([^/\\]+)\.vue$/);
-      name = match && match[1];
-    }
-
-    return (
-      (name ? ("<" + (classify(name)) + ">") : "<Anonymous>") +
-      (file && includeFile !== false ? (" at " + file) : '')
-    )
-  };
-
-  var formatLocation = function (str) {
-    if (str === "<Anonymous>") {
-      str += " - use the \"name\" option for better debugging messages.";
-    }
-    return ("\n(found in " + str + ")")
-  };
-}
-
 /*  */
 
 
-var uid$1 = 0;
+var uid = 0;
 
 /**
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
 var Dep = function Dep () {
-  this.id = uid$1++;
+  this.id = uid++;
   this.subs = [];
 };
 
@@ -41807,7 +44415,7 @@ function mergeHook (
     : parentVal
 }
 
-config._lifecycleHooks.forEach(function (hook) {
+LIFECYCLE_HOOKS.forEach(function (hook) {
   strats[hook] = mergeHook;
 });
 
@@ -41825,7 +44433,7 @@ function mergeAssets (parentVal, childVal) {
     : res
 }
 
-config._assetTypes.forEach(function (type) {
+ASSET_TYPES.forEach(function (type) {
   strats[type + 's'] = mergeAssets;
 });
 
@@ -41951,21 +44559,20 @@ function mergeOptions (
   if (process.env.NODE_ENV !== 'production') {
     checkComponents(child);
   }
+
+  if (typeof child === 'function') {
+    child = child.options;
+  }
+
   normalizeProps(child);
   normalizeDirectives(child);
   var extendsFrom = child.extends;
   if (extendsFrom) {
-    parent = typeof extendsFrom === 'function'
-      ? mergeOptions(parent, extendsFrom.options, vm)
-      : mergeOptions(parent, extendsFrom, vm);
+    parent = mergeOptions(parent, extendsFrom, vm);
   }
   if (child.mixins) {
     for (var i = 0, l = child.mixins.length; i < l; i++) {
-      var mixin = child.mixins[i];
-      if (mixin.prototype instanceof Vue$3) {
-        mixin = mixin.options;
-      }
-      parent = mergeOptions(parent, mixin, vm);
+      parent = mergeOptions(parent, child.mixins[i], vm);
     }
   }
   var options = {};
@@ -42138,20 +44745,13 @@ function assertProp (
   }
 }
 
-/**
- * Assert the type of a value
- */
+var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
+
 function assertType (value, type) {
   var valid;
   var expectedType = getType(type);
-  if (expectedType === 'String') {
-    valid = typeof value === (expectedType = 'string');
-  } else if (expectedType === 'Number') {
-    valid = typeof value === (expectedType = 'number');
-  } else if (expectedType === 'Boolean') {
-    valid = typeof value === (expectedType = 'boolean');
-  } else if (expectedType === 'Function') {
-    valid = typeof value === (expectedType = 'function');
+  if (simpleCheckRE.test(expectedType)) {
+    valid = typeof value === expectedType.toLowerCase();
   } else if (expectedType === 'Object') {
     valid = isPlainObject(value);
   } else if (expectedType === 'Array') {
@@ -42172,7 +44772,7 @@ function assertType (value, type) {
  */
 function getType (fn) {
   var match = fn && fn.toString().match(/^\s*function (\w+)/);
-  return match && match[1]
+  return match ? match[1] : ''
 }
 
 function isType (type, fn) {
@@ -42188,19 +44788,28 @@ function isType (type, fn) {
   return false
 }
 
-function handleError (err, vm, info) {
-  if (config.errorHandler) {
-    config.errorHandler.call(null, err, vm, info);
-  } else {
-    if (process.env.NODE_ENV !== 'production') {
-      warn(("Error in " + info + ":"), vm);
-    }
-    /* istanbul ignore else */
-    if (inBrowser && typeof console !== 'undefined') {
-      console.error(err);
-    } else {
-      throw err
-    }
+/*  */
+
+var mark;
+var measure;
+
+if (process.env.NODE_ENV !== 'production') {
+  var perf = inBrowser && window.performance;
+  /* istanbul ignore if */
+  if (
+    perf &&
+    perf.mark &&
+    perf.measure &&
+    perf.clearMarks &&
+    perf.clearMeasures
+  ) {
+    mark = function (tag) { return perf.mark(tag); };
+    measure = function (name, startTag, endTag) {
+      perf.measure(name, startTag, endTag);
+      perf.clearMarks(startTag);
+      perf.clearMarks(endTag);
+      perf.clearMeasures(name);
+    };
   }
 }
 
@@ -42276,29 +44885,6 @@ if (process.env.NODE_ENV !== 'production') {
       vm._renderProxy = vm;
     }
   };
-}
-
-var mark;
-var measure;
-
-if (process.env.NODE_ENV !== 'production') {
-  var perf = inBrowser && window.performance;
-  /* istanbul ignore if */
-  if (
-    perf &&
-    perf.mark &&
-    perf.measure &&
-    perf.clearMarks &&
-    perf.clearMeasures
-  ) {
-    mark = function (tag) { return perf.mark(tag); };
-    measure = function (name, startTag, endTag) {
-      perf.measure(name, startTag, endTag);
-      perf.clearMarks(startTag);
-      perf.clearMarks(endTag);
-      perf.clearMeasures(name);
-    };
-  }
 }
 
 /*  */
@@ -42386,6 +44972,8 @@ function cloneVNodes (vnodes) {
 /*  */
 
 var normalizeEvent = cached(function (name) {
+  var passive = name.charAt(0) === '&';
+  name = passive ? name.slice(1) : name;
   var once$$1 = name.charAt(0) === '~'; // Prefixed last, checked first
   name = once$$1 ? name.slice(1) : name;
   var capture = name.charAt(0) === '!';
@@ -42393,7 +44981,8 @@ var normalizeEvent = cached(function (name) {
   return {
     name: name,
     once: once$$1,
-    capture: capture
+    capture: capture,
+    passive: passive
   }
 });
 
@@ -42427,23 +45016,23 @@ function updateListeners (
     cur = on[name];
     old = oldOn[name];
     event = normalizeEvent(name);
-    if (!cur) {
+    if (isUndef(cur)) {
       process.env.NODE_ENV !== 'production' && warn(
         "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
         vm
       );
-    } else if (!old) {
-      if (!cur.fns) {
+    } else if (isUndef(old)) {
+      if (isUndef(cur.fns)) {
         cur = on[name] = createFnInvoker(cur);
       }
-      add(event.name, cur, event.once, event.capture);
+      add(event.name, cur, event.once, event.capture, event.passive);
     } else if (cur !== old) {
       old.fns = cur;
       on[name] = old;
     }
   }
   for (name in oldOn) {
-    if (!on[name]) {
+    if (isUndef(on[name])) {
       event = normalizeEvent(name);
       remove$$1(event.name, oldOn[name], event.capture);
     }
@@ -42463,12 +45052,12 @@ function mergeVNodeHook (def, hookKey, hook) {
     remove(invoker.fns, wrappedHook);
   }
 
-  if (!oldHook) {
+  if (isUndef(oldHook)) {
     // no existing hook
     invoker = createFnInvoker([wrappedHook]);
   } else {
     /* istanbul ignore if */
-    if (oldHook.fns && oldHook.merged) {
+    if (isDef(oldHook.fns) && isTrue(oldHook.merged)) {
       // already a merged invoker
       invoker = oldHook;
       invoker.fns.push(wrappedHook);
@@ -42480,6 +45069,74 @@ function mergeVNodeHook (def, hookKey, hook) {
 
   invoker.merged = true;
   def[hookKey] = invoker;
+}
+
+/*  */
+
+function extractPropsFromVNodeData (
+  data,
+  Ctor,
+  tag
+) {
+  // we are only extracting raw values here.
+  // validation and default values are handled in the child
+  // component itself.
+  var propOptions = Ctor.options.props;
+  if (isUndef(propOptions)) {
+    return
+  }
+  var res = {};
+  var attrs = data.attrs;
+  var props = data.props;
+  if (isDef(attrs) || isDef(props)) {
+    for (var key in propOptions) {
+      var altKey = hyphenate(key);
+      if (process.env.NODE_ENV !== 'production') {
+        var keyInLowerCase = key.toLowerCase();
+        if (
+          key !== keyInLowerCase &&
+          attrs && hasOwn(attrs, keyInLowerCase)
+        ) {
+          tip(
+            "Prop \"" + keyInLowerCase + "\" is passed to component " +
+            (formatComponentName(tag || Ctor)) + ", but the declared prop name is" +
+            " \"" + key + "\". " +
+            "Note that HTML attributes are case-insensitive and camelCased " +
+            "props need to use their kebab-case equivalents when using in-DOM " +
+            "templates. You should probably use \"" + altKey + "\" instead of \"" + key + "\"."
+          );
+        }
+      }
+      checkProp(res, props, key, altKey, true) ||
+      checkProp(res, attrs, key, altKey, false);
+    }
+  }
+  return res
+}
+
+function checkProp (
+  res,
+  hash,
+  key,
+  altKey,
+  preserve
+) {
+  if (isDef(hash)) {
+    if (hasOwn(hash, key)) {
+      res[key] = hash[key];
+      if (!preserve) {
+        delete hash[key];
+      }
+      return true
+    } else if (hasOwn(hash, altKey)) {
+      res[key] = hash[altKey];
+      if (!preserve) {
+        delete hash[altKey];
+      }
+      return true
+    }
+  }
+  return false
 }
 
 /*  */
@@ -42522,24 +45179,24 @@ function normalizeArrayChildren (children, nestedIndex) {
   var i, c, last;
   for (i = 0; i < children.length; i++) {
     c = children[i];
-    if (c == null || typeof c === 'boolean') { continue }
+    if (isUndef(c) || typeof c === 'boolean') { continue }
     last = res[res.length - 1];
     //  nested
     if (Array.isArray(c)) {
       res.push.apply(res, normalizeArrayChildren(c, ((nestedIndex || '') + "_" + i)));
     } else if (isPrimitive(c)) {
-      if (last && last.text) {
+      if (isDef(last) && isDef(last.text)) {
         last.text += String(c);
       } else if (c !== '') {
         // convert primitive to vnode
         res.push(createTextVNode(c));
       }
     } else {
-      if (c.text && last && last.text) {
+      if (isDef(c.text) && isDef(last) && isDef(last.text)) {
         res[res.length - 1] = createTextVNode(last.text + c.text);
       } else {
         // default key for nested array children (likely generated by v-for)
-        if (c.tag && c.key == null && nestedIndex != null) {
+        if (isDef(c.tag) && isUndef(c.key) && isDef(nestedIndex)) {
           c.key = "__vlist" + nestedIndex + "_" + i + "__";
         }
         res.push(c);
@@ -42551,9 +45208,126 @@ function normalizeArrayChildren (children, nestedIndex) {
 
 /*  */
 
-function getFirstComponentChild (children) {
-  return children && children.filter(function (c) { return c && c.componentOptions; })[0]
+function ensureCtor (comp, base) {
+  return isObject(comp)
+    ? base.extend(comp)
+    : comp
 }
+
+function resolveAsyncComponent (
+  factory,
+  baseCtor,
+  context
+) {
+  if (isTrue(factory.error) && isDef(factory.errorComp)) {
+    return factory.errorComp
+  }
+
+  if (isDef(factory.resolved)) {
+    return factory.resolved
+  }
+
+  if (isTrue(factory.loading) && isDef(factory.loadingComp)) {
+    return factory.loadingComp
+  }
+
+  if (isDef(factory.contexts)) {
+    // already pending
+    factory.contexts.push(context);
+  } else {
+    var contexts = factory.contexts = [context];
+    var sync = true;
+
+    var forceRender = function () {
+      for (var i = 0, l = contexts.length; i < l; i++) {
+        contexts[i].$forceUpdate();
+      }
+    };
+
+    var resolve = once(function (res) {
+      // cache resolved
+      factory.resolved = ensureCtor(res, baseCtor);
+      // invoke callbacks only if this is not a synchronous resolve
+      // (async resolves are shimmed as synchronous during SSR)
+      if (!sync) {
+        forceRender();
+      }
+    });
+
+    var reject = once(function (reason) {
+      process.env.NODE_ENV !== 'production' && warn(
+        "Failed to resolve async component: " + (String(factory)) +
+        (reason ? ("\nReason: " + reason) : '')
+      );
+      if (isDef(factory.errorComp)) {
+        factory.error = true;
+        forceRender();
+      }
+    });
+
+    var res = factory(resolve, reject);
+
+    if (isObject(res)) {
+      if (typeof res.then === 'function') {
+        // () => Promise
+        if (isUndef(factory.resolved)) {
+          res.then(resolve, reject);
+        }
+      } else if (isDef(res.component) && typeof res.component.then === 'function') {
+        res.component.then(resolve, reject);
+
+        if (isDef(res.error)) {
+          factory.errorComp = ensureCtor(res.error, baseCtor);
+        }
+
+        if (isDef(res.loading)) {
+          factory.loadingComp = ensureCtor(res.loading, baseCtor);
+          if (res.delay === 0) {
+            factory.loading = true;
+          } else {
+            setTimeout(function () {
+              if (isUndef(factory.resolved) && isUndef(factory.error)) {
+                factory.loading = true;
+                forceRender();
+              }
+            }, res.delay || 200);
+          }
+        }
+
+        if (isDef(res.timeout)) {
+          setTimeout(function () {
+            reject(
+              process.env.NODE_ENV !== 'production'
+                ? ("timeout (" + (res.timeout) + "ms)")
+                : null
+            );
+          }, res.timeout);
+        }
+      }
+    }
+
+    sync = false;
+    // return in case resolved synchronously
+    return factory.loading
+      ? factory.loadingComp
+      : factory.resolved
+  }
+}
+
+/*  */
+
+function getFirstComponentChild (children) {
+  if (Array.isArray(children)) {
+    for (var i = 0; i < children.length; i++) {
+      var c = children[i];
+      if (isDef(c) && isDef(c.componentOptions)) {
+        return c
+      }
+    }
+  }
+}
+
+/*  */
 
 /*  */
 
@@ -42700,13 +45474,13 @@ function resolveSlots (
     return slots
   }
   var defaultSlot = [];
-  var name, child;
   for (var i = 0, l = children.length; i < l; i++) {
-    child = children[i];
+    var child = children[i];
     // named slots should only be respected if the vnode was rendered in the
     // same context.
     if ((child.context === context || child.functionalContext === context) &&
-        child.data && (name = child.data.slot)) {
+        child.data && child.data.slot != null) {
+      var name = child.data.slot;
       var slot = (slots[name] || (slots[name] = []));
       if (child.tag === 'template') {
         slot.push.apply(slot, child.children);
@@ -42993,7 +45767,7 @@ function activateChildComponent (vm, direct) {
   } else if (vm._directInactive) {
     return
   }
-  if (vm._inactive || vm._inactive == null) {
+  if (vm._inactive || vm._inactive === null) {
     vm._inactive = false;
     for (var i = 0; i < vm.$children.length; i++) {
       activateChildComponent(vm.$children[i]);
@@ -43037,7 +45811,10 @@ function callHook (vm, hook) {
 /*  */
 
 
+var MAX_UPDATE_COUNT = 100;
+
 var queue = [];
+var activatedChildren = [];
 var has = {};
 var circular = {};
 var waiting = false;
@@ -43048,7 +45825,7 @@ var index = 0;
  * Reset the scheduler's state.
  */
 function resetSchedulerState () {
-  queue.length = 0;
+  queue.length = activatedChildren.length = 0;
   has = {};
   if (process.env.NODE_ENV !== 'production') {
     circular = {};
@@ -43061,7 +45838,7 @@ function resetSchedulerState () {
  */
 function flushSchedulerQueue () {
   flushing = true;
-  var watcher, id, vm;
+  var watcher, id;
 
   // Sort queue before flush.
   // This ensures that:
@@ -43083,7 +45860,7 @@ function flushSchedulerQueue () {
     // in dev build, check and stop circular updates.
     if (process.env.NODE_ENV !== 'production' && has[id] != null) {
       circular[id] = (circular[id] || 0) + 1;
-      if (circular[id] > config._maxUpdateCount) {
+      if (circular[id] > MAX_UPDATE_COUNT) {
         warn(
           'You may have an infinite update loop ' + (
             watcher.user
@@ -43097,24 +45874,49 @@ function flushSchedulerQueue () {
     }
   }
 
-  // reset scheduler before updated hook called
-  var oldQueue = queue.slice();
+  // keep copies of post queues before resetting state
+  var activatedQueue = activatedChildren.slice();
+  var updatedQueue = queue.slice();
+
   resetSchedulerState();
 
-  // call updated hooks
-  index = oldQueue.length;
-  while (index--) {
-    watcher = oldQueue[index];
-    vm = watcher.vm;
-    if (vm._watcher === watcher && vm._isMounted) {
-      callHook(vm, 'updated');
-    }
-  }
+  // call component updated and activated hooks
+  callActivatedHooks(activatedQueue);
+  callUpdateHooks(updatedQueue);
 
   // devtool hook
   /* istanbul ignore if */
   if (devtools && config.devtools) {
     devtools.emit('flush');
+  }
+}
+
+function callUpdateHooks (queue) {
+  var i = queue.length;
+  while (i--) {
+    var watcher = queue[i];
+    var vm = watcher.vm;
+    if (vm._watcher === watcher && vm._isMounted) {
+      callHook(vm, 'updated');
+    }
+  }
+}
+
+/**
+ * Queue a kept-alive component that was activated during patch.
+ * The queue will be processed after the entire tree has been patched.
+ */
+function queueActivatedComponent (vm) {
+  // setting _inactive to false here so that a render function can
+  // rely on checking whether it's in an inactive tree (e.g. router-view)
+  vm._inactive = false;
+  activatedChildren.push(vm);
+}
+
+function callActivatedHooks (queue) {
+  for (var i = 0; i < queue.length; i++) {
+    queue[i]._inactive = true;
+    activateChildComponent(queue[i], true /* true */);
   }
 }
 
@@ -43421,7 +46223,11 @@ function initState (vm) {
   if (opts.watch) { initWatch(vm, opts.watch); }
 }
 
-var isReservedProp = { key: 1, ref: 1, slot: 1 };
+var isReservedProp = {
+  key: 1,
+  ref: 1,
+  slot: 1
+};
 
 function initProps (vm, propsOptions) {
   var propsData = vm.$options.propsData || {};
@@ -43437,7 +46243,7 @@ function initProps (vm, propsOptions) {
     var value = validateProp(key, propsOptions, propsData, vm);
     /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
-      if (isReservedProp[key]) {
+      if (isReservedProp[key] || config.isReservedAttr(key)) {
         warn(
           ("\"" + key + "\" is a reserved attribute and cannot be used as component prop."),
           vm
@@ -43535,6 +46341,12 @@ function initComputed (vm, computed) {
     // at instantiation here.
     if (!(key in vm)) {
       defineComputed(vm, key, userDef);
+    } else if (process.env.NODE_ENV !== 'production') {
+      if (key in vm.$data) {
+        warn(("The computed property \"" + key + "\" is already defined in data."), vm);
+      } else if (vm.$options.props && key in vm.$options.props) {
+        warn(("The computed property \"" + key + "\" is already defined as a prop."), vm);
+      }
     }
   }
 }
@@ -43664,6 +46476,114 @@ function stateMixin (Vue) {
 
 /*  */
 
+function initProvide (vm) {
+  var provide = vm.$options.provide;
+  if (provide) {
+    vm._provided = typeof provide === 'function'
+      ? provide.call(vm)
+      : provide;
+  }
+}
+
+function initInjections (vm) {
+  var result = resolveInject(vm.$options.inject, vm);
+  if (result) {
+    Object.keys(result).forEach(function (key) {
+      /* istanbul ignore else */
+      if (process.env.NODE_ENV !== 'production') {
+        defineReactive$$1(vm, key, result[key], function () {
+          warn(
+            "Avoid mutating an injected value directly since the changes will be " +
+            "overwritten whenever the provided component re-renders. " +
+            "injection being mutated: \"" + key + "\"",
+            vm
+          );
+        });
+      } else {
+        defineReactive$$1(vm, key, result[key]);
+      }
+    });
+  }
+}
+
+function resolveInject (inject, vm) {
+  if (inject) {
+    // inject is :any because flow is not smart enough to figure out cached
+    // isArray here
+    var isArray = Array.isArray(inject);
+    var result = Object.create(null);
+    var keys = isArray
+      ? inject
+      : hasSymbol
+        ? Reflect.ownKeys(inject)
+        : Object.keys(inject);
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      var provideKey = isArray ? key : inject[key];
+      var source = vm;
+      while (source) {
+        if (source._provided && provideKey in source._provided) {
+          result[key] = source._provided[provideKey];
+          break
+        }
+        source = source.$parent;
+      }
+    }
+    return result
+  }
+}
+
+/*  */
+
+function createFunctionalComponent (
+  Ctor,
+  propsData,
+  data,
+  context,
+  children
+) {
+  var props = {};
+  var propOptions = Ctor.options.props;
+  if (isDef(propOptions)) {
+    for (var key in propOptions) {
+      props[key] = validateProp(key, propOptions, propsData || {});
+    }
+  } else {
+    if (isDef(data.attrs)) { mergeProps(props, data.attrs); }
+    if (isDef(data.props)) { mergeProps(props, data.props); }
+  }
+  // ensure the createElement function in functional components
+  // gets a unique context - this is necessary for correct named slot check
+  var _context = Object.create(context);
+  var h = function (a, b, c, d) { return createElement(_context, a, b, c, d, true); };
+  var vnode = Ctor.options.render.call(null, h, {
+    data: data,
+    props: props,
+    children: children,
+    parent: context,
+    listeners: data.on || {},
+    injections: resolveInject(Ctor.options.inject, context),
+    slots: function () { return resolveSlots(children, context); }
+  });
+  if (vnode instanceof VNode) {
+    vnode.functionalContext = context;
+    vnode.functionalOptions = Ctor.options;
+    if (data.slot) {
+      (vnode.data || (vnode.data = {})).slot = data.slot;
+    }
+  }
+  return vnode
+}
+
+function mergeProps (to, from) {
+  for (var key in from) {
+    to[camelize(key)] = from[key];
+  }
+}
+
+/*  */
+
 // hooks to be invoked on component VNodes during patch
 var componentVNodeHooks = {
   init: function init (
@@ -43700,21 +46620,33 @@ var componentVNodeHooks = {
   },
 
   insert: function insert (vnode) {
-    if (!vnode.componentInstance._isMounted) {
-      vnode.componentInstance._isMounted = true;
-      callHook(vnode.componentInstance, 'mounted');
+    var context = vnode.context;
+    var componentInstance = vnode.componentInstance;
+    if (!componentInstance._isMounted) {
+      componentInstance._isMounted = true;
+      callHook(componentInstance, 'mounted');
     }
     if (vnode.data.keepAlive) {
-      activateChildComponent(vnode.componentInstance, true /* direct */);
+      if (context._isMounted) {
+        // vue-router#1212
+        // During updates, a kept-alive component's child components may
+        // change, so directly walking the tree here may call activated hooks
+        // on incorrect children. Instead we push them into a queue which will
+        // be processed after the whole patch process ended.
+        queueActivatedComponent(componentInstance);
+      } else {
+        activateChildComponent(componentInstance, true /* direct */);
+      }
     }
   },
 
   destroy: function destroy (vnode) {
-    if (!vnode.componentInstance._isDestroyed) {
+    var componentInstance = vnode.componentInstance;
+    if (!componentInstance._isDestroyed) {
       if (!vnode.data.keepAlive) {
-        vnode.componentInstance.$destroy();
+        componentInstance.$destroy();
       } else {
-        deactivateChildComponent(vnode.componentInstance, true /* direct */);
+        deactivateChildComponent(componentInstance, true /* direct */);
       }
     }
   }
@@ -43729,15 +46661,19 @@ function createComponent (
   children,
   tag
 ) {
-  if (!Ctor) {
+  if (isUndef(Ctor)) {
     return
   }
 
   var baseCtor = context.$options._base;
+
+  // plain options object: turn it into a constructor
   if (isObject(Ctor)) {
     Ctor = baseCtor.extend(Ctor);
   }
 
+  // if at this stage it's not a constructor or an async component factory,
+  // reject.
   if (typeof Ctor !== 'function') {
     if (process.env.NODE_ENV !== 'production') {
       warn(("Invalid Component definition: " + (String(Ctor))), context);
@@ -43746,20 +46682,12 @@ function createComponent (
   }
 
   // async component
-  if (!Ctor.cid) {
-    if (Ctor.resolved) {
-      Ctor = Ctor.resolved;
-    } else {
-      Ctor = resolveAsyncComponent(Ctor, baseCtor, function () {
-        // it's ok to queue this on every render because
-        // $forceUpdate is buffered by the scheduler.
-        context.$forceUpdate();
-      });
-      if (!Ctor) {
-        // return nothing if this is indeed an async component
-        // wait for the callback to trigger parent update.
-        return
-      }
+  if (isUndef(Ctor.cid)) {
+    Ctor = resolveAsyncComponent(Ctor, baseCtor, context);
+    if (Ctor === undefined) {
+      // return nothing if this is indeed an async component
+      // wait for the callback to trigger parent update.
+      return
     }
   }
 
@@ -43770,15 +46698,15 @@ function createComponent (
   data = data || {};
 
   // transform component v-model data into props & events
-  if (data.model) {
+  if (isDef(data.model)) {
     transformModel(Ctor.options, data);
   }
 
   // extract props
-  var propsData = extractProps(data, Ctor, tag);
+  var propsData = extractPropsFromVNodeData(data, Ctor, tag);
 
   // functional component
-  if (Ctor.options.functional) {
+  if (isTrue(Ctor.options.functional)) {
     return createFunctionalComponent(Ctor, propsData, data, context, children)
   }
 
@@ -43788,7 +46716,7 @@ function createComponent (
   // replace with listeners with .native modifier
   data.on = data.nativeOn;
 
-  if (Ctor.options.abstract) {
+  if (isTrue(Ctor.options.abstract)) {
     // abstract components do not keep anything
     // other than props & listeners
     data = {};
@@ -43804,40 +46732,6 @@ function createComponent (
     data, undefined, undefined, undefined, context,
     { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children }
   );
-  return vnode
-}
-
-function createFunctionalComponent (
-  Ctor,
-  propsData,
-  data,
-  context,
-  children
-) {
-  var props = {};
-  var propOptions = Ctor.options.props;
-  if (propOptions) {
-    for (var key in propOptions) {
-      props[key] = validateProp(key, propOptions, propsData);
-    }
-  }
-  // ensure the createElement function in functional components
-  // gets a unique context - this is necessary for correct named slot check
-  var _context = Object.create(context);
-  var h = function (a, b, c, d) { return createElement(_context, a, b, c, d, true); };
-  var vnode = Ctor.options.render.call(null, h, {
-    props: props,
-    data: data,
-    parent: context,
-    children: children,
-    slots: function () { return resolveSlots(children, context); }
-  });
-  if (vnode instanceof VNode) {
-    vnode.functionalContext = context;
-    if (data.slot) {
-      (vnode.data || (vnode.data = {})).slot = data.slot;
-    }
-  }
   return vnode
 }
 
@@ -43861,123 +46755,11 @@ function createComponentInstanceForVnode (
   };
   // check inline-template render functions
   var inlineTemplate = vnode.data.inlineTemplate;
-  if (inlineTemplate) {
+  if (isDef(inlineTemplate)) {
     options.render = inlineTemplate.render;
     options.staticRenderFns = inlineTemplate.staticRenderFns;
   }
   return new vnodeComponentOptions.Ctor(options)
-}
-
-function resolveAsyncComponent (
-  factory,
-  baseCtor,
-  cb
-) {
-  if (factory.requested) {
-    // pool callbacks
-    factory.pendingCallbacks.push(cb);
-  } else {
-    factory.requested = true;
-    var cbs = factory.pendingCallbacks = [cb];
-    var sync = true;
-
-    var resolve = function (res) {
-      if (isObject(res)) {
-        res = baseCtor.extend(res);
-      }
-      // cache resolved
-      factory.resolved = res;
-      // invoke callbacks only if this is not a synchronous resolve
-      // (async resolves are shimmed as synchronous during SSR)
-      if (!sync) {
-        for (var i = 0, l = cbs.length; i < l; i++) {
-          cbs[i](res);
-        }
-      }
-    };
-
-    var reject = function (reason) {
-      process.env.NODE_ENV !== 'production' && warn(
-        "Failed to resolve async component: " + (String(factory)) +
-        (reason ? ("\nReason: " + reason) : '')
-      );
-    };
-
-    var res = factory(resolve, reject);
-
-    // handle promise
-    if (res && typeof res.then === 'function' && !factory.resolved) {
-      res.then(resolve, reject);
-    }
-
-    sync = false;
-    // return in case resolved synchronously
-    return factory.resolved
-  }
-}
-
-function extractProps (data, Ctor, tag) {
-  // we are only extracting raw values here.
-  // validation and default values are handled in the child
-  // component itself.
-  var propOptions = Ctor.options.props;
-  if (!propOptions) {
-    return
-  }
-  var res = {};
-  var attrs = data.attrs;
-  var props = data.props;
-  var domProps = data.domProps;
-  if (attrs || props || domProps) {
-    for (var key in propOptions) {
-      var altKey = hyphenate(key);
-      if (process.env.NODE_ENV !== 'production') {
-        var keyInLowerCase = key.toLowerCase();
-        if (
-          key !== keyInLowerCase &&
-          attrs && attrs.hasOwnProperty(keyInLowerCase)
-        ) {
-          tip(
-            "Prop \"" + keyInLowerCase + "\" is passed to component " +
-            (formatComponentName(tag || Ctor)) + ", but the declared prop name is" +
-            " \"" + key + "\". " +
-            "Note that HTML attributes are case-insensitive and camelCased " +
-            "props need to use their kebab-case equivalents when using in-DOM " +
-            "templates. You should probably use \"" + altKey + "\" instead of \"" + key + "\"."
-          );
-        }
-      }
-      checkProp(res, props, key, altKey, true) ||
-      checkProp(res, attrs, key, altKey) ||
-      checkProp(res, domProps, key, altKey);
-    }
-  }
-  return res
-}
-
-function checkProp (
-  res,
-  hash,
-  key,
-  altKey,
-  preserve
-) {
-  if (hash) {
-    if (hasOwn(hash, key)) {
-      res[key] = hash[key];
-      if (!preserve) {
-        delete hash[key];
-      }
-      return true
-    } else if (hasOwn(hash, altKey)) {
-      res[key] = hash[altKey];
-      if (!preserve) {
-        delete hash[altKey];
-      }
-      return true
-    }
-  }
-  return false
 }
 
 function mergeHooks (data) {
@@ -44005,7 +46787,7 @@ function transformModel (options, data) {
   var prop = (options.model && options.model.prop) || 'value';
   var event = (options.model && options.model.event) || 'input';(data.props || (data.props = {}))[prop] = data.model.value;
   var on = data.on || (data.on = {});
-  if (on[event]) {
+  if (isDef(on[event])) {
     on[event] = [data.model.callback].concat(on[event]);
   } else {
     on[event] = data.model.callback;
@@ -44032,7 +46814,9 @@ function createElement (
     children = data;
     data = undefined;
   }
-  if (alwaysNormalize) { normalizationType = ALWAYS_NORMALIZE; }
+  if (isTrue(alwaysNormalize)) {
+    normalizationType = ALWAYS_NORMALIZE;
+  }
   return _createElement(context, tag, data, children, normalizationType)
 }
 
@@ -44043,7 +46827,7 @@ function _createElement (
   children,
   normalizationType
 ) {
-  if (data && data.__ob__) {
+  if (isDef(data) && isDef((data).__ob__)) {
     process.env.NODE_ENV !== 'production' && warn(
       "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
       'Always create fresh vnode data objects in each render!',
@@ -44077,7 +46861,7 @@ function _createElement (
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
       );
-    } else if ((Ctor = resolveAsset(context.$options, 'components', tag))) {
+    } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
       // component
       vnode = createComponent(Ctor, data, context, children, tag);
     } else {
@@ -44093,7 +46877,7 @@ function _createElement (
     // direct component options / constructor
     vnode = createComponent(tag, data, context, children);
   }
-  if (vnode) {
+  if (isDef(vnode)) {
     if (ns) { applyNS(vnode, ns); }
     return vnode
   } else {
@@ -44107,10 +46891,10 @@ function applyNS (vnode, ns) {
     // use default namespace inside foreignObject
     return
   }
-  if (vnode.children) {
+  if (isDef(vnode.children)) {
     for (var i = 0, l = vnode.children.length; i < l; i++) {
       var child = vnode.children[i];
-      if (child.tag && !child.ns) {
+      if (isDef(child.tag) && isUndef(child.ns)) {
         applyNS(child, ns);
       }
     }
@@ -44310,10 +47094,9 @@ function markStaticNode (node, key, isOnce) {
 /*  */
 
 function initRender (vm) {
-  vm.$vnode = null; // the placeholder node in parent tree
   vm._vnode = null; // the root of the child tree
   vm._staticTrees = null;
-  var parentVnode = vm.$options._parentVnode;
+  var parentVnode = vm.$vnode = vm.$options._parentVnode; // the placeholder node in parent tree
   var renderContext = parentVnode && parentVnode.context;
   vm.$slots = resolveSlots(vm.$options._renderChildren, renderContext);
   vm.$scopedSlots = emptyObject;
@@ -44392,7 +47175,7 @@ function renderMixin (Vue) {
   // code size.
   Vue.prototype._o = markOnce;
   Vue.prototype._n = toNumber;
-  Vue.prototype._s = _toString;
+  Vue.prototype._s = toString;
   Vue.prototype._l = renderList;
   Vue.prototype._t = renderSlot;
   Vue.prototype._q = looseEqual;
@@ -44408,65 +47191,13 @@ function renderMixin (Vue) {
 
 /*  */
 
-function initProvide (vm) {
-  var provide = vm.$options.provide;
-  if (provide) {
-    vm._provided = typeof provide === 'function'
-      ? provide.call(vm)
-      : provide;
-  }
-}
-
-function initInjections (vm) {
-  var inject = vm.$options.inject;
-  if (inject) {
-    // inject is :any because flow is not smart enough to figure out cached
-    // isArray here
-    var isArray = Array.isArray(inject);
-    var keys = isArray
-      ? inject
-      : hasSymbol
-        ? Reflect.ownKeys(inject)
-        : Object.keys(inject);
-
-    var loop = function ( i ) {
-      var key = keys[i];
-      var provideKey = isArray ? key : inject[key];
-      var source = vm;
-      while (source) {
-        if (source._provided && provideKey in source._provided) {
-          /* istanbul ignore else */
-          if (process.env.NODE_ENV !== 'production') {
-            defineReactive$$1(vm, key, source._provided[provideKey], function () {
-              warn(
-                "Avoid mutating an injected value directly since the changes will be " +
-                "overwritten whenever the provided component re-renders. " +
-                "injection being mutated: \"" + key + "\"",
-                vm
-              );
-            });
-          } else {
-            defineReactive$$1(vm, key, source._provided[provideKey]);
-          }
-          break
-        }
-        source = source.$parent;
-      }
-    };
-
-    for (var i = 0; i < keys.length; i++) loop( i );
-  }
-}
-
-/*  */
-
-var uid = 0;
+var uid$1 = 0;
 
 function initMixin (Vue) {
   Vue.prototype._init = function (options) {
     var vm = this;
     // a uid
-    vm._uid = uid++;
+    vm._uid = uid$1++;
 
     var startTag, endTag;
     /* istanbul ignore if */
@@ -44565,24 +47296,27 @@ function resolveConstructorOptions (Ctor) {
 function resolveModifiedOptions (Ctor) {
   var modified;
   var latest = Ctor.options;
+  var extended = Ctor.extendOptions;
   var sealed = Ctor.sealedOptions;
   for (var key in latest) {
     if (latest[key] !== sealed[key]) {
       if (!modified) { modified = {}; }
-      modified[key] = dedupe(latest[key], sealed[key]);
+      modified[key] = dedupe(latest[key], extended[key], sealed[key]);
     }
   }
   return modified
 }
 
-function dedupe (latest, sealed) {
+function dedupe (latest, extended, sealed) {
   // compare latest and sealed to ensure lifecycle hooks won't be duplicated
   // between merges
   if (Array.isArray(latest)) {
     var res = [];
     sealed = Array.isArray(sealed) ? sealed : [sealed];
+    extended = Array.isArray(extended) ? extended : [extended];
     for (var i = 0; i < latest.length; i++) {
-      if (sealed.indexOf(latest[i]) < 0) {
+      // push original options and not sealed options to exclude duplicated options
+      if (extended.indexOf(latest[i]) >= 0 || sealed.indexOf(latest[i]) < 0) {
         res.push(latest[i]);
       }
     }
@@ -44698,7 +47432,7 @@ function initExtend (Vue) {
 
     // create asset registers, so extended classes
     // can have their private assets too.
-    config._assetTypes.forEach(function (type) {
+    ASSET_TYPES.forEach(function (type) {
       Sub[type] = Super[type];
     });
     // enable recursive self-lookup
@@ -44739,7 +47473,7 @@ function initAssetRegisters (Vue) {
   /**
    * Create asset registration methods.
    */
-  config._assetTypes.forEach(function (type) {
+  ASSET_TYPES.forEach(function (type) {
     Vue[type] = function (
       id,
       definition
@@ -44781,20 +47515,22 @@ function getComponentName (opts) {
 function matches (pattern, name) {
   if (typeof pattern === 'string') {
     return pattern.split(',').indexOf(name) > -1
-  } else if (pattern instanceof RegExp) {
+  } else if (isRegExp(pattern)) {
     return pattern.test(name)
   }
   /* istanbul ignore next */
   return false
 }
 
-function pruneCache (cache, filter) {
+function pruneCache (cache, current, filter) {
   for (var key in cache) {
     var cachedNode = cache[key];
     if (cachedNode) {
       var name = getComponentName(cachedNode.componentOptions);
       if (name && !filter(name)) {
-        pruneCacheEntry(cachedNode);
+        if (cachedNode !== current) {
+          pruneCacheEntry(cachedNode);
+        }
         cache[key] = null;
       }
     }
@@ -44803,9 +47539,6 @@ function pruneCache (cache, filter) {
 
 function pruneCacheEntry (vnode) {
   if (vnode) {
-    if (!vnode.componentInstance._inactive) {
-      callHook(vnode.componentInstance, 'deactivated');
-    }
     vnode.componentInstance.$destroy();
   }
 }
@@ -44833,10 +47566,10 @@ var KeepAlive = {
 
   watch: {
     include: function include (val) {
-      pruneCache(this.cache, function (name) { return matches(val, name); });
+      pruneCache(this.cache, this._vnode, function (name) { return matches(val, name); });
     },
     exclude: function exclude (val) {
-      pruneCache(this.cache, function (name) { return !matches(val, name); });
+      pruneCache(this.cache, this._vnode, function (name) { return !matches(val, name); });
     }
   },
 
@@ -44902,7 +47635,7 @@ function initGlobalAPI (Vue) {
   Vue.nextTick = nextTick;
 
   Vue.options = Object.create(null);
-  config._assetTypes.forEach(function (type) {
+  ASSET_TYPES.forEach(function (type) {
     Vue.options[type + 's'] = Object.create(null);
   });
 
@@ -44924,9 +47657,19 @@ Object.defineProperty(Vue$3.prototype, '$isServer', {
   get: isServerRendering
 });
 
-Vue$3.version = '2.2.6';
+Object.defineProperty(Vue$3.prototype, '$ssrContext', {
+  get: function get () {
+    return this.$vnode.ssrContext
+  }
+});
+
+Vue$3.version = '2.3.2';
 
 /*  */
+
+// these are reserved for web because they are directly compiled away
+// during template compilation
+var isReservedAttr = makeMap('style,class');
 
 // attributes that should be using props for binding
 var acceptValue = makeMap('input,textarea,option,select');
@@ -44970,13 +47713,13 @@ function genClassForVnode (vnode) {
   var data = vnode.data;
   var parentNode = vnode;
   var childNode = vnode;
-  while (childNode.componentInstance) {
+  while (isDef(childNode.componentInstance)) {
     childNode = childNode.componentInstance._vnode;
     if (childNode.data) {
       data = mergeClassData(childNode.data, data);
     }
   }
-  while ((parentNode = parentNode.parent)) {
+  while (isDef(parentNode = parentNode.parent)) {
     if (parentNode.data) {
       data = mergeClassData(data, parentNode.data);
     }
@@ -44987,7 +47730,7 @@ function genClassForVnode (vnode) {
 function mergeClassData (child, parent) {
   return {
     staticClass: concat(child.staticClass, parent.staticClass),
-    class: child.class
+    class: isDef(child.class)
       ? [child.class, parent.class]
       : parent.class
   }
@@ -44996,7 +47739,7 @@ function mergeClassData (child, parent) {
 function genClassFromData (data) {
   var dynamicClass = data.class;
   var staticClass = data.staticClass;
-  if (staticClass || dynamicClass) {
+  if (isDef(staticClass) || isDef(dynamicClass)) {
     return concat(staticClass, stringifyClass(dynamicClass))
   }
   /* istanbul ignore next */
@@ -45008,18 +47751,18 @@ function concat (a, b) {
 }
 
 function stringifyClass (value) {
-  var res = '';
-  if (!value) {
-    return res
+  if (isUndef(value)) {
+    return ''
   }
   if (typeof value === 'string') {
     return value
   }
+  var res = '';
   if (Array.isArray(value)) {
     var stringified;
     for (var i = 0, l = value.length; i < l; i++) {
-      if (value[i]) {
-        if ((stringified = stringifyClass(value[i]))) {
+      if (isDef(value[i])) {
+        if (isDef(stringified = stringifyClass(value[i])) && stringified !== '') {
           res += stringified + ' ';
         }
       }
@@ -45264,18 +48007,6 @@ var emptyNode = new VNode('', {}, []);
 
 var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
-function isUndef (v) {
-  return v === undefined || v === null
-}
-
-function isDef (v) {
-  return v !== undefined && v !== null
-}
-
-function isTrue (v) {
-  return v === true
-}
-
 function sameVnode (a, b) {
   return (
     a.key === b.key &&
@@ -45462,7 +48193,9 @@ function createPatchFunction (backend) {
   function insert (parent, elm, ref) {
     if (isDef(parent)) {
       if (isDef(ref)) {
-        nodeOps.insertBefore(parent, elm, ref);
+        if (ref.parentNode === parent) {
+          nodeOps.insertBefore(parent, elm, ref);
+        }
       } else {
         nodeOps.appendChild(parent, elm);
       }
@@ -45553,6 +48286,7 @@ function createPatchFunction (backend) {
 
   function removeAndInvokeRemoveHook (vnode, rm) {
     if (isDef(rm) || isDef(vnode.data)) {
+      var i;
       var listeners = cbs.remove.length + 1;
       if (isDef(rm)) {
         // we have a recursively passed down rm callback
@@ -45814,8 +48548,8 @@ function createPatchFunction (backend) {
           // mounting to a real element
           // check if this is server-rendered content and if we can perform
           // a successful hydration.
-          if (oldVnode.nodeType === 1 && oldVnode.hasAttribute('server-rendered')) {
-            oldVnode.removeAttribute('server-rendered');
+          if (oldVnode.nodeType === 1 && oldVnode.hasAttribute(SSR_ATTR)) {
+            oldVnode.removeAttribute(SSR_ATTR);
             hydrating = true;
           }
           if (isTrue(hydrating)) {
@@ -45982,7 +48716,11 @@ function getRawDirName (dir) {
 function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
   var fn = dir.def && dir.def[hook];
   if (fn) {
-    fn(vnode.elm, dir, vnode, oldVnode, isDestroy);
+    try {
+      fn(vnode.elm, dir, vnode, oldVnode, isDestroy);
+    } catch (e) {
+      handleError(e, vnode.context, ("directive " + (dir.name) + " " + hook + " hook"));
+    }
   }
 }
 
@@ -45994,7 +48732,7 @@ var baseModules = [
 /*  */
 
 function updateAttrs (oldVnode, vnode) {
-  if (!oldVnode.data.attrs && !vnode.data.attrs) {
+  if (isUndef(oldVnode.data.attrs) && isUndef(vnode.data.attrs)) {
     return
   }
   var key, cur, old;
@@ -46002,7 +48740,7 @@ function updateAttrs (oldVnode, vnode) {
   var oldAttrs = oldVnode.data.attrs || {};
   var attrs = vnode.data.attrs || {};
   // clone observed objects, as the user probably wants to mutate it
-  if (attrs.__ob__) {
+  if (isDef(attrs.__ob__)) {
     attrs = vnode.data.attrs = extend({}, attrs);
   }
 
@@ -46019,7 +48757,7 @@ function updateAttrs (oldVnode, vnode) {
     setAttr(elm, 'value', attrs.value);
   }
   for (key in oldAttrs) {
-    if (attrs[key] == null) {
+    if (isUndef(attrs[key])) {
       if (isXlink(key)) {
         elm.removeAttributeNS(xlinkNS, getXlinkProp(key));
       } else if (!isEnumeratedAttr(key)) {
@@ -46066,8 +48804,15 @@ function updateClass (oldVnode, vnode) {
   var el = vnode.elm;
   var data = vnode.data;
   var oldData = oldVnode.data;
-  if (!data.staticClass && !data.class &&
-      (!oldData || (!oldData.staticClass && !oldData.class))) {
+  if (
+    isUndef(data.staticClass) &&
+    isUndef(data.class) && (
+      isUndef(oldData) || (
+        isUndef(oldData.staticClass) &&
+        isUndef(oldData.class)
+      )
+    )
+  ) {
     return
   }
 
@@ -46075,7 +48820,7 @@ function updateClass (oldVnode, vnode) {
 
   // handle transition classes
   var transitionClass = el._transitionClasses;
-  if (transitionClass) {
+  if (isDef(transitionClass)) {
     cls = concat(cls, stringifyClass(transitionClass));
   }
 
@@ -46228,8 +48973,20 @@ function addHandler (
   name,
   value,
   modifiers,
-  important
+  important,
+  warn
 ) {
+  // warn prevent and passive modifier
+  /* istanbul ignore if */
+  if (
+    process.env.NODE_ENV !== 'production' && warn &&
+    modifiers && modifiers.prevent && modifiers.passive
+  ) {
+    warn(
+      'passive and prevent can\'t be used together. ' +
+      'Passive handler can\'t prevent default event.'
+    );
+  }
   // check capture modifier
   if (modifiers && modifiers.capture) {
     delete modifiers.capture;
@@ -46238,6 +48995,11 @@ function addHandler (
   if (modifiers && modifiers.once) {
     delete modifiers.once;
     name = '~' + name; // mark the event as once
+  }
+  /* istanbul ignore if */
+  if (modifiers && modifiers.passive) {
+    delete modifiers.passive;
+    name = '&' + name; // mark the event as passive
   }
   var events;
   if (modifiers && modifiers.native) {
@@ -46520,7 +49282,7 @@ function genCheckboxModel (
           '$$i=_i($$a,$$v);' +
       "if($$c){$$i<0&&(" + value + "=$$a.concat($$v))}" +
       "else{$$i>-1&&(" + value + "=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}" +
-    "}else{" + value + "=$$c}",
+    "}else{" + (genAssignmentCode(value, '$$c')) + "}",
     null, true
   );
 }
@@ -46600,13 +49362,13 @@ function genDefaultModel (
 function normalizeEvents (on) {
   var event;
   /* istanbul ignore if */
-  if (on[RANGE_TOKEN]) {
+  if (isDef(on[RANGE_TOKEN])) {
     // IE input[type=range] only supports `change` event
     event = isIE ? 'change' : 'input';
     on[event] = [].concat(on[RANGE_TOKEN], on[event] || []);
     delete on[RANGE_TOKEN];
   }
-  if (on[CHECKBOX_RADIO_TOKEN]) {
+  if (isDef(on[CHECKBOX_RADIO_TOKEN])) {
     // Chrome fires microtasks in between click/change, leads to #4521
     event = isChrome ? 'click' : 'change';
     on[event] = [].concat(on[CHECKBOX_RADIO_TOKEN], on[event] || []);
@@ -46619,10 +49381,11 @@ var target$1;
 function add$1 (
   event,
   handler,
-  once,
-  capture
+  once$$1,
+  capture,
+  passive
 ) {
-  if (once) {
+  if (once$$1) {
     var oldHandler = handler;
     var _target = target$1; // save current target element in closure
     handler = function (ev) {
@@ -46634,7 +49397,13 @@ function add$1 (
       }
     };
   }
-  target$1.addEventListener(event, handler, capture);
+  target$1.addEventListener(
+    event,
+    handler,
+    supportsPassive
+      ? { capture: capture, passive: passive }
+      : capture
+  );
 }
 
 function remove$2 (
@@ -46647,7 +49416,7 @@ function remove$2 (
 }
 
 function updateDOMListeners (oldVnode, vnode) {
-  if (!oldVnode.data.on && !vnode.data.on) {
+  if (isUndef(oldVnode.data.on) && isUndef(vnode.data.on)) {
     return
   }
   var on = vnode.data.on || {};
@@ -46665,7 +49434,7 @@ var events = {
 /*  */
 
 function updateDOMProps (oldVnode, vnode) {
-  if (!oldVnode.data.domProps && !vnode.data.domProps) {
+  if (isUndef(oldVnode.data.domProps) && isUndef(vnode.data.domProps)) {
     return
   }
   var key, cur;
@@ -46673,12 +49442,12 @@ function updateDOMProps (oldVnode, vnode) {
   var oldProps = oldVnode.data.domProps || {};
   var props = vnode.data.domProps || {};
   // clone observed objects, as the user probably wants to mutate it
-  if (props.__ob__) {
+  if (isDef(props.__ob__)) {
     props = vnode.data.domProps = extend({}, props);
   }
 
   for (key in oldProps) {
-    if (props[key] == null) {
+    if (isUndef(props[key])) {
       elm[key] = '';
     }
   }
@@ -46697,7 +49466,7 @@ function updateDOMProps (oldVnode, vnode) {
       // non-string values will be stringified
       elm._value = cur;
       // avoid resetting cursor position when value is the same
-      var strCur = cur == null ? '' : String(cur);
+      var strCur = isUndef(cur) ? '' : String(cur);
       if (shouldUpdateValue(elm, vnode, strCur)) {
         elm.value = strCur;
       }
@@ -46730,10 +49499,10 @@ function isDirty (elm, checkVal) {
 function isInputChanged (elm, newVal) {
   var value = elm.value;
   var modifiers = elm._vModifiers; // injected by v-model runtime
-  if ((modifiers && modifiers.number) || elm.type === 'number') {
+  if ((isDef(modifiers) && modifiers.number) || elm.type === 'number') {
     return toNumber(value) !== toNumber(newVal)
   }
-  if (modifiers && modifiers.trim) {
+  if (isDef(modifiers) && modifiers.trim) {
     return value.trim() !== newVal.trim()
   }
   return value !== newVal
@@ -46822,7 +49591,17 @@ var setProp = function (el, name, val) {
   } else if (importantRE.test(val)) {
     el.style.setProperty(name, val.replace(importantRE, ''), 'important');
   } else {
-    el.style[normalize(name)] = val;
+    var normalizedName = normalize(name);
+    if (Array.isArray(val)) {
+      // Support values array created by autoprefixer, e.g.
+      // {display: ["-webkit-box", "-ms-flexbox", "flex"]}
+      // Set them one by one, and the browser will only set those it can recognize
+      for (var i = 0, len = val.length; i < len; i++) {
+        el.style[normalizedName] = val[i];
+      }
+    } else {
+      el.style[normalizedName] = val;
+    }
   }
 };
 
@@ -46848,27 +49627,32 @@ function updateStyle (oldVnode, vnode) {
   var data = vnode.data;
   var oldData = oldVnode.data;
 
-  if (!data.staticStyle && !data.style &&
-      !oldData.staticStyle && !oldData.style) {
+  if (isUndef(data.staticStyle) && isUndef(data.style) &&
+      isUndef(oldData.staticStyle) && isUndef(oldData.style)) {
     return
   }
 
   var cur, name;
   var el = vnode.elm;
-  var oldStaticStyle = oldVnode.data.staticStyle;
-  var oldStyleBinding = oldVnode.data.style || {};
+  var oldStaticStyle = oldData.staticStyle;
+  var oldStyleBinding = oldData.normalizedStyle || oldData.style || {};
 
   // if static style exists, stylebinding already merged into it when doing normalizeStyleData
   var oldStyle = oldStaticStyle || oldStyleBinding;
 
   var style = normalizeStyleBinding(vnode.data.style) || {};
 
-  vnode.data.style = style.__ob__ ? extend({}, style) : style;
+  // store normalized style under a different key for next diff
+  // make sure to clone it if it's reactive, since the user likley wants
+  // to mutate it.
+  vnode.data.normalizedStyle = isDef(style.__ob__)
+    ? extend({}, style)
+    : style;
 
   var newStyle = getStyle(vnode, true);
 
   for (name in oldStyle) {
-    if (newStyle[name] == null) {
+    if (isUndef(newStyle[name])) {
       setProp(el, name, '');
     }
   }
@@ -47119,18 +49903,18 @@ function enter (vnode, toggleDisplay) {
   var el = vnode.elm;
 
   // call leave callback now
-  if (el._leaveCb) {
+  if (isDef(el._leaveCb)) {
     el._leaveCb.cancelled = true;
     el._leaveCb();
   }
 
   var data = resolveTransition(vnode.data.transition);
-  if (!data) {
+  if (isUndef(data)) {
     return
   }
 
   /* istanbul ignore if */
-  if (el._enterCb || el.nodeType !== 1) {
+  if (isDef(el._enterCb) || el.nodeType !== 1) {
     return
   }
 
@@ -47267,18 +50051,18 @@ function leave (vnode, rm) {
   var el = vnode.elm;
 
   // call enter callback now
-  if (el._enterCb) {
+  if (isDef(el._enterCb)) {
     el._enterCb.cancelled = true;
     el._enterCb();
   }
 
   var data = resolveTransition(vnode.data.transition);
-  if (!data) {
+  if (isUndef(data)) {
     return rm()
   }
 
   /* istanbul ignore if */
-  if (el._leaveCb || el.nodeType !== 1) {
+  if (isDef(el._leaveCb) || el.nodeType !== 1) {
     return
   }
 
@@ -47303,7 +50087,7 @@ function leave (vnode, rm) {
       : duration
   );
 
-  if (process.env.NODE_ENV !== 'production' && explicitLeaveDuration != null) {
+  if (process.env.NODE_ENV !== 'production' && isDef(explicitLeaveDuration)) {
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
@@ -47340,7 +50124,7 @@ function leave (vnode, rm) {
     }
     // record leaving element
     if (!vnode.data.show) {
-      (el.parentNode._pending || (el.parentNode._pending = {}))[vnode.key] = vnode;
+      (el.parentNode._pending || (el.parentNode._pending = {}))[(vnode.key)] = vnode;
     }
     beforeLeave && beforeLeave(el);
     if (expectsCSS) {
@@ -47393,9 +50177,11 @@ function isValidDuration (val) {
  * - a plain function (.length)
  */
 function getHookArgumentsLength (fn) {
-  if (!fn) { return false }
+  if (isUndef(fn)) {
+    return false
+  }
   var invokerFns = fn.fns;
-  if (invokerFns) {
+  if (isDef(invokerFns)) {
     // invoker
     return getHookArgumentsLength(
       Array.isArray(invokerFns)
@@ -47408,7 +50194,7 @@ function getHookArgumentsLength (fn) {
 }
 
 function _enter (_, vnode) {
-  if (!vnode.data.show) {
+  if (vnode.data.show !== true) {
     enter(vnode);
   }
 }
@@ -47418,7 +50204,7 @@ var transition = inBrowser ? {
   activate: _enter,
   remove: function remove$$1 (vnode, rm) {
     /* istanbul ignore else */
-    if (!vnode.data.show) {
+    if (vnode.data.show !== true) {
       leave(vnode, rm);
     } else {
       rm();
@@ -47473,6 +50259,11 @@ var model$1 = {
     } else if (vnode.tag === 'textarea' || el.type === 'text' || el.type === 'password') {
       el._vModifiers = binding.modifiers;
       if (!binding.modifiers.lazy) {
+        // Safari < 10.2 & UIWebView doesn't fire compositionend when
+        // switching focus before confirming composition choice
+        // this also fixes the issue where some browsers e.g. iOS Chrome
+        // fires "change" instead of "input" on autocomplete.
+        el.addEventListener('change', onCompositionEnd);
         if (!isAndroid) {
           el.addEventListener('compositionstart', onCompositionStart);
           el.addEventListener('compositionend', onCompositionEnd);
@@ -47684,9 +50475,11 @@ function extractTransitionData (comp) {
 }
 
 function placeholder (h, rawChild) {
-  return /\d-keep-alive$/.test(rawChild.tag)
-    ? h('keep-alive')
-    : null
+  if (/\d-keep-alive$/.test(rawChild.tag)) {
+    return h('keep-alive', {
+      props: rawChild.componentOptions.propsData
+    })
+  }
 }
 
 function hasParentTransition (vnode) {
@@ -47984,6 +50777,7 @@ var platformComponents = {
 // install platform specific utils
 Vue$3.config.mustUseProp = mustUseProp;
 Vue$3.config.isReservedTag = isReservedTag;
+Vue$3.config.isReservedAttr = isReservedAttr;
 Vue$3.config.getTagNamespace = getTagNamespace;
 Vue$3.config.isUnknownElement = isUnknownElement;
 
@@ -48653,7 +51447,7 @@ function parse (
       }
       var children = currentParent.children;
       text = inPre || text.trim()
-        ? decodeHTMLCached(text)
+        ? isTextTag(currentParent) ? text : decodeHTMLCached(text)
         // only preserve whitespace if its not right after a starting tag
         : preserveWhitespace && children.length ? ' ' : '';
       if (text) {
@@ -48864,6 +51658,13 @@ function processAttrs (el) {
           if (modifiers.camel) {
             name = camelize(name);
           }
+          if (modifiers.sync) {
+            addHandler(
+              el,
+              ("update:" + (camelize(name))),
+              genAssignmentCode(value, "$event")
+            );
+          }
         }
         if (isProp || platformMustUseProp(el.tag, el.attrsMap.type, name)) {
           addProp(el, name, value);
@@ -48872,7 +51673,7 @@ function processAttrs (el) {
         }
       } else if (onRE.test(name)) { // v-on
         name = name.replace(onRE, '');
-        addHandler(el, name, value, modifiers);
+        addHandler(el, name, value, modifiers, false, warn$2);
       } else { // normal directives
         name = name.replace(dirRE, '');
         // parse arg
@@ -48927,12 +51728,20 @@ function parseModifiers (name) {
 function makeAttrsMap (attrs) {
   var map = {};
   for (var i = 0, l = attrs.length; i < l; i++) {
-    if (process.env.NODE_ENV !== 'production' && map[attrs[i].name] && !isIE) {
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      map[attrs[i].name] && !isIE && !isEdge
+    ) {
       warn$2('duplicate attribute: ' + attrs[i].name);
     }
     map[attrs[i].name] = attrs[i].value;
   }
   return map
+}
+
+// for script (e.g. type="x/template") or style, do not decode content
+function isTextTag (el) {
+  return el.tag === 'script' || el.tag === 'style'
 }
 
 function isForbiddenTag (el) {
@@ -49135,10 +51944,25 @@ var modifierCode = {
   right: genGuard("'button' in $event && $event.button !== 2")
 };
 
-function genHandlers (events, native) {
+function genHandlers (
+  events,
+  native,
+  warn
+) {
   var res = native ? 'nativeOn:{' : 'on:{';
   for (var name in events) {
-    res += "\"" + name + "\":" + (genHandler(name, events[name])) + ",";
+    var handler = events[name];
+    // #5330: warn click.right, since right clicks do not actually fire click events.
+    if (process.env.NODE_ENV !== 'production' &&
+        name === 'click' &&
+        handler && handler.modifiers && handler.modifiers.right
+      ) {
+      warn(
+        "Use \"contextmenu\" instead of \"click.right\" since right clicks " +
+        "do not actually fire \"click\" events."
+      );
+    }
+    res += "\"" + name + "\":" + (genHandler(name, handler)) + ",";
   }
   return res.slice(0, -1) + '}'
 }
@@ -49412,10 +52236,10 @@ function genData (el) {
   }
   // event handlers
   if (el.events) {
-    data += (genHandlers(el.events)) + ",";
+    data += (genHandlers(el.events, false, warn$3)) + ",";
   }
   if (el.nativeEvents) {
-    data += (genHandlers(el.nativeEvents, true)) + ",";
+    data += (genHandlers(el.nativeEvents, true, warn$3)) + ",";
   }
   // slot target
   if (el.slotTarget) {
@@ -49652,8 +52476,9 @@ function checkNode (node, errors) {
 }
 
 function checkEvent (exp, text, errors) {
-  var keywordMatch = exp.replace(stripStringRE, '').match(unaryOperatorsRE);
-  if (keywordMatch) {
+  var stipped = exp.replace(stripStringRE, '');
+  var keywordMatch = stipped.match(unaryOperatorsRE);
+  if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
     errors.push(
       "avoid using JavaScript unary operator as property name: " +
       "\"" + (keywordMatch[0]) + "\" in expression " + (text.trim())
@@ -50073,60 +52898,17 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(161), __webpack_require__(2)))
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(123);
-module.exports = __webpack_require__(124);
+module.exports = __webpack_require__(123);
 
-
-/***/ }),
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */
-/***/ (function(module, exports) {
-
-Vue.component('recording-create', {
-
-    template: '\n        <div>\n            <!-- Success Message -->\n            <div class="alert alert-success" v-if="form.successful">\n                The recording has been created!\n            </div>\n    \n            <div class="form-horizontal">\n                <div class="form-group" :class="{\'has-error\': form.errors.has(\'building_id\')}">\n                    <label class="control-label col-lg-2">Building</label>\n                    <div class="col-lg-10">\n                        <input type="text" v-model="form.building_id" class="form-control" placeholder="Building ID">\n                        <span class="help-block" v-show="form.errors.has(\'building_id\')">\n                            {{ form.errors.get(\'building_id\') }}\n                        </span>\n                    </div>\n                </div>\n                \n                <!-- Submit Button -->\n                <div class="form-group">\n                    <div class="col-md-offset-2 col-md-6">\n                        <button type="submit" class="btn btn-primary" @click.prevent="save" :disabled="form.busy">\n                            <span v-if="form.busy">\n                                <i class="fa fa-btn fa-spinner fa-spin"></i>Saving\n                            </span>\n                            <span v-else>\n                                Create Recording\n                            </span>\n                        </button>\n                    </div>\n                </div>\n            </div>\n        </div>\n    ',
-
-    props: ['statuses', 'conditions'],
-
-    data: function data() {
-        return {
-            form: new Form({
-                building_id: null,
-                status_id: null,
-                condition_id: null,
-                comment: null
-            })
-        };
-    },
-
-
-    methods: {
-        /**
-         * Save the recording.
-         */
-        save: function save() {
-            Limitless.post('/admin/recording', this.form).then(function (response) {
-                location.assign('/admin/recordings/');
-            });
-        }
-    }
-});
 
 /***/ })
 /******/ ]);

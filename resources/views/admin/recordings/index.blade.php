@@ -19,7 +19,6 @@
                 <div class="panel-body">
                     <recording-search-bar
                         :conditions="{{json_encode($conditions)}}"
-                        :statuses="{{json_encode($statuses)}}"
                         :selected-condition-ids="{{ explode(',', request()->conditions) or null }}"
                         :selected-status-ids="{{ explode(',', request()->statuses) or null }}">
                     </recording-search-bar>
@@ -36,7 +35,6 @@
                                 <th>User</th>
                                 <th>Building Name</th>
                                 <th>Condition</th>
-                                <th>Status</th>
                                 <th>Created</th>
                                 <th>ID</th>
                             </tr>
@@ -46,7 +44,6 @@
                                 <tr>
                                     <td><a href="{{ route('admin.app.user.show', [$recording->user->id]) }}">{{ $recording->user->fullName }}</a></td>
                                     <td><a href="{{ route('admin.building.show', [$recording->building_id]) }}">{{ $recording->building->name }}</a></td>
-                                    <td>{{ $recording->status->name or 'Not Set' }}</td>
                                     <td>{{ $recording->condition->name or 'Not Set' }}</td>
                                     <td>{{ $recording->created_at->format('d M y')}}</td>
                                     <td>{{$recording->id}}</td>

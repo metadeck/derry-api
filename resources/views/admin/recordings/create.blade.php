@@ -17,9 +17,8 @@
             <div class="panel panel-flat">
                 <div class="panel-body">
                     <recording-create
-                            :statuses="{{json_encode($statuses)}}"
-                            :conditions="{{json_encode($conditions)}}">
-
+                            :conditions="{{json_encode($conditions)}}"
+                            :buildings="{{json_encode($buildings)}}">
                     </recording-create>
                 </div>
             </div>

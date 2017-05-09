@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Building;
+use DB;
 
 class BuildingRepository extends BaseRepository
 {
@@ -11,7 +12,7 @@ class BuildingRepository extends BaseRepository
         $this->model = $building;
     }
 
-    public function search($text = null, $categories = null, $conditions = null, $status = null)
+    public function search($text = null, $categories = null, $conditions = null)
     {
         $query = $this->query();
 
@@ -23,6 +24,25 @@ class BuildingRepository extends BaseRepository
         }
 
         return $query->paginate(20);
+    }
+
+    /**
+     * Return a list of buildings filtered by distance
+     *
+     * @param $latitude
+     * @param $longitude
+     * @param $distance
+     * @param int $paginate
+     * @return mixed
+     */
+    public function getNearby($latitude, $longitude, $distance, $paginate = 20)
+    {
+        $buildings = $this->model
+            ->select(DB::raw("buildings.*, ( 3959 * acos( cos( radians($latitude) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians($longitude) ) + sin( radians($latitude) ) * sin( radians( latitude ) ) ) ) AS distance"))
+            ->having('distance', '<', $distance)
+            ->orderBy('distance')
+            ->simplePaginate($paginate);
+        return $buildings;
     }
 
     /**
@@ -48,7 +68,7 @@ class BuildingRepository extends BaseRepository
      */
     public function formatSelectList()
     {
-        return $this->model->all()
+        return $this->model->orderBy('name')->get()
             // Needed to present the data in the correct format for Vue.js to
             // create select options
             ->map(function ($building) {

@@ -10,10 +10,28 @@ Vue.component('recording-create', {
             <div class="form-horizontal">
                 <div class="form-group" :class="{'has-error': form.errors.has('building_id')}">
                     <label class="control-label col-lg-2">Building</label>
+                 
                     <div class="col-lg-10">
-                        <input type="text" v-model="form.building_id" class="form-control" placeholder="Building ID">
+                        <select-menu 
+                        @valueChanged="buildingChanged" 
+                        :options="buildings">
+                        </select-menu>
                         <span class="help-block" v-show="form.errors.has('building_id')">
                             {{ form.errors.get('building_id') }}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="form-group" :class="{'has-error': form.errors.has('condition_id')}">
+                    <label class="control-label col-lg-2">Condition</label>
+                 
+                    <div class="col-lg-10">
+                        <select-menu 
+                        @valueChanged="conditionChanged" 
+                        :options="conditions">
+                        </select-menu>
+                        <span class="help-block" v-show="form.errors.has('condition_id')">
+                            {{ form.errors.get('condition_id') }}
                         </span>
                     </div>
                 </div>
@@ -35,20 +53,26 @@ Vue.component('recording-create', {
         </div>
     `,
 
-    props:['statuses', 'conditions'],
+    props:['conditions', 'buildings'],
 
     data() {
         return {
             form: new Form({
                 building_id: null,
-                status_id: null,
                 condition_id: null,
+                at_risk: null,
                 comment: null
             })
         }
     },
 
     methods:{
+        buildingChanged(buildingId){
+          console.log(buildingId);
+        },
+        conditionChanged(conditionId){
+            console.log(conditionId);
+        },
         /**
          * Save the recording.
          */

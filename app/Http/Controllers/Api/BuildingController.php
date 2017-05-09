@@ -25,8 +25,19 @@ class BuildingController extends BaseController {
         $this->buildingRepository = $buildingRepository;
     }
 
+    public function index()
+    {
+        $buildings = $this->buildingRepository->all();
+        return $this->sendResponse($buildings, "Buildings Successfully Created");
+    }
+
+    public function search($search_term)
+    {
+        $buildings = $this->buildingRepository->search($search_term)
+    }
+
     /**
-     * Create a new building insyance
+     * Create a new building instance
      * @param CreateBuildingRequest $request
      * @return \Illuminate\Support\Facades\Response
      */

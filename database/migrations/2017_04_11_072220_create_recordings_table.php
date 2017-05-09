@@ -17,7 +17,7 @@ class CreateRecordingsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('building_id');
-            $table->unsignedInteger('status_id');
+            $table->unsignedInteger('condition_id');
             $table->text('comment')->nullable();
             $table->boolean('at_risk')->default(false);
             $table->timestamps();

@@ -27,16 +27,6 @@ class Recording extends Model
     }
 
     /**
-     * The building status recorded
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
-    }
-
-    /**
      * The condition of the building recorded
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

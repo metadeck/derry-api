@@ -16,10 +16,6 @@ class RecordingController extends Controller
      */
     private $recordingRepository;
     /**
-     * @var StatusRepository
-     */
-    private $statusRepository;
-    /**
      * @var ConditionRepository
      */
     private $conditionRepository;
@@ -38,11 +34,9 @@ class RecordingController extends Controller
     public function __construct(
         RecordingRepository $recordingRepository,
         BuildingRepository $buildingRepository,
-        StatusRepository $statusRepository,
         ConditionRepository $conditionRepository)
     {
         $this->middleware('userIsAdmin');
-        $this->statusRepository = $statusRepository;
         $this->conditionRepository = $conditionRepository;
         $this->recordingRepository = $recordingRepository;
         $this->buildingRepository = $buildingRepository;
@@ -55,23 +49,20 @@ class RecordingController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('conditions') || $request->has('statuses')){
+        if($request->has('conditions')){
             $query = $this->recordingRepository
-                ->with('status,condition')
+                ->with('condition')
                 ->query();
 
             if($request->has('conditions')){
                 $query->whereIn('condition_id', explode(',', $request->conditions));
-            }
-            if($request->has('statuses')){
-                $query->whereIn('status_id', explode(',', $request->statuses));
             }
             $query->orderBy('created_at', 'DESC');
 
             $recordings = $query->paginate(20);
         } else {
             $recordings = $this->recordingRepository
-                ->with('status,condition')
+                ->with('condition')
                 ->query()
                 ->orderBy('created_at', 'DESC')
                 ->paginate(20);
@@ -79,7 +70,6 @@ class RecordingController extends Controller
 
         return view('admin.recordings.index', [
             'recordings' => $recordings,
-            'statuses' => $this->statusRepository->formatSelectList(),
             'conditions' => $this->conditionRepository->formatSelectList(),
         ]);
     }
@@ -88,7 +78,6 @@ class RecordingController extends Controller
     {
         return view('admin.recordings.create', [
             'buildings' => $this->buildingRepository->formatSelectList(),
-            'statuses' => $this->statusRepository->formatSelectList(),
             'conditions' => $this->conditionRepository->formatSelectList()
         ]);
     }

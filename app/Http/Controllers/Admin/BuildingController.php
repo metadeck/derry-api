@@ -20,10 +20,6 @@ class BuildingController extends Controller
      */
     private $categoryRepository;
     /**
-     * @var StatusRepository
-     */
-    private $statusRepository;
-    /**
      * @var ConditionRepository
      */
     private $conditionRepository;
@@ -38,13 +34,11 @@ class BuildingController extends Controller
     public function __construct(
         BuildingRepository $buildingRepository,
         CategoryRepository $categoryRepository,
-        StatusRepository $statusRepository,
         ConditionRepository $conditionRepository)
     {
         $this->middleware('userIsAdmin');
         $this->buildingRepository = $buildingRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->statusRepository = $statusRepository;
         $this->conditionRepository = $conditionRepository;
     }
 
@@ -58,7 +52,6 @@ class BuildingController extends Controller
         return view('admin.buildings.index', [
             'buildings' => $this->buildingRepository->query()->orderBy('created_at', 'DESC')->paginate(20),
             'categories' => $this->categoryRepository->formatSelectList(),
-            'statuses' => $this->statusRepository->formatSelectList(),
             'conditions' => $this->conditionRepository->formatSelectList(),
         ]);
     }
@@ -68,7 +61,6 @@ class BuildingController extends Controller
         return view('admin.buildings.index', [
             'buildings' => $this->buildingRepository->search($request->search),
             'categories' => $this->categoryRepository->formatSelectList(),
-            'statuses' => $this->statusRepository->formatSelectList(),
             'conditions' => $this->conditionRepository->formatSelectList(),
         ]);
     }
