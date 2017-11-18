@@ -88,7 +88,7 @@
 
                 <!-- Footer -->
                 <div class="footer text-muted text-center text-mini">
-                    &copy;<?php echo date("Y"); ?>  config('app.name'). All Rights Reserved.
+                    &copy;<?php echo date("Y"); ?>  {{ config('app.name') }}. All Rights Reserved.
                 </div>
                 <!-- /footer -->
 
