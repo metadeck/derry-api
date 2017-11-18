@@ -15,22 +15,8 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => '/v1'], function ()
 {
-    Route::post('login', 'Api\AuthController@login');
-    Route::post('register', 'Api\AuthController@register');
-
-    Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.reset');
-
-    Route::get('buildings', 'Api\BuildingController@index');
-    Route::get('buildings/nearby', 'Api\NearbyBuildingsController@index');
-
-
-//    Route::group( ['middleware' => ['jwt.refresh']], function(){
-//        Route::post('refreshtoken', 'Api\AuthController@refreshToken');
-//    });
-
-//    Route::group( ['middleware' => ['jwt.auth', 'jwt.refresh']], function ()
-//    {
-//        Route::get('buildings', 'Api\BuildingController@index');
-//    });
-
+    Route::get('categories', 'Api\CategoryController@index');
+    Route::get('businesses', 'Api\BusinessController@index');
+    Route::get('businesses/nearby', 'Api\NearbyBusinessController@index');
+    Route::get('businesses/categories', 'Api\BusinessByCategoryController@index');
 });

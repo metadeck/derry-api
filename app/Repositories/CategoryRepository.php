@@ -12,6 +12,31 @@ class CategoryRepository extends BaseRepository
     }
 
     /**
+     * Get all the top level models
+     */
+    public function topLevelCategories()
+    {
+        return $this->model->whereNull('parent_id')->orderBy('name')->paginate(20);
+    }
+
+    /**
+     * Get all child categories for a given id
+     */
+    public function childCategoriesFor($categoryId)
+    {
+        return $this->model->find($categoryId)->children->paginate(20);
+    }
+
+    public function businessesByCategoryIds($categoryIds)
+    {
+        return $this->model->with('businesses')->find($categoryIds)
+            ->flatMap(function($category){
+                return $category->businesses;
+            })
+            ->unique('id');
+    }
+
+    /**
      * Formatting array for use in select lists
      *
      * @return \Illuminate\Support\Collection

@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Derry API',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        F2m2\Apidocs\ApidocsServiceProvider::class,
 
         /*
          * Application Service Providers...

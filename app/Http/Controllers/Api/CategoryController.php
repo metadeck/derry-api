@@ -25,6 +25,15 @@ class CategoryController extends BaseController {
     }
 
     /**
+     * Returs a collection of categories
+     */
+    public function index()
+    {
+        $categories = $this->categoryRepository->topLevelCategories();
+        return $this->sendResponse($categories, "Category Successfully Retrieved");
+    }
+
+    /**
      * Create a new category instance
      * @param CreateCategoryRequest $request
      * @return \Illuminate\Support\Facades\Response

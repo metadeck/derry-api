@@ -14,5 +14,3 @@ require('./controls/jqueryUiSortable');
 require('./maps/simple-single-marker');
 require('./maps/cluster');
 require('./maps/locationSelector');
-
-require('./stripe/payment');

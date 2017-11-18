@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Global stylesheets -->
     <link href="//fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
@@ -56,7 +56,7 @@
 
                     <div class="panel panel-body login-form border-radius-base">
                         <div class="text-center">
-                            <h5 class="content-group text-gray-dark text-semibold">Sign in to UAHS</h5>
+                            <h5 class="content-group text-gray-dark text-semibold">Sign in to the {{ config('app.name') }}</h5>
                         </div>
 
                         <div class="form-group has-feedback has-feedback-left">
@@ -78,8 +78,8 @@
                         </div>
 
                         <div class="text-center text-muted text-mini">
-                            {{--<p>Forgot your password? <a href="{{ url('/password/reset') }}">Recover them here</a></p>--}}
-                            {{--<p>Don't have an account? <a href="#">Sign up now</a></p>--}}
+                            <p>Forgot your password? <a href="{{ url('/password/reset') }}">Recover them here</a></p>
+                            <p>Don't have an account? <a href="#">Sign up now</a></p>
                         </div>
                     </div>
                 </form>
@@ -88,7 +88,7 @@
 
                 <!-- Footer -->
                 <div class="footer text-muted text-center text-mini">
-                    &copy;<?php echo date("Y"); ?>  UAHS. All Rights Reserved.
+                    &copy;<?php echo date("Y"); ?>  config('app.name'). All Rights Reserved.
                 </div>
                 <!-- /footer -->
 

@@ -2,8 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\BuildingRepository;
-use App\Repositories\RecordingRepository;
+use App\Repositories\BusinessRepository;
 use App\Repositories\UserRepository;
 use Auth;
 
@@ -14,31 +13,24 @@ class DashboardController extends Controller
      */
     private $userRepository;
     /**
-     * @var BuildingRepository
+     * @var BusinessRepository
      */
-    private $buildingRepository;
-    /**
-     * @var RecordingRepository
-     */
-    private $recordingRepository;
+    private $businessRepository;
 
     /**
      * Create a new controller instance.
      *
      * @param UserRepository $userRepository
-     * @param BuildingRepository $buildingRepository
-     * @param RecordingRepository $recordingRepository
+     * @param BusinessRepository $businessRepository
      */
     public function __construct(
         UserRepository $userRepository,
-        BuildingRepository $buildingRepository,
-        RecordingRepository $recordingRepository
+        BusinessRepository $businessRepository
     )
     {
         $this->middleware('userIsAdmin');
         $this->userRepository = $userRepository;
-        $this->buildingRepository = $buildingRepository;
-        $this->recordingRepository = $recordingRepository;
+        $this->businessRepository = $businessRepository;
     }
 
     /**
@@ -49,11 +41,8 @@ class DashboardController extends Controller
     public function index()
     {
         return view('admin.dashboard', [
-            'user_count' => $this->userRepository->appUsers()->count(),
-            'buildings' => $this->buildingRepository->getAllLocations(),
-            'recording_count' => $this->recordingRepository->query()->count(),
-            'app_users' => $this->userRepository->appUsers()->latest()->take(10)->get(),
-            'recordings' => $this->recordingRepository->with('condition')->query()->latest()->take(10)->get()
+            'user_count' => $this->userRepository->users()->count(),
+            'businesses' => $this->businessRepository->getAllLocations(),
         ]);
     }
 }

@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.categories.index', [
-            'categories' => $this->categoryRepository->query()->orderBy('name')->paginate(20)
+            'categories' => $this->categoryRepository->topLevelCategories()
         ]);
     }
 

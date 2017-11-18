@@ -9,25 +9,19 @@
                     <li @if (Request::path() == 'admin') class="active" @endif>
                         <a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                     </li>
-                    <li @if (Request::is('admin/app/users/*') || Request::path() == 'admin/app/users') class="active" @endif>
-                        <a href="/admin/app/users"><i class="fa fa-users"></i> <span>App Users</span></a>
+                    <li @if (Request::is('admin/users/*') || Request::path() == 'admin/users') class="active" @endif>
+                        <a href="/admin/users"><i class="fa fa-users"></i> <span>Users</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-building"></i> <span>Buildings</span></a>
+                        <a href="#"><i class="fa fa-building"></i> <span>Businesses</span></a>
                         <ul>
-                            <li @if (Request::is('admin/buildings/*') || Request::path() == 'admin/buildings') class="active" @endif>
-                                <a href="/admin/buildings"><i class="fa fa-building"></i> <span>View All</span></a>
+                            <li @if (Request::is('admin/businesses/*') || Request::path() == 'admin/businesses') class="active" @endif>
+                                <a href="/admin/businesses"><i class="fa fa-building"></i> <span>View All</span></a>
                             </li>
                             <li @if (Request::is('admin/categories/*') || Request::path() == 'admin/categories') class="active" @endif>
                                 <a href="/admin/categories"><i class="fa fa-list"></i> <span>Categories</span></a>
                             </li>
-                            <li @if (Request::is('admin/conditions/*') || Request::path() == 'admin/conditions') class="active" @endif>
-                                <a href="/admin/conditions"><i class="fa fa-list"></i> <span>Conditions</span></a>
-                            </li>
                         </ul>
-                    </li>
-                    <li @if (Request::path() == 'admin/recordings') class="active" @endif>
-                        <a href="/admin/recordings"><i class="fa fa-mobile-phone"></i> <span>Recordings</span></a>
                     </li>
                 </ul>
             </div>

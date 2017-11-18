@@ -26,7 +26,7 @@ Vue.component('category-create', {
                                 <i class="fa fa-btn fa-spinner fa-spin"></i>Saving
                             </span>
                             <span v-else>
-                                Update Category
+                                Create Category
                             </span>
                         </button>
                     </div>
@@ -45,7 +45,7 @@ Vue.component('category-create', {
 
     methods:{
         /**
-         * Save the building.
+         * Save the category.
          */
         save() {
             Limitless.post('/admin/category', this.form)

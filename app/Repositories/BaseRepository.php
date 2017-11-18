@@ -65,9 +65,18 @@ abstract class BaseRepository {
      * @param array $columns
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = array('*'))
+    public function paginate($perPage = 20, $columns = array('*'))
     {
         return $this->query()->paginate($perPage, $columns);
+    }
+
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
+    public function simplePaginate($perPage = 20)
+    {
+        return $this->query()->simplePaginate($perPage);
     }
 
     /**

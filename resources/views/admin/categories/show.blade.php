@@ -7,7 +7,7 @@
         @include('admin.contentheader', [
             'page_title' => $category->name,
             'page_breadcrumbs' => [
-                ['title' => 'Categories', 'link' => route('admin.building.index'), 'icon_class' => 'fa fa-list'],
+                ['title' => 'Categories', 'link' => route('admin.business.index'), 'icon_class' => 'fa fa-list'],
                 ['title' => $category->name, 'icon_class' => 'fa fa-list'],
             ]
         ])
@@ -26,7 +26,7 @@
                             <div class="row">
                                 <ul class="list">
                                     <li>Name: {{ $category->name }}</li>
-                                    <li>Building Count: {{ $category->buildings()->count() }}</li>
+                                    <li>Business Count: {{ $category->businesses()->count() }}</li>
                                     <li>Created: <span class="text-semibold">{{ $category->created_at->diffForHumans() }}</span></li>
                                 </ul>
                             </div>

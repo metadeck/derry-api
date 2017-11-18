@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->boolean('terms_and_policy');
-            $table->boolean('is_admin')->default(false);
-            $table->integer('points')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

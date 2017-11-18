@@ -18,15 +18,11 @@ class UsersTableSeeder extends Seeder
         User::create([
             'first_name' => 'Declan',
             'last_name' => 'McDonough',
-            'email' => 'declan@uahs.com',
+            'email' => 'declan@metadeck.io',
             'username' => 'deckymcd',
-            'role' => 'owner',
+            'role' => 'admin',
             'terms_and_policy' => true,
-            'is_admin' => true,
-            'points' => 0,
-            'password' => bcrypt('password')
+            'password' => bcrypt('password') // updated after seed
         ]);
-
-        factory(\App\Models\User::class, 100)->create(['role' => 'appuser']);
     }
 }

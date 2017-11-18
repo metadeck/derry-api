@@ -42,7 +42,7 @@ Vue.component('category-edit', {
 
     methods:{
         /**
-         * Save the building.
+         * Save the category.
          */
         save() {
             Limitless.put('/admin/category/'+this.category.id, this.form)

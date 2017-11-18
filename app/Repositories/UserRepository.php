@@ -18,7 +18,7 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function appUsers()
+    public function users()
     {
         return $this->query()->where('role', 'appuser')->orderBy('created_at', 'DESC');
     }

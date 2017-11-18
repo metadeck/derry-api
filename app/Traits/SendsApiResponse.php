@@ -18,9 +18,19 @@ trait SendsApiResponse
      * @param $message
      * @return Response
      */
-    public function sendResponse($result, $message)
+    public function sendResponse($result)
     {
-        return Response::json(self::makeResponse($message, $result));
+        return Response::json(self::makeResponse($result));
+    }
+
+    /**
+     * @param $result
+     * @param $message
+     * @return Response
+     */
+    public function sendCollectionResponse($result)
+    {
+        return Response::json(self::makeCollectionResponse($result));
     }
 
     /**
@@ -30,7 +40,7 @@ trait SendsApiResponse
      */
     public function sendError($error, $code = 404)
     {
-        return Response::json(self::makeError($error), $code);
+        return Response::json(self::makeError($error, $code), $code);
     }
 
     /**
@@ -39,12 +49,25 @@ trait SendsApiResponse
      *
      * @return array
      */
-    private static function makeResponse($message, $data)
+    private static function makeResponse($data)
     {
         return [
             'success' => true,
-            'data'    => $data,
-            'message' => $message,
+            'data'   => $data
+        ];
+    }
+
+    /**
+     * @param string $message
+     * @param mixed  $data
+     *
+     * @return array
+     */
+    private static function makeCollectionResponse($data)
+    {
+        return [
+            'success' => true,
+            'items'   => $data
         ];
     }
 
@@ -54,17 +77,16 @@ trait SendsApiResponse
      *
      * @return array
      */
-    private static function makeError($message, array $data = [])
+    private static function makeError($message, $code)
     {
-        $res = [
+        $response = [
             'success' => false,
-            'message' => $message,
+            'error' => [
+                "message" => $message,
+                "code" => $code
+            ],
         ];
 
-        if (!empty($data)) {
-            $res['data'] = $data;
-        }
-
-        return $res;
+        return $response;
     }
 }

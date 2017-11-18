@@ -16,14 +16,14 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->index();
+            $table->integer('parent_id')->nullable()->unsigned();            
             $table->timestamps();
         });
 
-        Schema::create('building_category', function (Blueprint $table) {
-            $table->integer('building_id');
-            $table->integer('category_id');
-
-            $table->primary(['building_id', 'category_id'], 'building_category_primary_key');
+        Schema::create('business_category', function (Blueprint $table) {
+            $table->integer('business_id')->unsigned();
+            $table->integer('category_id')->unsigned();
+            $table->primary(['business_id', 'category_id'], 'business_category_primary_key');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateCategoriesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('building_category');
+        Schema::dropIfExists('business_category');
     }
 }

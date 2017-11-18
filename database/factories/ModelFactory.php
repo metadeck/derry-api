@@ -28,7 +28,7 @@ $factory->define(\App\Models\User::class, function(Faker\Generator $faker){
 });
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\App\Models\Building::class, function(Faker\Generator $faker){
+$factory->define(\App\Models\Business::class, function(Faker\Generator $faker){
 
     $counties = ['Derry', 'Tyrone', 'Fermanagh', 'Armagh', 'Antrim', 'Down'];
     $faker = Faker\Factory::create('en_GB');

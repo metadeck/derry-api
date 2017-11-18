@@ -22,7 +22,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Number of Buildings</th>
+                                <th>Number of Businesses</th>
                                 <th>Created</th>
                                 <th></th>
                             </tr>
@@ -31,7 +31,7 @@
                             @foreach ($categories as $category)
                                 <tr>
                                     <td><a href="{{ route('admin.category.show', [$category->id]) }}">{{ $category->name }}</a></td>
-                                    <td>{{ $category->buildings()->count() }}</td>
+                                    <td>{{ $category->businesses()->count() }}</td>
                                     <td>{{ $category->created_at->format('d M y')}}</td>
                                     <td><a href="{{ route('admin.category.edit', [$category->id]) }}">edit</a></td>
                                 </tr>
