@@ -78,8 +78,8 @@
                         </div>
 
                         <div class="text-center text-muted text-mini">
-                            <p>Forgot your password? <a href="{{ url('/password/reset') }}">Recover them here</a></p>
-                            <p>Don't have an account? <a href="#">Sign up now</a></p>
+                            {{--  <p>Forgot your password? <a href="{{ url('/password/reset') }}">Recover them here</a></p>  --}}
+                            {{--  <p>Don't have an account? <a href="#">Sign up now</a></p>  --}}
                         </div>
                     </div>
                 </form>
