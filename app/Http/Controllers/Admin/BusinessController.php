@@ -86,6 +86,7 @@ class BusinessController extends Controller
      */
     public function edit($id)
     {
+        //dd($this->businessRepository->query()->findOrFail($id)->toArray());
         return view('admin.businesses.edit', [
             'business' => $this->businessRepository->query()->findOrFail($id),
             'categories' => $this->categoryRepository->formatSelectList()

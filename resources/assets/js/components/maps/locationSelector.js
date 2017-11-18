@@ -6,12 +6,12 @@ Vue.component('map-location-selector', {
 
     props: {
         latitude: {
-            type: Number,
-            default: 55.01657628017477
+            type: String,
+            default: "55.01657628017477"
         },
         longitude: {
-            type: Number,
-            default: -7.309233337402361
+            type: String,
+            default: "-7.309233337402361"
         }
     },
 

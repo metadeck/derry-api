@@ -81,7 +81,10 @@ Vue.component('business-edit', {
                     <div class="col-lg-10">
                         <div class="checkbox" v-for="category in categories">
                             <label>
-                                <input type="checkbox" class="control-success" :value="category.value" v-model="form.categories">
+                                <input type="checkbox" 
+                                class="control-success" 
+                                v-model="isSelected(category)"
+                                v-on:click="toggleCategory(category)">
                                 {{ category.text }}
                             </label>
                         </div>
@@ -110,10 +113,6 @@ Vue.component('business-edit', {
 
     props: ['business', 'categories'],
 
-    mounted(){
-        this.form.categories = _.map(this.business.categories, 'id');
-    },
-
     data() {
         return {
             form: new Form({
@@ -125,7 +124,7 @@ Vue.component('business-edit', {
                 county: this.business.county,
                 latitude: this.business.latitude,
                 longitude: this.business.longitude,
-                categories: null,
+                categories: _.map(this.business.categories, 'id')
             })
         }
     },
@@ -149,6 +148,25 @@ Vue.component('business-edit', {
             console.log("CAUGHT LOCATION UPDATED EVENT");
             this.form.latitude = latlng.lat;
             this.form.longitude = latlng.lng;
+        },
+
+        toggleCategory(category) {
+            for(var i = 0; i < this.form.categories.length; i++){
+                if(this.form.categories[i] === category.value) {
+                    this.form.categories.splice(i,1);
+                    return true;
+                }
+            }
+            this.form.categories.push(category.value);
+        },
+
+        isSelected(category) {
+            for(var i = 0; i < this.form.categories.length; i++){
+                if(this.form.categories[i] == category.value) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 });
